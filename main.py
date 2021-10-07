@@ -1,20 +1,27 @@
 import spacy, coreferee
 from spacy import displacy
+from spacy.tokens import Token
 
 import utils
 
-text = open("Texts/Model3-1.txt").read()
+text = open("Texts/Model10-12.txt").read()
 
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("merge_entities")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe('coreferee')
-# doc = nlp('The person starts the game, walks away and I read the book.')
+# doc = nlp('The person starts the game, walks away and I get killed by person.')
 doc = nlp(text)
+
+# Register custom attributes on the Token object
+# 'indirect_object' will help us identify if an action has been sent to
+# another actor
+Token.set_extension('indirect_object', default=False)
+
 
 # print(doc[15:28])
 # doc._.coref_chains.print()
-# displacy.serve(doc.sents[0], style="dep")
+displacy.serve(doc, style="ent")
 
 class Action:
     def __init__(self, actor, action_token, objects, *next):
@@ -36,8 +43,8 @@ actions = []
 
 for sent in doc.sents:
 
-    main_sent = utils.get_main_sentence(sent)
-    if len(main_sent) == 0:
+    # Skip sentences that have less than 2 words
+    if len(sent) < 2:
         continue
 
     actor = None
@@ -46,7 +53,7 @@ for sent in doc.sents:
 
     conjunctions = []
 
-    for token in main_sent:
+    for token in sent:
         head_token = token.head
 
         # Only get the main actor of the sentence
@@ -58,8 +65,15 @@ for sent in doc.sents:
         if token.dep_ == 'ROOT':
             action = token
 
-        # Get objects related to the main action
+        # Get objects directly related to the main action
         if token.dep_ == 'dobj' and head_token == action:
+            objects.append(token)
+
+        # Get objects that are affected indirectly
+        if token.dep_ == 'pobj' and head_token.text == 'to' \
+            and head_token.head == action:
+            # mark token as indirect object
+            token._.indirect_object = True
             objects.append(token)
 
         # Check if sentence is passive and set passive object as actor
@@ -67,7 +81,7 @@ for sent in doc.sents:
             and head_token.head == action and action.tag_ == 'VBN':
             actor = token
 
-        # Add passive subject to actors
+        # Add passive subject to objects
         if token.dep_ == 'nsubjpass' and head_token.dep_ == 'ROOT':
             objects.append(token)
 
@@ -81,7 +95,6 @@ for sent in doc.sents:
             token.text + '(' + token.dep_ + ', ' + token.head.text + ')',
             end=" ")
     print('')
-    # print('----')
 
     if actor is None and isinstance(previous_action, Action):
         actor = previous_action.actor
@@ -97,7 +110,7 @@ for sent in doc.sents:
         conjunction_action = conjunction
         conjunction_objects = []
 
-        for token in main_sent:
+        for token in sent:
             # Only get words related to the conjunction
             if token.head == conjunction_action:
                 # Get subject of the conjunction
@@ -108,11 +121,20 @@ for sent in doc.sents:
                 if token.dep_ == 'dobj':
                     conjunction_objects.append(token)
 
+                # Add passive subject to actors
+                if token.dep_ == 'nsubjpass' and token.head == conjunction:
+                    conjunction_objects.append(token)
+
+                # Check if sentence is passive and set passive object as actor
+                if head_token.dep_ == 'agent' \
+                    and head_token.head == action and action.tag_ == 'VBN':
+                    actor = token
+
         current_action = Action(actor, conjunction_action, conjunction_objects)
         actions.append(current_action)
         previous_action = current_action
 
-print('----')
+print('')
 
 # Remove the pipe that merges some phrases. This is needed to compare the actors
 # by removing some stop words
@@ -122,13 +144,21 @@ nlp.remove_pipe('merge_noun_chunks')
 participant_stories = []
 
 for action in actions:
+    actor = nlp(action.actor.text)
+
+    # Check if the actor is a valid actor. If not (e.g. 'the process' or
+    # 'the workflow', just ignore those actions
+    if not utils.is_valid_actor(actor, nlp):
+        print('---')
+        print('Invalid actor: ', actor)
+        print('---')
+        continue
+
+    participant_story = utils.find_participant_story_for_actor(actor, participant_stories)
+    action = utils.build_action_name(action)
+
     # Check if there is already a participant story for the actor, if so just
     # add the action to it
-    actor = nlp(action.actor.text)
-    participant_story = utils.find_participant_story_for_actor(actor, participant_stories)
-    action = action.action_token.lemma_ + ' ' \
-             + (action.objects[0].text if len(action.objects) > 0 else '')
-
     if participant_story:
         participant_story.actions.append(action)
     else:
