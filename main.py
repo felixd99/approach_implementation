@@ -21,7 +21,7 @@ Token.set_extension('indirect_object', default=False)
 
 # print(doc[15:28])
 # doc._.coref_chains.print()
-displacy.serve(doc, style="ent")
+# displacy.serve(doc, style="ent")
 
 class Action:
     def __init__(self, actor, action_token, objects, *next):
@@ -87,7 +87,7 @@ for sent in doc.sents:
 
         # List the conjunctions to identify actions that are in a clause
         # connected by the conjunction
-        if token.dep_ == 'conj':
+        if token.dep_ == 'conj' and token.tag_ == 'VERB':
             conjunctions.append(token)
 
 
