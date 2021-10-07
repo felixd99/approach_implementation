@@ -52,7 +52,11 @@ def get_direct_ancestors(head_token, doc_):
 
 
 def compare_actors(actor1, actor2):
-    return remove_stop_words(actor1).upper() == remove_stop_words(actor2).upper()
+    actor1_cleaned = remove_stop_words(actor1).upper()
+    actor2_cleaned = remove_stop_words(actor2).upper()
+
+    return actor1_cleaned == actor2_cleaned \
+        or actor1_cleaned in actor2_cleaned or actor2_cleaned in actor1_cleaned
 
 
 def remove_stop_words(phrase):
