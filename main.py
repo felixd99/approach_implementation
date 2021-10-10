@@ -3,8 +3,9 @@ from spacy import displacy
 from spacy.tokens import Token
 
 import utils
+from utils import Action, ParticipantStory
 
-text = open("Texts/Model10-12.txt").read()
+text = open("Texts/Model3-1.txt").read()
 
 nlp = spacy.load("en_core_web_sm")
 nlp.add_pipe("merge_entities")
@@ -20,22 +21,8 @@ Token.set_extension('indirect_object', default=False)
 
 
 # print(doc[15:28])
-# doc._.coref_chains.print()
+doc._.coref_chains.print()
 # displacy.serve(doc, style="ent")
-
-class Action:
-    def __init__(self, actor, action_token, objects, *next):
-        self.actor = actor
-        self.action_token = action_token
-        self.objects = objects
-        self.next = next
-
-
-class ParticipantStory:
-    def __init__(self, actor, actions):
-        self.actor = actor
-        self.actions = actions
-
 
 # Extract actions from the text
 previous_action = None
@@ -87,7 +74,7 @@ for sent in doc.sents:
 
         # List the conjunctions to identify actions that are in a clause
         # connected by the conjunction
-        if token.dep_ == 'conj' and token.tag_ == 'VERB':
+        if token.dep_ == 'conj' and token.pos_ == 'VERB':
             conjunctions.append(token)
 
 
@@ -141,41 +128,11 @@ print('')
 nlp.remove_pipe('merge_entities')
 nlp.remove_pipe('merge_noun_chunks')
 
-participant_stories = []
+utils.merge_actors(actions, nlp)
 
-for action in actions:
-    actor = nlp(action.actor.text)
+participant_stories = utils.generate_participant_stores(actions, nlp)
 
-    # Check if the actor is a valid actor. If not (e.g. 'the process' or
-    # 'the workflow', just ignore those actions
-    if not utils.is_valid_actor(actor, nlp):
-        print('---')
-        print('Invalid actor: ', actor)
-        print('---')
-        continue
 
-    participant_story = utils.find_participant_story_for_actor(actor, participant_stories)
-    action = utils.build_action_name(action)
 
-    # Check if there is already a participant story for the actor, if so just
-    # add the action to it
-    if participant_story:
-        participant_story.actions.append(action)
-    else:
-        participant_story = ParticipantStory(actor, [action])
-        participant_stories.append(participant_story)
-
-    # print(action.actor, action.action_token)
-    # if action.actor and action.action_token:
-    #     print(
-    #         'Action for ' + action.actor.text + ': ' + action.action_token.lemma_,
-    #         action.objects[0])
-
-for participant_story in participant_stories:
-    print('--- ' + participant_story.actor.text + ' ---')
-
-    for (number, participant_action) in enumerate(participant_story.actions):
-        print(str(number + 1) + '. ' + participant_action)
-
-    print('')
-    print('')
+utils.print_participant_stories(participant_stories)
+utils.print_actions_for_sketch_miner(actions, nlp)

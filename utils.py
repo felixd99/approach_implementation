@@ -1,3 +1,17 @@
+class Action:
+    def __init__(self, actor, action_token, objects, *next):
+        self.actor = actor
+        self.action_token = action_token
+        self.objects = objects
+        self.next = next
+
+
+class ParticipantStory:
+    def __init__(self, actor, actions):
+        self.actor = actor
+        self.actions = actions
+
+
 def get_main_sentence(sent):
     root_token = next(filter(lambda token: token.dep_ == 'ROOT', sent))
     conjuncts = list(filter(lambda token: token.dep_ == 'conj', sent))
@@ -77,7 +91,7 @@ def clean_phrase(phrase):
 
 def find_participant_story_for_actor(actor, stories):
     for story in stories:
-        if compare_actors(story.actor, actor):
+        if story.actor.text == actor.text:
             return story
     return None
 
@@ -92,6 +106,81 @@ def build_action_name(action):
 
     return action_name
 
+
+def print_participant_stories(participant_stories):
+    for participant_story in participant_stories:
+        print('--- ' + participant_story.actor.text + ' ---')
+
+        for (number, participant_action) in enumerate(
+            participant_story.actions):
+            print(str(number + 1) + '. ' + participant_action)
+
+        print('')
+        print('')
+
+
+def print_actions_for_sketch_miner(actions, nlp):
+    actors = []
+    for action in actions:
+        # Check if the actor is a valid actor. If not (e.g. 'the process' or
+        # 'the workflow', just ignore those actions
+        if not is_valid_actor(action.actor, nlp):
+            print('---')
+            print('Invalid actor: ', actor)
+            print('---')
+            continue
+
+        actor = nlp(action.actor.text)
+        action_name = build_action_name(action)
+        print(actor.text + ': ' + action_name)
+
+
+def merge_actors(actions, nlp):
+    new_actions = []
+
+    actors = []
+
+    for action in actions:
+        actor = nlp(action.actor.text)
+
+        # Check if there is already an actor in the list for this action
+        actors_filtered = list(
+            filter(lambda list_actor: compare_actors(nlp(list_actor.text), actor),
+                   actors))
+
+        if len(actors_filtered) > 0:
+            actor = actors_filtered[0]
+        else:
+            actors.append(actor)
+
+        action.actor = actor
+
+
+def generate_participant_stores(actions, nlp):
+    participant_stories = []
+    for action in actions:
+        actor = nlp(action.actor.text)
+
+        # Check if the actor is a valid actor. If not (e.g. 'the process' or
+        # 'the workflow', just ignore those actions
+        if not is_valid_actor(actor, nlp):
+            print('---')
+            print('Invalid actor: ', actor)
+            print('---')
+            continue
+
+        participant_story = find_participant_story_for_actor(actor, participant_stories)
+        action = build_action_name(action)
+
+        # Check if there is already a participant story for the actor, if so
+        # just add the action to it
+        if participant_story:
+            participant_story.actions.append(action)
+        else:
+            participant_story = ParticipantStory(actor, [action])
+            participant_stories.append(participant_story)
+
+    return participant_stories
 
 actors_to_ignore = [
     'process',
