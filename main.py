@@ -7,11 +7,11 @@ from utils import Action, ParticipantStory
 
 text = open("Texts/Model3-1.txt").read()
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe('coreferee')
-# doc = nlp('The person starts the game, walks away and I get killed by person.')
+# doc = nlp('As soon as the employee is aware that the meal is ready he sets off the guest’s buzzer.')
 doc = nlp(text)
 
 # Register custom attributes on the Token object
@@ -36,7 +36,8 @@ for sent in doc.sents:
 
     actor = None
     action = None
-    objects = []
+    direct_object = None
+    indirect_objects = []
 
     conjunctions = []
 
@@ -45,7 +46,15 @@ for sent in doc.sents:
 
         # Only get the main actor of the sentence
         if token.dep_ == 'nsubj' and head_token.dep_ == 'ROOT':
-            actor = token
+            coref_actor = doc._.coref_chains.resolve(token)
+            if coref_actor and len(coref_actor) > 0:
+                actor = coref_actor[0]
+            else:
+                actor = token
+
+            # If token is still a pronoun, choose previous actor
+            if actor.pos_ == 'PRON' and previous_action:
+                actor = previous_action.actor
 
         # Only get the main action of the sentence. Conjunctions will be
         # handled later
@@ -54,14 +63,14 @@ for sent in doc.sents:
 
         # Get objects directly related to the main action
         if token.dep_ == 'dobj' and head_token == action:
-            objects.append(token)
+            direct_object = token
 
         # Get objects that are affected indirectly
         if token.dep_ == 'pobj' and head_token.text == 'to' \
             and head_token.head == action:
             # mark token as indirect object
             token._.indirect_object = True
-            objects.append(token)
+            indirect_objects.append(token)
 
         # Check if sentence is passive and set passive object as actor
         if head_token.dep_ == 'agent' \
@@ -70,7 +79,7 @@ for sent in doc.sents:
 
         # Add passive subject to objects
         if token.dep_ == 'nsubjpass' and head_token.dep_ == 'ROOT':
-            objects.append(token)
+            direct_object = token
 
         # List the conjunctions to identify actions that are in a clause
         # connected by the conjunction
@@ -83,10 +92,17 @@ for sent in doc.sents:
             end=" ")
     print('')
 
-    if actor is None and isinstance(previous_action, Action):
-        actor = previous_action.actor
+    if actor is None:
+        if previous_action:
+            actor = previous_action.actor
+        else:
+            actor = nlp('Unknown actor')
 
-    current_action = Action(actor, action, objects)
+    # Skip if no actor and action has been found (i.e. NLP failed)
+    # if not actor or not action:
+    #     continue
+
+    current_action = Action(actor, action, direct_object, indirect_objects)
 
     actions.append(current_action)
 
@@ -95,7 +111,7 @@ for sent in doc.sents:
     # Loop through all conjunctions and create actions from them
     for conjunction in conjunctions:
         conjunction_action = conjunction
-        conjunction_objects = []
+        conjunction_object = None
 
         for token in sent:
             # Only get words related to the conjunction
@@ -106,18 +122,18 @@ for sent in doc.sents:
 
                 # Get direct object of the conjunction
                 if token.dep_ == 'dobj':
-                    conjunction_objects.append(token)
+                    conjunction_object = token
 
                 # Add passive subject to actors
                 if token.dep_ == 'nsubjpass' and token.head == conjunction:
-                    conjunction_objects.append(token)
+                    conjunction_object = token
 
                 # Check if sentence is passive and set passive object as actor
                 if head_token.dep_ == 'agent' \
                     and head_token.head == action and action.tag_ == 'VBN':
                     actor = token
 
-        current_action = Action(actor, conjunction_action, conjunction_objects)
+        current_action = Action(actor, conjunction_action, conjunction_object, [])
         actions.append(current_action)
         previous_action = current_action
 

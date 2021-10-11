@@ -1,9 +1,10 @@
 class Action:
-    def __init__(self, actor, action_token, objects, *next):
+    def __init__(self, actor, action_token, direct_object, indirect_objects, is_optional=False):
         self.actor = actor
         self.action_token = action_token
-        self.objects = objects
-        self.next = next
+        self.direct_object = direct_object
+        self.indirect_objects = indirect_objects
+        self.is_optional = is_optional
 
 
 class ParticipantStory:
@@ -98,11 +99,10 @@ def find_participant_story_for_actor(actor, stories):
 
 def build_action_name(action):
     action_name = action.action_token.lemma_ + ' '
+    action_name += action.direct_object.text if action.direct_object else ''
 
-    for object in action.objects:
-        if object._.indirect_object:
-            action_name += ' to '
-        action_name += object.text
+    for indirect_object in action.indirect_objects:
+        action_name += ' to ' + indirect_object.text
 
     return action_name
 
@@ -120,14 +120,10 @@ def print_participant_stories(participant_stories):
 
 
 def print_actions_for_sketch_miner(actions, nlp):
-    actors = []
     for action in actions:
         # Check if the actor is a valid actor. If not (e.g. 'the process' or
         # 'the workflow', just ignore those actions
         if not is_valid_actor(action.actor, nlp):
-            print('---')
-            print('Invalid actor: ', actor)
-            print('---')
             continue
 
         actor = nlp(action.actor.text)
@@ -164,9 +160,6 @@ def generate_participant_stores(actions, nlp):
         # Check if the actor is a valid actor. If not (e.g. 'the process' or
         # 'the workflow', just ignore those actions
         if not is_valid_actor(actor, nlp):
-            print('---')
-            print('Invalid actor: ', actor)
-            print('---')
             continue
 
         participant_story = find_participant_story_for_actor(actor, participant_stories)
@@ -185,5 +178,6 @@ def generate_participant_stores(actions, nlp):
 actors_to_ignore = [
     'process',
     'workflow',
-    'procedure'
+    'procedure',
+    'file'
 ]
