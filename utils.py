@@ -98,11 +98,18 @@ def find_participant_story_for_actor(actor, stories):
 
 
 def build_action_name(action):
-    action_name = action.action_token.lemma_ + ' '
-    action_name += action.direct_object.text if action.direct_object else ''
+    action_name = action.action_token.lemma_
+    action_name += ' ' + action.direct_object.text \
+        if action.direct_object else ''
 
     for indirect_object in action.indirect_objects:
-        action_name += ' to ' + indirect_object.text
+        preposition = ' '
+        # If the object has a preposition (or dative), then we also print this
+        if indirect_object.head.dep_ == 'prep' \
+            or indirect_object.head.dep_ == 'dative':
+            preposition = ' ' + indirect_object.head.text + ' '
+
+        action_name += preposition + indirect_object.text
 
     return action_name
 
