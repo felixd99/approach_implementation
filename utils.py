@@ -13,6 +13,13 @@ class ParticipantStory:
         self.actions = actions
 
 
+def has_marker_in_children(token):
+    for child in token.children:
+        if child.dep_ == 'mark' and child.text.lower() in conditional_marks:
+            return True
+    return False
+
+
 def get_main_sentence(sent):
     root_token = next(filter(lambda token: token.dep_ == 'ROOT', sent))
     conjuncts = list(filter(lambda token: token.dep_ == 'conj', sent))
@@ -82,10 +89,12 @@ def is_valid_actor(actor, nlp):
 
 
 # Remove stop words (except for pronouns), punctuation and hyphens
+# OR: If the token is uppercase, it might also be a valid actor (acronym that
+# is recognized as a stop word (e.g. 'The GO'))
 def clean_phrase(phrase):
     cleaned_phrase = ''
     for token in phrase:
-        if token.pos_ == 'PRON' or not token.is_stop:
+        if token.pos_ == 'PRON' or not token.is_stop or token.text.isupper():
             cleaned_phrase += token.text
     return cleaned_phrase.replace('-', '').replace('.', '').replace('\'', '')
 
@@ -187,4 +196,18 @@ actors_to_ignore = [
     'workflow',
     'procedure',
     'file'
+]
+
+# taken from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.228.2293&rep=rep1&type=pdf
+conditional_marks = [
+    'if',
+    'in case of',
+    'in the case of',
+    'in case',
+    'for the case'
+]
+
+conditional_else_marks = [
+    'else',
+    'otherwise'
 ]

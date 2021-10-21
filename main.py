@@ -5,18 +5,18 @@ from spacy.tokens import Token
 import utils
 from utils import Action, ParticipantStory
 
-text = open("Texts/Model3-1.txt").read()
+text = open("Texts/Model3-6.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe('coreferee')
-# doc = nlp('Whenever a company makes the decision to go public, its first task is to select the underwriters.')
+# doc = nlp('The MPOO registers at the GO.')
 doc = nlp(text)
 
 # print(doc[15:28])
 doc._.coref_chains.print()
-# displacy.serve(doc, style="dep")
+# displacy.serve(doc, style="ent")
 
 # Extract actions from the text
 previous_action = None
@@ -70,7 +70,7 @@ for sent in doc.sents:
             indirect_objects.append(token)
 
         # Check if sentence is passive and set passive object as actor
-        if head_token.dep_ == 'agent' \
+        if (head_token.dep_ == 'agent' or head_token.text == 'by') \
             and head_token.head == action and action.tag_ == 'VBN':
             actor = token
 
@@ -94,11 +94,6 @@ for sent in doc.sents:
             actor = previous_action.actor
         else:
             actor = nlp('Unknown actor')
-
-    # Skip if no actor and action has been found (i.e. NLP failed)
-    # if not actor or not action:
-    #     continue
-
     current_action = Action(actor, action, direct_object, indirect_objects)
 
     actions.append(current_action)
@@ -151,6 +146,13 @@ for sent in doc.sents:
 
 print('')
 
+for action in actions:
+    for child in action.action_token.children:
+        if child.dep_ == 'advcl' and child.pos_ == 'VERB' \
+            and not utils.has_marker_in_children(child):
+            print('Children without marker found', child)
+
+
 # Remove the pipe that merges some phrases. This is needed to compare the actors
 # by removing some stop words
 nlp.remove_pipe('merge_entities')
@@ -160,7 +162,4 @@ utils.merge_actors(actions, nlp)
 
 participant_stories = utils.generate_participant_stores(actions, nlp)
 
-
-
-utils.print_participant_stories(participant_stories)
-utils.print_actions_for_sketch_miner(actions, nlp)
+# utils.print_pzctions_for_sketch_miner(actions, nlp)
