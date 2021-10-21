@@ -5,7 +5,7 @@ from spacy.tokens import Token
 import utils
 from utils import Action, ParticipantStory
 
-text = open("Texts/Model3-6.txt").read()
+text = open("Texts/Model3-1.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -28,55 +28,15 @@ for sent in doc.sents:
     if len(sent) < 2:
         continue
 
-    actor = None
     action = None
-    direct_object = None
-    indirect_objects = []
 
     conjunctions = []
 
     for token in sent:
-        head_token = token.head
-
-        # Only get the main actor of the sentence
-        if token.dep_ == 'nsubj' and head_token.dep_ == 'ROOT':
-            coref_actor = doc._.coref_chains.resolve(token)
-            if coref_actor and len(coref_actor) > 0:
-                actor = coref_actor[0]
-            else:
-                actor = token
-
-            # If token is still a pronoun, choose previous actor
-            if actor.pos_ == 'PRON' and previous_action:
-                actor = previous_action.actor
-
         # Only get the main action of the sentence. Conjunctions will be
         # handled later
         if token.dep_ == 'ROOT':
-            action = token
-
-        # Get objects directly related to the main action
-        if token.dep_ == 'dobj' and head_token == action:
-            direct_object = token
-            # See if the direct object is a co-reference
-            coref_object = doc._.coref_chains.resolve(token)
-            if coref_object and len(coref_object) > 0:
-                direct_object = coref_object[0]
-
-        # Get objects that are affected indirectly
-        if token.dep_ == 'pobj' \
-            and head_token.head == action:
-            # mark token as indirect object
-            indirect_objects.append(token)
-
-        # Check if sentence is passive and set passive object as actor
-        if (head_token.dep_ == 'agent' or head_token.text == 'by') \
-            and head_token.head == action and action.tag_ == 'VBN':
-            actor = token
-
-        # Add passive subject to objects
-        if token.dep_ == 'nsubjpass' and head_token.dep_ == 'ROOT':
-            direct_object = token
+            action = utils.get_action(token, doc, previous_action)
 
         # List the conjunctions to identify actions that are in a clause
         # connected by the conjunction
@@ -89,69 +49,51 @@ for sent in doc.sents:
             end=" ")
     print('')
 
-    if actor is None:
+    if action.actor is None:
         if previous_action:
-            actor = previous_action.actor
+            action.actor = previous_action.actor
         else:
-            actor = nlp('Unknown actor')
-    current_action = Action(actor, action, direct_object, indirect_objects)
+            action.actor = nlp('Unknown actor')
 
-    actions.append(current_action)
+    actions.append(action)
 
-    previous_action = current_action
+    previous_action = action
 
     # Loop through all conjunctions and create actions from them
     for conjunction in conjunctions:
-        conjunction_action = conjunction
-        conjunction_object = None
-        conjunction_indirect_objects = []
+        conjunction_action = utils.get_action(conjunction, doc, previous_action)
 
-        for token in sent:
-            # Only get words related to the conjunction
-            if token.head == conjunction_action:
-                # Get subject of the conjunction
-                if token.dep_ == 'nsubj':
-                    coref_actor = doc._.coref_chains.resolve(token)
-                    if coref_actor and len(coref_actor) > 0:
-                        actor = coref_actor[0]
-                    else:
-                        actor = token
+        # Define actor if none is found
+        if conjunction_action.actor is None:
+            if previous_action:
+                conjunction_action.actor = previous_action.actor
+            else:
+                action.actor = nlp('Unknown actor')
 
-                # Get direct object of the conjunction
-                if token.dep_ == 'dobj':
-                    conjunction_object = token
-                    # See if the direct object is a co-reference
-                    coref_object = doc._.coref_chains.resolve(token)
-                    if coref_object and len(coref_object) > 0:
-                        conjunction_object = coref_object[0]
-
-                # Add passive subject to actors
-                if token.dep_ == 'nsubjpass' and token.head == conjunction:
-                    conjunction_object = token
-
-                # Check if sentence is passive and set passive object as actor
-                if token.head.dep_ == 'agent' \
-                    and token.head.head == action and action.tag_ == 'VBN':
-                    actor = token
-
-            # Get objects that are affected indirectly
-            if token.dep_ == 'pobj' and \
-                token.head.head == conjunction_action:
-                # mark token as indirect object
-                conjunction_indirect_objects.append(token)
-
-        current_action = Action(actor, conjunction_action, conjunction_object, conjunction_indirect_objects)
-        actions.append(current_action)
-        previous_action = current_action
+        actions.append(conjunction_action)
+        previous_action = conjunction_action
 
 print('')
 
-for action in actions:
-    for child in action.action_token.children:
-        if child.dep_ == 'advcl' and child.pos_ == 'VERB' \
-            and not utils.has_marker_in_children(child):
-            print('Children without marker found', child)
+actions_to_insert = []
 
+for index, main_action in enumerate(actions):
+    for child in main_action.action_token.children:
+        if child.dep_ == 'advcl' and child.pos_ == 'VERB' \
+         and not utils.has_marker_in_children(child):
+            action = utils.get_action(child, doc, main_action, True)
+
+            if action.actor is None:
+                action.actor = main_action.actor
+
+            actions_to_insert.append({
+                "index": index + len(actions_to_insert),
+                "action": action
+            })
+
+
+for action_to_insert in actions_to_insert:
+    actions.insert(action_to_insert["index"], action_to_insert["action"])
 
 # Remove the pipe that merges some phrases. This is needed to compare the actors
 # by removing some stop words
@@ -162,4 +104,5 @@ utils.merge_actors(actions, nlp)
 
 participant_stories = utils.generate_participant_stores(actions, nlp)
 
-# utils.print_pzctions_for_sketch_miner(actions, nlp)
+utils.print_participant_stories(participant_stories)
+utils.print_actions_for_sketch_miner(actions, nlp)

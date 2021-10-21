@@ -1,11 +1,15 @@
 class Action:
-    def __init__(self, actor, action_token, direct_object, indirect_objects, is_optional=False):
+    def __init__(self, actor, action_token, direct_object, indirect_objects, is_event=False, condition=None):
         self.actor = actor
         self.action_token = action_token
         self.direct_object = direct_object
         self.indirect_objects = indirect_objects
-        self.is_optional = is_optional
+        self.is_event = is_event
+        self.condition = condition
 
+class ConditionAction:
+    def __init__(self, condition_tokens=[]):
+        self.condition_tokens = condition_tokens
 
 class ParticipantStory:
     def __init__(self, actor, actions):
@@ -20,35 +24,62 @@ def has_marker_in_children(token):
     return False
 
 
-def get_main_sentence(sent):
-    root_token = next(filter(lambda token: token.dep_ == 'ROOT', sent))
-    conjuncts = list(filter(lambda token: token.dep_ == 'conj', sent))
-    conjuncts = list(map(lambda token: token.text, conjuncts))
-    main_sent = []
+def get_action(action_token, doc, previous_action, is_subclause=False):
+    actor = None
+    direct_object = None
+    indirect_objects = []
 
-    for token in sent:
-        if token.head == root_token or token.head.text in conjuncts \
-            or token.dep_ == 'agent' or token.head.dep_ == 'agent':
-            # remove adpositions and adverbs
-            if token.pos_ == 'ADP' or token.pos_ == 'ADV':
-                continue
+    for token in action_token.subtree:
+        head_token = token.head
 
-            # remove punctuation
-            if token.pos_ == 'PUNCT':
-                continue
+        # Only get the main actor of the sentence
+        if token.dep_ == 'nsubj' and head_token == action_token:
+            actor = resolve_coreferences(token, doc)
+            coref_actor = doc._.coref_chains.resolve(token)
+            if coref_actor and len(coref_actor) > 0:
+                actor = coref_actor[0]
+            else:
+                actor = token
 
-            # remove adverbial clause modifiers for now
-            if token.dep_ == 'advcl':
-                continue
+            # If token is still a pronoun, choose previous actor
+            if actor.pos_ == 'PRON' and previous_action:
+                actor = previous_action.actor
 
-            # remove empty sentences
-            if token.dep_ == 'ROOT' and token.tag_ == '_SP':
-                continue
+        # Get objects directly related to the main action
+        if token.dep_ == 'dobj' and head_token == action_token:
+            direct_object = resolve_coreferences(token, doc)
 
-            # qualified for main sentence, add
-            main_sent.append(token)
+        # Get objects that are affected indirectly
+        if token.dep_ == 'pobj' \
+            and head_token.head == action_token:
+            # mark token as indirect object
+            indirect_objects.append(token)
 
-    return main_sent
+        # Check if sentence is passive and set passive object as actor
+        if (head_token.dep_ == 'agent' or head_token.text == 'by') \
+            and head_token.head == action_token and action_token.tag_ == 'VBN':
+            actor = token
+
+        # Add passive subject to objects
+        if token.dep_ == 'nsubjpass' and head_token == action_token:
+            direct_object = resolve_coreferences(token, doc)
+
+
+        print(
+            token.text + '(' + token.dep_ + ', ' + token.head.text + ')',
+            end=" ")
+    print('')
+
+    return Action(actor, action_token, direct_object, indirect_objects, is_subclause)
+
+
+def resolve_coreferences(token, doc):
+    # See if the direct object is a co-reference
+    coref_object = doc._.coref_chains.resolve(token)
+    if coref_object and len(coref_object) > 0:
+        return coref_object[0]
+    # No co-reference found, return normal token
+    return token
 
 
 # get similarity
@@ -106,12 +137,31 @@ def find_participant_story_for_actor(actor, stories):
     return None
 
 
-def build_action_name(action):
-    action_name = action.action_token.lemma_
-    action_name += ' ' + action.direct_object.text \
-        if action.direct_object else ''
+def build_action_name(action, for_sketch_miner):
+    action_name = ''
+    # Check if the action is an event and passive
+    if action.is_event and action.action_token.tag_ == 'VBN':
+        if for_sketch_miner:
+            action_name = build_sketch_miner_event_name(action)
+        else:
+            action_name = 'Event: ' + action.direct_object.text
+            action_name += ' ' + get_aux_pass(action.action_token).text
+            action_name += ' ' + action.action_token.text
+    else:
+        # Print special events in sketch miner
+        if for_sketch_miner and action.action_token.lemma_ in special_event_indicators:
+            action_name = build_sketch_miner_event_name(action)
+        else:
+            action_name = action.action_token.lemma_
+            action_name += ' ' + action.direct_object.text \
+                if action.direct_object else ''
 
+    # Append indirect objects
     for indirect_object in action.indirect_objects:
+        # Skip objects that don't provide any value e.g. "after that"
+        if indirect_object.text.lower() in objects_to_ignore:
+            continue
+
         preposition = ' '
         # If the object has a preposition (or dative), then we also print this
         if indirect_object.head.dep_ == 'prep' \
@@ -120,7 +170,34 @@ def build_action_name(action):
 
         action_name += preposition + indirect_object.text
 
+    if (action.is_event or action.action_token.lemma_ in special_event_indicators) \
+        and for_sketch_miner:
+        action_name += ')'
+
     return action_name
+
+
+def build_sketch_miner_event_name(action):
+    action_name = ''
+    if action.action_token.lemma_ in special_event_indicators:
+        action_name = '(' + action.action_token.lemma_
+        action_name += ' ' + action.direct_object.text
+    else:
+        action_name = '(' + action.direct_object.text
+        action_name += ' ' + action.action_token.text
+
+    return action_name
+
+
+def get_aux_pass(action):
+    for token in action.children:
+        if token.dep_ == 'auxpass':
+            return token
+    return None
+
+
+def is_conditional_mark(token):
+    pass
 
 
 def print_participant_stories(participant_stories):
@@ -143,13 +220,11 @@ def print_actions_for_sketch_miner(actions, nlp):
             continue
 
         actor = nlp(action.actor.text)
-        action_name = build_action_name(action)
+        action_name = build_action_name(action, True)
         print(actor.text + ': ' + action_name)
 
 
 def merge_actors(actions, nlp):
-    new_actions = []
-
     actors = []
 
     for action in actions:
@@ -179,7 +254,7 @@ def generate_participant_stores(actions, nlp):
             continue
 
         participant_story = find_participant_story_for_actor(actor, participant_stories)
-        action = build_action_name(action)
+        action = build_action_name(action, False)
 
         # Check if there is already a participant story for the actor, if so
         # just add the action to it
@@ -210,4 +285,14 @@ conditional_marks = [
 conditional_else_marks = [
     'else',
     'otherwise'
+]
+
+special_event_indicators = [
+    'receive',
+    'send'
+]
+
+objects_to_ignore = [
+    'that',
+    'this',
 ]
