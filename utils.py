@@ -64,12 +64,6 @@ def get_action(action_token, doc, previous_action, is_subclause=False):
         if token.dep_ == 'nsubjpass' and head_token == action_token:
             direct_object = resolve_coreferences(token, doc)
 
-
-        print(
-            token.text + '(' + token.dep_ + ', ' + token.head.text + ')',
-            end=" ")
-    print('')
-
     return Action(actor, action_token, direct_object, indirect_objects, is_subclause)
 
 
@@ -144,8 +138,9 @@ def build_action_name(action, for_sketch_miner):
         if for_sketch_miner:
             action_name = build_sketch_miner_event_name(action)
         else:
+            aux_pass = get_aux_pass(action.action_token)
             action_name = 'Event: ' + action.direct_object.text
-            action_name += ' ' + get_aux_pass(action.action_token).text
+            action_name += (' ' + aux_pass.text) if aux_pass else ''
             action_name += ' ' + action.action_token.text
     else:
         # Print special events in sketch miner
@@ -212,7 +207,7 @@ def print_participant_stories(participant_stories):
         print('')
 
 
-def print_actions_for_sketch_miner(actions, nlp):
+def print_actions_for_sketch_miner(actions, nlp, number_of_actors):
     for action in actions:
         # Check if the actor is a valid actor. If not (e.g. 'the process' or
         # 'the workflow', just ignore those actions
@@ -221,7 +216,13 @@ def print_actions_for_sketch_miner(actions, nlp):
 
         actor = nlp(action.actor.text)
         action_name = build_action_name(action, True)
-        print(actor.text + ': ' + action_name)
+        # only print actor if we have valid ones
+        print_actor = number_of_actors > 1 or \
+                      (number_of_actors == 1 and not actor.text == 'Unknown actor')
+        if print_actor:
+            print(actor.text + ': ' + action_name)
+        else:
+            print(action_name)
 
 
 def merge_actors(actions, nlp):
@@ -295,4 +296,5 @@ special_event_indicators = [
 objects_to_ignore = [
     'that',
     'this',
+    'addition'
 ]
