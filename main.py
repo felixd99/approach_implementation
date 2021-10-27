@@ -3,9 +3,10 @@ from spacy import displacy
 from spacy.tokens import Token
 
 import utils
+import print_utils
 from utils import Action, ParticipantStory
 
-text = open("Texts/Model3-3.txt").read()
+text = open("Texts/Model1-2.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -38,7 +39,7 @@ for number, sent in enumerate(doc.sents):
         if token.dep_ == 'ROOT':
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 0:
+        if number == 6:
             print(
                 token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
                     token.pos_ + ')',
@@ -51,7 +52,6 @@ for number, sent in enumerate(doc.sents):
             action.actor = previous_action.actor
         else:
             action.actor = nlp('Unknown actor')
-
 
     actions.append(action)
 
@@ -102,10 +102,9 @@ for index, main_action in enumerate(actions):
                     main_action.actor = action.actor
 
             # If the main action's direct_object is a pronoun, we can resolve it
-            if main_action.direct_object.pos_ == 'PRON':
+            if main_action.direct_object and main_action.direct_object.pos_ == 'PRON':
                 print('Resolving', main_action.actor, 'for', action.actor)
                 main_action.direct_object = action.direct_object
-
 
             actions_to_insert.append({
                 "index": index + len(actions_to_insert) + (1 if is_right else 0),
@@ -122,7 +121,7 @@ nlp.remove_pipe('merge_noun_chunks')
 
 utils.merge_actors(actions, nlp)
 
-participant_stories = utils.generate_participant_stores(actions, nlp, doc)
+participant_stories = print_utils.generate_participant_stores(actions, nlp, doc)
 
-utils.print_participant_stories(participant_stories)
-utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories), doc)
+print_utils.print_participant_stories(participant_stories)
+print_utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories), doc)
