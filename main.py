@@ -5,7 +5,7 @@ from spacy.tokens import Token
 import utils
 from utils import Action, ParticipantStory
 
-text = open("Texts/Model3-2.txt").read()
+text = open("Texts/Model3-3.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -38,9 +38,10 @@ for number, sent in enumerate(doc.sents):
         if token.dep_ == 'ROOT':
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 1:
+        if number == 0:
             print(
-                token.text + '(' + token.dep_ + ', ' + token.head.text + ')',
+                token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
+                    token.pos_ + ')',
                 end=" ")
             print('')
             # displacy.serve(sent)
@@ -83,12 +84,28 @@ for index, main_action in enumerate(actions):
     for child in main_action.action_token.children:
         if child.dep_ == 'advcl' and (child.pos_ == 'VERB' or child.pos_ == 'AUX') \
          and not utils.has_marker_in_children(child):
-            action = utils.get_action(child, doc, main_action, True)
+            # Check if is passive, then it's an action => print for SketchMiner
+            is_action = child.tag_ == 'VBN' or child.lemma_ == 'be'
+            # Build the action from the verb
+            action = utils.get_action(child, doc, main_action, is_action)
             # Check if subclause is before or after main clause
             is_right = action.action_token in main_action.action_token.rights
-            print('Actor for', action.action_token, action.actor)
-            if action.actor is None or not utils.is_valid_actor(nlp(action.actor.text), nlp):
+
+            # Set main action's actor if none was found
+            if action.actor is None:
                 action.actor = main_action.actor
+            else:
+                print('ACTOR NOT FOUND')
+                # If the main action's actor is a pronoun, we can resolve it
+                if main_action.actor.pos_ == 'PRON':
+                    print('Resolving', main_action.actor, 'for', action.actor)
+                    main_action.actor = action.actor
+
+            # If the main action's direct_object is a pronoun, we can resolve it
+            if main_action.direct_object.pos_ == 'PRON':
+                print('Resolving', main_action.actor, 'for', action.actor)
+                main_action.direct_object = action.direct_object
+
 
             actions_to_insert.append({
                 "index": index + len(actions_to_insert) + (1 if is_right else 0),
@@ -105,7 +122,7 @@ nlp.remove_pipe('merge_noun_chunks')
 
 utils.merge_actors(actions, nlp)
 
-participant_stories = utils.generate_participant_stores(actions, nlp)
+participant_stories = utils.generate_participant_stores(actions, nlp, doc)
 
 utils.print_participant_stories(participant_stories)
-utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories))
+utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories), doc)
