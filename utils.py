@@ -20,6 +20,7 @@ class ParticipantStory:
 def has_marker_in_children(token):
     for child in token.children:
         if child.dep_ == 'mark' and child.text.lower() in conditional_marks:
+            print('Marker found', child.text)
             return True
     return False
 
@@ -124,7 +125,7 @@ def find_participant_story_for_actor(actor, stories):
 
 def merge_actors(actions, nlp):
     actors = []
-
+    previous_action = None
     for action in actions:
         actor = nlp(action.actor.text)
 
@@ -136,9 +137,14 @@ def merge_actors(actions, nlp):
         if len(actors_filtered) > 0:
             actor = actors_filtered[0]
         else:
-            actors.append(actor)
-
-        action.actor = actor
+            print('Checking actor', action.actor)
+            if action.actor and is_valid_actor(actor, nlp):
+                actors.append(actor)
+            elif previous_action and previous_action.actor:
+                action.actor = previous_action.actor
+            else:
+                action.actor = actor
+        previous_action = action
 
 
 
@@ -146,7 +152,8 @@ actors_to_ignore = [
     'process',
     'workflow',
     'procedure',
-    'file'
+    'file',
+    'activity'
 ]
 
 # taken from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.228.2293&rep=rep1&type=pdf

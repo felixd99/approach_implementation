@@ -21,19 +21,31 @@ def build_action_name(action, for_sketch_miner, doc):
             elif action.direct_object:
                 direct_object = action.direct_object
 
-            # Build action name
             action_name = 'Event: '
-            action_name += direct_object.text if direct_object else ''
-            action_name += (' ' + aux_pass.text) if aux_pass else ''
-            action_name += ' ' + print_action_tokens(action, doc)
+
+            # Print special tokens (e.g. xcomp, ccomp or "to be" sentence)
+            special_tokens = get_special_action_tokens(action, doc)
+
+            if special_tokens:
+                action_name += special_tokens
+            else:
+                action_name += direct_object.text if direct_object else ''
+                action_name += (' ' + aux_pass.text) if aux_pass else ''
+                action_name += ' ' + action.action_token.lemma_
     else:
         # Print special events in sketch miner
         if for_sketch_miner and action.action_token.lemma_ in special_event_indicators:
             action_name = build_sketch_miner_event_name(action, doc)
         else:
-            action_name = print_action_tokens(action, doc)
-            action_name += ' ' + action.direct_object.text \
-                if action.direct_object else ''
+            # Print special tokens (e.g. xcomp, ccomp or "to be" sentence)
+            special_tokens = get_special_action_tokens(action, doc)
+
+            if special_tokens:
+                action_name += special_tokens
+            else:
+                action_name = action.action_token.lemma_
+                action_name += ' ' + action.direct_object.text \
+                    if action.direct_object else ''
 
     action_name += get_indirect_objects(action)
 
@@ -84,32 +96,25 @@ def build_sketch_miner_event_name(action, doc):
         action_name += ' ' + direct_object.text
     else:
         action_name = '(' + direct_object.text
-        action_name += ' ' + print_action_tokens(action, doc)
+        action_name += ' ' + get_special_action_tokens(action, doc)
 
     return action_name
 
 
 # If the action is a special word such as "be" or "need", we need to print all
 # subsequent elements
-def print_action_tokens(action, doc):
-    action_name = ''
-    subclause_of_action = nlp_utils.get_xcomp_ccomp_in_children(action)
+def get_special_action_tokens(action, doc):
+    action_name = None
+    comp_child_token = nlp_utils.get_xcomp_ccomp_in_children(action)
     if action.action_token.lemma_ == 'be' or action.action_token.dep_ == 'advcl' \
-        or subclause_of_action is not None:
+        or comp_child_token is not None:
 
-        # If the action has a ccomp or a xcomp we need to iterate over their
-        # rights, otherwise we use the action's rights
-        if subclause_of_action:
-            action_name = subclause_of_action.text
-            iteration_object = subclause_of_action.rights
-        else:
-            action_name = action.action_token.text
-            iteration_object = action.action_token.rights
+        action_name = action.action_token.text \
+            if action.action_token.lemma_ == 'be' else action.action_token.lemma_
+        subclause = get_subclause(action.action_token, doc)
 
-        for token_right in iteration_object:
+        for token_right in subclause:
             action_name += ' ' + utils.resolve_coreferences(token_right, doc).text
-    else:
-        action_name = action.action_token.lemma_
 
     return action_name
 
@@ -120,6 +125,28 @@ def get_aux_pass(action):
             return token
     return None
 
+
+def get_subclause(action, doc):
+    punct_token = None
+    # Get the next punctation (most likely indicating that the subclause ennded)
+    for right_action in action.rights:
+        if right_action.pos_ == 'PUNCT':
+            punct_token = right_action
+            break
+
+    # In case nothing was found, just return the rights (should not be the case)
+    if punct_token is None:
+        return action.rights
+
+    subclause_tokens = []
+
+    for subclause_token in doc[action.i + 1:punct_token.i]:
+        # Only add the word if it's in the subtree (== subclause)
+        # print('Subclause token', subclause_token, subclause_token in action.subtree)
+        if subclause_token in action.subtree:
+            subclause_tokens.append(subclause_token)
+
+    return subclause_tokens
 
 def is_conditional_mark(token):
     pass
@@ -139,12 +166,13 @@ def print_participant_stories(participant_stories):
 
 def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
     for action in actions:
+        actor = nlp(action.actor.text)
+
         # Check if the actor is a valid actor. If not (e.g. 'the process' or
         # 'the workflow', just ignore those actions
-        if not utils.is_valid_actor(action.actor, nlp) and not action.is_event:
+        if not utils.is_valid_actor(actor, nlp) and not action.is_event:
             continue
 
-        actor = nlp(action.actor.text)
         action_name = build_action_name(action, True, doc)
         # only print actor if we have valid ones
         print_actor = number_of_actors > 1 or \
