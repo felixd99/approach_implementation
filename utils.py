@@ -7,9 +7,13 @@ class Action:
         self.is_event = is_event
         self.condition = condition
 
+
 class ConditionAction:
-    def __init__(self, condition_tokens=[]):
+    def __init__(self, condition_tokens=[], left_actions=[], right_actions=[]):
         self.condition_tokens = condition_tokens
+        self.left_actions = left_actions
+        self.right_actions = right_actions
+
 
 class ParticipantStory:
     def __init__(self, actor, actions):
@@ -137,7 +141,6 @@ def merge_actors(actions, nlp):
         if len(actors_filtered) > 0:
             actor = actors_filtered[0]
         else:
-            print('Checking actor', action.actor)
             if action.actor and is_valid_actor(actor, nlp):
                 actors.append(actor)
             elif previous_action and previous_action.actor:

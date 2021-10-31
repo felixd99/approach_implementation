@@ -106,8 +106,9 @@ def build_sketch_miner_event_name(action, doc):
 def get_special_action_tokens(action, doc):
     action_name = None
     comp_child_token = nlp_utils.get_xcomp_ccomp_in_children(action)
+    has_multiple_dobjs = nlp_utils.has_mulitple_direct_objects(action.action_token)
     if action.action_token.lemma_ == 'be' or action.action_token.dep_ == 'advcl' \
-        or comp_child_token is not None:
+        or comp_child_token is not None or has_multiple_dobjs:
 
         action_name = action.action_token.text \
             if action.action_token.lemma_ == 'be' else action.action_token.lemma_
@@ -130,7 +131,7 @@ def get_subclause(action, doc):
     punct_token = None
     # Get the next punctation (most likely indicating that the subclause ennded)
     for right_action in action.rights:
-        if right_action.pos_ == 'PUNCT':
+        if right_action.tag_ == '.':
             punct_token = right_action
             break
 
@@ -158,7 +159,10 @@ def print_participant_stories(participant_stories):
 
         for (number, participant_action) in enumerate(
             participant_story.actions):
-            print(str(number + 1) + '. ' + participant_action)
+            if participant_action.condition:
+                print('TOKNE:', participant_action)
+            else:
+                print(str(number + 1) + '. ' + participant_action)
 
         print('')
         print('')
@@ -174,13 +178,58 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
             continue
 
         action_name = build_action_name(action, True, doc)
-        # only print actor if we have valid ones
-        print_actor = number_of_actors > 1 or \
-                      (number_of_actors == 1 and not actor.text == 'Unknown actor')
-        if print_actor:
-            print(actor.text + ': ' + action_name)
+        condition_action = action.condition
+
+        if condition_action:
+            # Get next action if available (needed for Sketch Miner)
+            next_action_index = actions.index(action) + 1
+            next_action = None
+
+            if next_action_index < len(actions):
+                next_action = actions[next_action_index]
+                next_action_name = build_action_name(next_action, True, doc)
+
+            # Print left side
+            print_sketch_miner_line(number_of_actors, actor, action_name)
+            for left_action in condition_action.left_actions:
+                left_action_name = build_action_name(left_action, True, doc)
+                print_sketch_miner_line(number_of_actors, left_action.actor,
+                                        left_action_name)
+
+            # Print next action if available, otherwise just end
+            if next_action:
+                print_sketch_miner_line(number_of_actors, next_action.actor,
+                                        next_action_name)
+                print('...')
+
+            # Print right side
+            print('')
+            print('...')
+            print_sketch_miner_line(number_of_actors, actor, action_name)
+            for right_action in condition_action.right_actions:
+                right_action_name = build_action_name(right_action, True, doc)
+                print_sketch_miner_line(number_of_actors, right_action.actor,
+                                        right_action_name)
+
+            # Print next action if available, otherwise just end
+            if next_action:
+                print_sketch_miner_line(number_of_actors, next_action.actor,
+                                        next_action_name)
+                print('...')
+                print('')
+                print('...')
         else:
-            print(action_name)
+            print_sketch_miner_line(number_of_actors, actor, action_name)
+
+
+def print_sketch_miner_line(number_of_actors, actor, action_name):
+    # only print actor if we have valid ones
+    print_actor = number_of_actors > 1 or \
+                  (number_of_actors == 1 and not actor.text == 'Unknown actor')
+    if print_actor:
+        print(actor.text + ': ' + action_name)
+    else:
+        print(action_name)
 
 def generate_participant_stores(actions, nlp, doc):
     participant_stories = []

@@ -2,11 +2,12 @@ import spacy, coreferee
 from spacy import displacy
 from spacy.tokens import Token
 
+import nlp_utils
 import utils
 import print_utils
-from utils import Action, ParticipantStory
+from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Model1-2.txt").read()
+text = open("Texts/Model10-5.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -23,6 +24,7 @@ doc._.coref_chains.print()
 previous_action = None
 actions = []
 
+# Iterative over every sentence of the text
 for number, sent in enumerate(doc.sents):
 
     # Skip sentences that have less than 2 words
@@ -39,13 +41,13 @@ for number, sent in enumerate(doc.sents):
         if token.dep_ == 'ROOT':
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 1:
+        if number == 2:
             print(
                 token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
                     token.pos_ + ')',
                 end=" ")
             print('')
-            # displacy.serve(sent)
+            # displacy.serve(sent, style="dep")
 
     if action.actor is None:
         if previous_action:
@@ -72,8 +74,23 @@ for number, sent in enumerate(doc.sents):
             else:
                 action.actor = nlp('Unknown actor')
 
-        actions.append(conjunction_action)
-        previous_action = conjunction_action
+        # Check if it's a "regular" conjunction or a conditional statement
+        cc = nlp_utils.get_connecting_conjunction(doc, action.action_token, conjunction_action.action_token)
+        if cc.text == 'and':
+            actions.append(conjunction_action)
+            previous_action = conjunction_action
+        elif cc.text == 'or':
+            main_action_index = actions.index(action)
+            if main_action_index > 0:
+                # remove action (since it will be in the conditions list)
+                previous_main_action = actions[main_action_index - 1]
+                del actions[main_action_index]
+                # Insert new ConditionAction instead
+                condition_action = ConditionAction([], [action], [conjunction_action])
+                previous_main_action.condition = condition_action
+                previous_action = previous_main_action
+        # actions.append(conjunction_action)
+        # previous_action = conjunction_action
 
 print('')
 
@@ -123,5 +140,5 @@ utils.merge_actors(actions, nlp)
 
 participant_stories = print_utils.generate_participant_stores(actions, nlp, doc)
 
-print_utils.print_participant_stories(participant_stories)
+# print_utils.print_participant_stories(participant_stories)
 print_utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories), doc)
