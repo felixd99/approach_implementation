@@ -130,7 +130,13 @@ def find_participant_story_for_actor(actor, stories):
 def merge_actors(actions, nlp):
     actors = []
     previous_action = None
-    for action in actions:
+    condition_actions = actions.copy()
+
+    for action in condition_actions:
+        if action.condition:
+            condition_actions.extend(action.condition.left_actions)
+            condition_actions.extend(action.condition.right_actions)
+
         actor = nlp(action.actor.text)
 
         # Check if there is already an actor in the list for this action
@@ -139,7 +145,7 @@ def merge_actors(actions, nlp):
                    actors))
 
         if len(actors_filtered) > 0:
-            actor = actors_filtered[0]
+            action.actor = actors_filtered[0]
         else:
             if action.actor and is_valid_actor(actor, nlp):
                 actors.append(actor)
@@ -148,7 +154,6 @@ def merge_actors(actions, nlp):
             else:
                 action.actor = actor
         previous_action = action
-
 
 
 actors_to_ignore = [

@@ -7,7 +7,7 @@ import utils
 import print_utils
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Model10-5.txt").read()
+text = open("Texts/Model10-10.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -41,7 +41,7 @@ for number, sent in enumerate(doc.sents):
         if token.dep_ == 'ROOT':
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 2:
+        if number == 0:
             print(
                 token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
                     token.pos_ + ')',
