@@ -1,16 +1,16 @@
 class Action:
-    def __init__(self, actor, action_token, direct_object, indirect_objects, is_event=False, condition=None):
+    def __init__(self, actor, action_token, direct_object, indirect_objects, is_event=False, condition=None, is_a_copy=False):
         self.actor = actor
         self.action_token = action_token
         self.direct_object = direct_object
         self.indirect_objects = indirect_objects
         self.is_event = is_event
         self.condition = condition
-
+        self.is_a_copy = is_a_copy
 
 class ConditionAction:
-    def __init__(self, condition_tokens=[], left_actions=[], right_actions=[]):
-        self.condition_tokens = condition_tokens
+    def __init__(self, condition_phrase, left_actions=[], right_actions=[]):
+        self.condition_phrase = condition_phrase
         self.left_actions = left_actions
         self.right_actions = right_actions
 
@@ -21,12 +21,11 @@ class ParticipantStory:
         self.actions = actions
 
 
-def has_marker_in_children(token):
+def get_marker_in_children(token):
     for child in token.children:
         if child.dep_ == 'mark' and child.text.lower() in conditional_marks:
-            print('Marker found', child.text)
-            return True
-    return False
+            return child
+    return None
 
 
 def get_action(action_token, doc, previous_action, is_event=False):

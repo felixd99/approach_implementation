@@ -1,3 +1,5 @@
+import copy
+
 import spacy, coreferee
 from spacy import displacy
 from spacy.tokens import Token
@@ -7,7 +9,7 @@ import utils
 import print_utils
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Model10-10.txt").read()
+text = open("Texts/Self-service-restaurant.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -41,7 +43,7 @@ for number, sent in enumerate(doc.sents):
         if token.dep_ == 'ROOT':
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 0:
+        if number == 5:
             print(
                 token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
                     token.pos_ + ')',
@@ -86,7 +88,11 @@ for number, sent in enumerate(doc.sents):
                 previous_main_action = actions[main_action_index - 1]
                 del actions[main_action_index]
                 # Insert new ConditionAction instead
-                condition_action = ConditionAction([], [action], [conjunction_action])
+                condition_action = ConditionAction(None, [action], [conjunction_action])
+
+                # if previous_main_action.condition:
+                #     previous_action = previous_main_action
+                # else:
                 previous_main_action.condition = condition_action
                 previous_action = previous_main_action
         # actions.append(conjunction_action)
@@ -101,19 +107,27 @@ for index, main_action in enumerate(actions):
     for child in main_action.action_token.children:
         if child.dep_ == 'advcl' and (child.pos_ == 'VERB' or child.pos_ == 'AUX'):
             # If it indicates a condition, insert it as such
-            if utils.has_marker_in_children(child):
+            condition_marker = utils.get_marker_in_children(child)
+            if condition_marker:
                 main_action_index = actions.index(main_action)
                 print('Marker found for', child)
-                print('Main action index', main_action_index)
+                subclause = nlp_utils.get_subclause_from_conditional_marker(condition_marker, doc)
                 if main_action_index > 0:
                     # remove action (since it will be in the conditions list)
                     previous_main_action = actions[main_action_index - 1]
                     del actions[main_action_index]
                     # Insert new ConditionAction instead
-                    condition_action = ConditionAction([], [main_action], [])
-                    previous_main_action.condition = condition_action
-                    print('Setting conidition for', previous_main_action.action_token)
-                    previous_action = previous_main_action
+                    condition_action = ConditionAction(subclause, [main_action], [])
+                    if previous_main_action.condition:
+                        copied_action = copy.copy(previous_main_action)
+                        copied_action.is_a_copy = True
+                        copied_action.condition = condition_action
+                        actions.insert(main_action_index, copied_action)
+                    else:
+                        previous_main_action.condition = condition_action
+                        print('Setting conidition for',
+                              previous_main_action.action_token)
+                        previous_action = previous_main_action
 
             else:
                 # Check if is passive, then it's an action => print for SketchMiner

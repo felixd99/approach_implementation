@@ -22,3 +22,27 @@ def get_connecting_conjunction(doc, main_token, conjunction_token):
                 other_conjunctions.append(token)
 
     return other_conjunctions[0]
+
+
+def get_subclause_from_conditional_marker(conditional_token, doc):
+    head_token = conditional_token.head
+    punct_token = None
+    # Get the next punctation (most likely indicating that the subclause ennded)
+    for right_action in conditional_token.sent:
+        if right_action.pos_ == 'PUNCT':
+            punct_token = right_action
+            break
+
+    if punct_token is None:
+        return 'Unknown action'
+
+    subclause_phrase = ''
+
+    for i, subclause_token in enumerate(doc[conditional_token.i + 1:punct_token.i]):
+        # Only add the word if it's in the subtree (== subclause)
+        if subclause_token in head_token.subtree:
+            if i != 0:
+                subclause_phrase += ' '
+            subclause_phrase += subclause_token.text
+
+    return subclause_phrase

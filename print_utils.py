@@ -53,6 +53,9 @@ def build_action_name(action, for_sketch_miner, doc):
         and for_sketch_miner:
         action_name += ')'
 
+    if action.is_a_copy:
+        action_name = '()'
+
     return action_name
 
 
@@ -191,6 +194,12 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
 
             # Print left side
             print_sketch_miner_line(number_of_actors, actor, action_name)
+
+            # Print "If" condition if there is one
+            if condition_action.condition_phrase:
+                print(condition_action.condition_phrase + '?')
+                print('True')
+
             for left_action in condition_action.left_actions:
                 left_action_name = build_action_name(left_action, True, doc)
                 print_sketch_miner_line(number_of_actors, left_action.actor,
@@ -206,6 +215,12 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
             print('')
             print('...')
             print_sketch_miner_line(number_of_actors, actor, action_name)
+
+            # Print else condition if there is one
+            if condition_action.condition_phrase:
+                print(condition_action.condition_phrase + '?')
+                print('False')
+
             for right_action in condition_action.right_actions:
                 right_action_name = build_action_name(right_action, True, doc)
                 print_sketch_miner_line(number_of_actors, right_action.actor,
