@@ -99,34 +99,49 @@ actions_to_insert = []
 # Get actions from subclauses
 for index, main_action in enumerate(actions):
     for child in main_action.action_token.children:
-        if child.dep_ == 'advcl' and (child.pos_ == 'VERB' or child.pos_ == 'AUX') \
-         and not utils.has_marker_in_children(child):
-            # Check if is passive, then it's an action => print for SketchMiner
-            is_action = child.tag_ == 'VBN' or child.lemma_ == 'be'
-            # Build the action from the verb
-            action = utils.get_action(child, doc, main_action, is_action)
-            # Check if subclause is before or after main clause
-            is_right = action.action_token in main_action.action_token.rights
+        if child.dep_ == 'advcl' and (child.pos_ == 'VERB' or child.pos_ == 'AUX'):
+            # If it indicates a condition, insert it as such
+            if utils.has_marker_in_children(child):
+                main_action_index = actions.index(main_action)
+                print('Marker found for', child)
+                print('Main action index', main_action_index)
+                if main_action_index > 0:
+                    # remove action (since it will be in the conditions list)
+                    previous_main_action = actions[main_action_index - 1]
+                    del actions[main_action_index]
+                    # Insert new ConditionAction instead
+                    condition_action = ConditionAction([], [main_action], [])
+                    previous_main_action.condition = condition_action
+                    print('Setting conidition for', previous_main_action.action_token)
+                    previous_action = previous_main_action
 
-            # Set main action's actor if none was found
-            if action.actor is None:
-                action.actor = main_action.actor
             else:
-                print('ACTOR NOT FOUND')
-                # If the main action's actor is a pronoun, we can resolve it
-                if main_action.actor.pos_ == 'PRON':
+                # Check if is passive, then it's an action => print for SketchMiner
+                is_action = child.tag_ == 'VBN' or child.lemma_ == 'be'
+                # Build the action from the verb
+                action = utils.get_action(child, doc, main_action, is_action)
+                # Check if subclause is before or after main clause
+                is_right = action.action_token in main_action.action_token.rights
+
+                # Set main action's actor if none was found
+                if action.actor is None:
+                    action.actor = main_action.actor
+                else:
+                    print('ACTOR NOT FOUND')
+                    # If the main action's actor is a pronoun, we can resolve it
+                    if main_action.actor.pos_ == 'PRON':
+                        print('Resolving', main_action.actor, 'for', action.actor)
+                        main_action.actor = action.actor
+
+                # If the main action's direct_object is a pronoun, we can resolve it
+                if main_action.direct_object and main_action.direct_object.pos_ == 'PRON':
                     print('Resolving', main_action.actor, 'for', action.actor)
-                    main_action.actor = action.actor
+                    main_action.direct_object = action.direct_object
 
-            # If the main action's direct_object is a pronoun, we can resolve it
-            if main_action.direct_object and main_action.direct_object.pos_ == 'PRON':
-                print('Resolving', main_action.actor, 'for', action.actor)
-                main_action.direct_object = action.direct_object
-
-            actions_to_insert.append({
-                "index": index + len(actions_to_insert) + (1 if is_right else 0),
-                "action": action
-            })
+                actions_to_insert.append({
+                    "index": index + len(actions_to_insert) + (1 if is_right else 0),
+                    "action": action
+                })
 
 for action_to_insert in actions_to_insert:
     actions.insert(action_to_insert["index"], action_to_insert["action"])
