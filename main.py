@@ -9,7 +9,7 @@ import utils
 import print_utils
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Self-service-restaurant.txt").read()
+text = open("Texts/Hotel.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -43,7 +43,7 @@ for number, sent in enumerate(doc.sents):
         if token.dep_ == 'ROOT':
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 5:
+        if number == 4:
             print(
                 token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
                     token.pos_ + ')',
@@ -104,13 +104,15 @@ actions_to_insert = []
 
 # Get actions from subclauses
 for index, main_action in enumerate(actions):
+    # Storing index for later usage
+    main_action_index = actions.index(main_action)
+    # Loop through all children to detect subclauses
     for child in main_action.action_token.children:
         if child.dep_ == 'advcl' and (child.pos_ == 'VERB' or child.pos_ == 'AUX'):
             # If it indicates a condition, insert it as such
             condition_marker = utils.get_marker_in_children(child)
+
             if condition_marker:
-                main_action_index = actions.index(main_action)
-                print('Marker found for', child)
                 subclause = nlp_utils.get_subclause_from_conditional_marker(condition_marker, doc)
                 if main_action_index > 0:
                     # remove action (since it will be in the conditions list)
@@ -125,10 +127,7 @@ for index, main_action in enumerate(actions):
                         actions.insert(main_action_index, copied_action)
                     else:
                         previous_main_action.condition = condition_action
-                        print('Setting conidition for',
-                              previous_main_action.action_token)
                         previous_action = previous_main_action
-
             else:
                 # Check if is passive, then it's an action => print for SketchMiner
                 is_action = child.tag_ == 'VBN' or child.lemma_ == 'be'
@@ -141,21 +140,28 @@ for index, main_action in enumerate(actions):
                 if action.actor is None:
                     action.actor = main_action.actor
                 else:
-                    print('ACTOR NOT FOUND')
                     # If the main action's actor is a pronoun, we can resolve it
                     if main_action.actor.pos_ == 'PRON':
-                        print('Resolving', main_action.actor, 'for', action.actor)
                         main_action.actor = action.actor
 
                 # If the main action's direct_object is a pronoun, we can resolve it
                 if main_action.direct_object and main_action.direct_object.pos_ == 'PRON':
-                    print('Resolving', main_action.actor, 'for', action.actor)
                     main_action.direct_object = action.direct_object
 
                 actions_to_insert.append({
                     "index": index + len(actions_to_insert) + (1 if is_right else 0),
                     "action": action
                 })
+    # See if we have any 'Otherwise' or 'Else' sentences. If so, add them to the
+    # previous condition
+    else_condition_marker = utils.get_else_marker_in_children(main_action.action_token)
+    if else_condition_marker:
+        # remove action (since it will be in the conditions list) and merge all
+        # actions in between
+        previous_condition = utils.merge_previous_condition(actions, main_action)
+        previous_condition.condition.right_actions.append(main_action)
+        del actions[actions.index(main_action)]
+
 
 for action_to_insert in actions_to_insert:
     actions.insert(action_to_insert["index"], action_to_insert["action"])

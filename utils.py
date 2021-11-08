@@ -28,6 +28,38 @@ def get_marker_in_children(token):
     return None
 
 
+def get_else_marker_in_children(token):
+    for child in token.children:
+        if (child.dep_ == 'mark' or child.dep_ == 'advmod') \
+            and child.text.lower() in conditional_else_marks:
+            return child
+    return None
+
+
+def merge_previous_condition(actions, current_action):
+    current_action_index = actions.index(current_action)
+    previous_condition = None
+    conditions_to_merge = []
+    # Get all previous actions and see if there is a condition linked
+    while not previous_condition and current_action_index > 1:
+        current_action_index = current_action_index - 1
+        previous_action = actions[current_action_index]
+        if previous_action.condition:
+            previous_condition = previous_action
+        else:
+            # If there is no condition linked but it's between the 'Else'
+            # condition, we merge it with the previous condition
+            conditions_to_merge.append(previous_action)
+
+    if previous_condition and len(conditions_to_merge) > 0:
+        # Merge the conditions
+        for condition_to_merge in conditions_to_merge:
+            del actions[actions.index(condition_to_merge)]
+            previous_condition.condition.left_actions.append(condition_to_merge)
+
+    return previous_condition
+
+
 def get_action(action_token, doc, previous_action, is_event=False):
     actor = None
     direct_object = None
