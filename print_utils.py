@@ -148,12 +148,13 @@ def get_subclause(action, doc):
         # Only add the word if it's in the subtree (== subclause)
         # print('Subclause token', subclause_token, subclause_token in action.subtree)
         if subclause_token in action.subtree:
-            subclause_tokens.append(subclause_token)
+            if subclause_token.text.lower() in utils.conditional_marks:
+                # Do not include the conditional sentences
+                break
+            else:
+                subclause_tokens.append(subclause_token)
 
     return subclause_tokens
-
-def is_conditional_mark(token):
-    pass
 
 
 def print_participant_stories(participant_stories):

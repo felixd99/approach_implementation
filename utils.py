@@ -22,7 +22,7 @@ class ParticipantStory:
 
 
 def get_marker_in_children(token):
-    for child in token.children:
+    for child in token.subtree:
         if child.dep_ == 'mark' and child.text.lower() in conditional_marks:
             return child
     return None

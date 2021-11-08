@@ -9,7 +9,7 @@ import utils
 import print_utils
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Hotel.txt").read()
+text = open("Texts/Model3-6.txt").read()
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
@@ -43,7 +43,7 @@ for number, sent in enumerate(doc.sents):
         if token.dep_ == 'ROOT':
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 4:
+        if number == 2:
             print(
                 token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
                     token.pos_ + ')',
@@ -101,14 +101,16 @@ for number, sent in enumerate(doc.sents):
 print('')
 
 actions_to_insert = []
+actions_to_remove = []
 
 # Get actions from subclauses
 for index, main_action in enumerate(actions):
+    print('Checking action', main_action.action_token)
     # Storing index for later usage
     main_action_index = actions.index(main_action)
     # Loop through all children to detect subclauses
     for child in main_action.action_token.children:
-        if child.dep_ == 'advcl' and (child.pos_ == 'VERB' or child.pos_ == 'AUX'):
+        if child.dep_ == 'advcl' and child.pos_ in ['VERB', 'AUX', 'PART']:
             # If it indicates a condition, insert it as such
             condition_marker = utils.get_marker_in_children(child)
 
@@ -159,8 +161,9 @@ for index, main_action in enumerate(actions):
         # remove action (since it will be in the conditions list) and merge all
         # actions in between
         previous_condition = utils.merge_previous_condition(actions, main_action)
-        previous_condition.condition.right_actions.append(main_action)
-        del actions[actions.index(main_action)]
+        if previous_condition:
+            previous_condition.condition.right_actions.append(main_action)
+            del actions[actions.index(main_action)]
 
 
 for action_to_insert in actions_to_insert:
