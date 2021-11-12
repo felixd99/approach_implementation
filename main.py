@@ -5,18 +5,21 @@ from spacy import displacy
 from spacy.tokens import Token
 
 import nlp_utils
+import text_preprocessor
 import utils
 import print_utils
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Model3-6.txt").read()
+text = open("Texts/Model10-14.txt").read()
+
+processed_text = text_preprocessor.process(text)
 
 nlp = spacy.load("en_core_web_lg")
 nlp.add_pipe("merge_entities")
 nlp.add_pipe("merge_noun_chunks")
 nlp.add_pipe('coreferee')
 # doc = nlp('The MPOO registers at the GO.')
-doc = nlp(text)
+doc = nlp(processed_text)
 
 # print(doc[15:28])
 doc._.coref_chains.print()
@@ -37,25 +40,32 @@ for number, sent in enumerate(doc.sents):
 
     conjunctions = []
 
+    # In case it is not a valid sentence (e.g. SPACE is the root token), we skip
+    ignore_sentence = False
+
     for token in sent:
         # Only get the main action of the sentence. Conjunctions will be
         # handled later
         if token.dep_ == 'ROOT':
+            if token.pos_ in ['SPACE', 'X'] or token.tag_ == 'LS':
+                ignore_sentence = True
             action = utils.get_action(token, doc, previous_action)
 
         if number == 2:
             print(
-                token.text + '(' + token.dep_ + ', ' + token.head.text + ', ' +
-                    token.pos_ + ')',
+                token.text + '(' + token.dep_ + ')',
                 end=" ")
-            print('')
-            # displacy.serve(sent, style="dep")
+            # print('')
+            displacy.serve(sent, style="dep")
+
+    if ignore_sentence:
+        continue
 
     if action.actor is None:
         if previous_action:
             action.actor = previous_action.actor
         else:
-            action.actor = nlp('Unknown actor')
+            action.actor = nlp('Unknown actor')[0]
 
     actions.append(action)
 
@@ -74,14 +84,14 @@ for number, sent in enumerate(doc.sents):
             if previous_action:
                 conjunction_action.actor = previous_action.actor
             else:
-                action.actor = nlp('Unknown actor')
+                action.actor = nlp('Unknown actor')[0]
 
         # Check if it's a "regular" conjunction or a conditional statement
         cc = nlp_utils.get_connecting_conjunction(doc, action.action_token, conjunction_action.action_token)
-        if cc.text == 'and':
+        if cc and cc.text == 'and':
             actions.append(conjunction_action)
             previous_action = conjunction_action
-        elif cc.text == 'or':
+        elif cc and cc.text == 'or':
             main_action_index = actions.index(action)
             if main_action_index > 0:
                 # remove action (since it will be in the conditions list)
@@ -95,21 +105,28 @@ for number, sent in enumerate(doc.sents):
                 # else:
                 previous_main_action.condition = condition_action
                 previous_action = previous_main_action
-        # actions.append(conjunction_action)
-        # previous_action = conjunction_action
+        else:
+            actions.append(conjunction_action)
+            previous_action = conjunction_action
 
 print('')
 
 actions_to_insert = []
 actions_to_remove = []
 
+
 # Get actions from subclauses
 for index, main_action in enumerate(actions):
-    print('Checking action', main_action.action_token)
     # Storing index for later usage
     main_action_index = actions.index(main_action)
+
+    # If we find a previous action in the subclauses, we set it otherwise just
+    # the next action
+    previous_action_was_set = False
+
     # Loop through all children to detect subclauses
     for child in main_action.action_token.children:
+
         if child.dep_ == 'advcl' and child.pos_ in ['VERB', 'AUX', 'PART']:
             # If it indicates a condition, insert it as such
             condition_marker = utils.get_marker_in_children(child)
@@ -119,17 +136,40 @@ for index, main_action in enumerate(actions):
                 if main_action_index > 0:
                     # remove action (since it will be in the conditions list)
                     previous_main_action = actions[main_action_index - 1]
-                    del actions[main_action_index]
+                    actions_to_remove.append(actions[main_action_index])
                     # Insert new ConditionAction instead
                     condition_action = ConditionAction(subclause, [main_action], [])
-                    if previous_main_action.condition:
-                        copied_action = copy.copy(previous_main_action)
-                        copied_action.is_a_copy = True
-                        copied_action.condition = condition_action
-                        actions.insert(main_action_index, copied_action)
+
+                    if not previous_action.is_a_copy:
+                        if previous_action.condition:
+                            copied_action = copy.copy(previous_action)
+                            copied_action.is_a_copy = True
+                            copied_action.condition = condition_action
+
+                            actions.insert(main_action_index, copied_action)
+                            previous_action = copied_action
+                            previous_action_was_set = True
+                            # actions_to_insert.append({
+                            #     "index": main_action_index,
+                            #     "action": copied_action
+                            # })
+                        else:
+                            previous_main_action.condition = condition_action
+                            previous_action = previous_main_action
+                            previous_action_was_set = True
                     else:
-                        previous_main_action.condition = condition_action
-                        previous_action = previous_main_action
+                        previous_action = main_action
+                        previous_action_was_set = True
+                else:
+                    # The first action is a condition
+                    # condition_action = ConditionAction(subclause, [main_action], [])
+                    # copied_action = copy.copy(main_action)
+                    # copied_action.is_a_copy = True
+                    # copied_action.condition = condition_action
+                    # previous_action = main_action
+                    # actions.insert(0, copied_action)
+                    pass
+
             else:
                 # Check if is passive, then it's an action => print for SketchMiner
                 is_action = child.tag_ == 'VBN' or child.lemma_ == 'be'
@@ -143,31 +183,52 @@ for index, main_action in enumerate(actions):
                     action.actor = main_action.actor
                 else:
                     # If the main action's actor is a pronoun, we can resolve it
-                    if main_action.actor.pos_ == 'PRON':
+                    if main_action.actor.pos_ == 'PRON' \
+                      or main_action.actor.text == 'Unknown actor':
                         main_action.actor = action.actor
 
                 # If the main action's direct_object is a pronoun, we can resolve it
                 if main_action.direct_object and main_action.direct_object.pos_ == 'PRON':
                     main_action.direct_object = action.direct_object
 
+                action_index = actions.index(main_action)
+
                 actions_to_insert.append({
-                    "index": index + len(actions_to_insert) + (1 if is_right else 0),
+                    "index": action_index + len(actions_to_insert) + (1 if is_right else 0),
                     "action": action
                 })
+
+    if not previous_action_was_set:
+        previous_action = main_action
+
     # See if we have any 'Otherwise' or 'Else' sentences. If so, add them to the
     # previous condition
     else_condition_marker = utils.get_else_marker_in_children(main_action.action_token)
     if else_condition_marker:
         # remove action (since it will be in the conditions list) and merge all
         # actions in between
-        previous_condition = utils.merge_previous_condition(actions, main_action)
+        previous_condition = utils.merge_previous_condition(actions, main_action, actions_to_remove)
         if previous_condition:
             previous_condition.condition.right_actions.append(main_action)
-            del actions[actions.index(main_action)]
+            actions_to_remove.append(main_action)
+            # del actions[actions.index(main_action)]
 
 
+# We need to insert/remove the actions after the
 for action_to_insert in actions_to_insert:
-    actions.insert(action_to_insert["index"], action_to_insert["action"])
+    insert_index = action_to_insert["index"]
+    insert_action = action_to_insert["action"]
+    if insert_index > 0:
+        previous_action = actions[insert_index - 1]
+        if previous_action.condition:
+            insert_action.condition = previous_action.condition
+            previous_action.condition = None
+    actions.insert(insert_index, insert_action)
+
+for action_to_remove in actions_to_remove:
+    if action_to_remove in actions:
+        ac = actions.index(action_to_remove)
+        del actions[actions.index(action_to_remove)]
 
 # Remove the pipe that merges some phrases. This is needed to compare the actors
 # by removing some stop words

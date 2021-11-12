@@ -36,17 +36,17 @@ def get_else_marker_in_children(token):
     return None
 
 
-def merge_previous_condition(actions, current_action):
+def merge_previous_condition(actions, current_action, actions_to_remove):
     current_action_index = actions.index(current_action)
     previous_condition = None
     conditions_to_merge = []
     # Get all previous actions and see if there is a condition linked
-    while not previous_condition and current_action_index > 1:
+    while not previous_condition and current_action_index >= 1:
         current_action_index = current_action_index - 1
         previous_action = actions[current_action_index]
         if previous_action.condition:
             previous_condition = previous_action
-        else:
+        elif previous_action not in actions_to_remove:
             # If there is no condition linked but it's between the 'Else'
             # condition, we merge it with the previous condition
             conditions_to_merge.append(previous_action)
@@ -54,7 +54,7 @@ def merge_previous_condition(actions, current_action):
     if previous_condition and len(conditions_to_merge) > 0:
         # Merge the conditions
         for condition_to_merge in conditions_to_merge:
-            del actions[actions.index(condition_to_merge)]
+            actions_to_remove.append(condition_to_merge)
             previous_condition.condition.left_actions.append(condition_to_merge)
 
     return previous_condition
@@ -136,7 +136,9 @@ def compare_actors(actor1, actor2):
 
 def is_valid_actor(actor, nlp):
     for actor_to_ignore in actors_to_ignore:
-        if compare_actors(nlp(actor_to_ignore), actor):
+        actor0 = actor[0]
+        if compare_actors(nlp(actor_to_ignore), actor) \
+          and not actor[0].pos_ == 'PRON':
             return False
     return True
 
@@ -188,11 +190,11 @@ def merge_actors(actions, nlp):
 
 
 actors_to_ignore = [
-    'process',
+    # 'process',
     'workflow',
     'procedure',
     'file',
-    'activity'
+    'activity',
 ]
 
 # taken from http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.228.2293&rep=rep1&type=pdf

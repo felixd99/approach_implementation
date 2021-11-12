@@ -21,7 +21,7 @@ def get_connecting_conjunction(doc, main_token, conjunction_token):
             elif token in main_token.subtree:
                 other_conjunctions.append(token)
 
-    return other_conjunctions[0]
+    return other_conjunctions[0] if len(other_conjunctions) > 0 else None
 
 
 def get_subclause_from_conditional_marker(conditional_token, doc):
