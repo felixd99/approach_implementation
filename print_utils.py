@@ -8,32 +8,24 @@ condition_actions = {}
 def build_action_name(action, for_sketch_miner, doc):
     action_name = ''
     # Check if the action is an event and passive
-    if action.is_event:
+    if action.event_text:
         if for_sketch_miner:
-            action_name = build_sketch_miner_event_name(action, doc)
+            action_name = '(' + action.event_text
         else:
             # Get auxiliary for the passive verb
-            aux_pass = get_aux_pass(action.action_token)
+            # aux_pass = get_aux_pass(action.action_token)
 
-            # Set subject as direct_object if it's a form of 'be'
-            # (e.g. "Once all files are ready"), otherwise use the direct object
-            direct_object = None
-            if action.action_token.lemma_ == 'be':
-                direct_object = action.actor
-            elif action.direct_object:
-                direct_object = action.direct_object
+            action_name = 'Event: ' + action.event_text
 
-            action_name = 'Event: '
-
-            # Print special tokens (e.g. xcomp, ccomp or "to be" sentence)
-            special_tokens = get_special_action_tokens(action, doc)
-
-            if special_tokens:
-                action_name += special_tokens
-            else:
-                action_name += direct_object.text if direct_object else ''
-                action_name += (' ' + aux_pass.text) if aux_pass else ''
-                action_name += ' ' + action.action_token.lemma_
+            # # Print special tokens (e.g. xcomp, ccomp or "to be" sentence)
+            # special_tokens = get_special_action_tokens(action, doc)
+            #
+            # if special_tokens:
+            #     action_name += special_tokens
+            # else:
+            #     action_name += direct_object.text if direct_object else ''
+            #     action_name += (' ' + aux_pass.text) if aux_pass else ''
+            #     action_name += ' ' + action.action_token.lemma_
     else:
         # Print special events in sketch miner
         if for_sketch_miner and action.action_token.lemma_ in special_event_indicators:
@@ -51,7 +43,7 @@ def build_action_name(action, for_sketch_miner, doc):
 
     action_name += get_indirect_objects(action)
 
-    if (action.is_event or action.action_token.lemma_ in special_event_indicators) \
+    if (action.event_text or action.action_token.lemma_ in special_event_indicators) \
         and for_sketch_miner:
         action_name += ')'
 
@@ -311,14 +303,14 @@ def generate_participant_stores(actions, nlp, doc):
             continue
 
         participant_story = utils.find_participant_story_for_actor(actor, participant_stories)
-        action = build_action_name(action, False, doc)
+        action_name = build_action_name(action, False, doc)
 
         # Check if there is already a participant story for the actor, if so
         # just add the action to it
         if participant_story:
-            participant_story.actions.append(action)
+            participant_story.action_names.append(action_name)
         else:
-            participant_story = ParticipantStory(actor, [action])
+            participant_story = ParticipantStory(actor, [action_name])
             participant_stories.append(participant_story)
 
     return participant_stories

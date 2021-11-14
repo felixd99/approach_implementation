@@ -1,10 +1,10 @@
 class Action:
-    def __init__(self, actor, action_token, direct_object, indirect_objects, is_event=False, condition=None, is_a_copy=False):
+    def __init__(self, actor, action_token, direct_object, indirect_objects, event_text=False, condition=None, is_a_copy=False):
         self.actor = actor
         self.action_token = action_token
         self.direct_object = direct_object
         self.indirect_objects = indirect_objects
-        self.is_event = is_event
+        self.event_text = event_text
         self.condition = condition
         self.is_a_copy = is_a_copy
 
@@ -16,9 +16,9 @@ class ConditionAction:
 
 
 class ParticipantStory:
-    def __init__(self, actor, actions):
+    def __init__(self, actor, action_names):
         self.actor = actor
-        self.actions = actions
+        self.action_names = action_names
 
 
 def get_marker_in_children(token):
@@ -32,6 +32,14 @@ def get_else_marker_in_children(token):
     for child in token.children:
         if (child.dep_ == 'mark' or child.dep_ == 'advmod') \
             and child.text.lower() in conditional_else_marks:
+            return child
+    return None
+
+
+def get_event_marker_in_children(token):
+    for child in token.children:
+        if child.text.lower() in event_tokens \
+            and token.sent[0].text.lower() in event_tokens:
             return child
     return None
 
@@ -60,7 +68,7 @@ def merge_previous_condition(actions, current_action, actions_to_remove):
     return previous_condition
 
 
-def get_action(action_token, doc, previous_action, is_event=False):
+def get_action(action_token, doc, previous_action, event_text=None):
     actor = None
     direct_object = None
     indirect_objects = []
@@ -100,7 +108,7 @@ def get_action(action_token, doc, previous_action, is_event=False):
         if token.dep_ == 'nsubjpass' and head_token == action_token:
             direct_object = resolve_coreferences(token, doc)
 
-    return Action(actor, action_token, direct_object, indirect_objects, is_event)
+    return Action(actor, action_token, direct_object, indirect_objects, event_text)
 
 
 def resolve_coreferences(token, doc):
@@ -209,4 +217,11 @@ conditional_marks = [
 conditional_else_marks = [
     'else',
     'otherwise'
+]
+
+event_tokens = [
+    'once',
+    'when',
+    'upon',
+    'on'
 ]

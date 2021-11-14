@@ -10,7 +10,7 @@ import utils
 import print_utils
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Model10-14.txt").read()
+text = open("Texts/Model3-1.txt").read()
 
 processed_text = text_preprocessor.process(text)
 
@@ -56,7 +56,7 @@ for number, sent in enumerate(doc.sents):
                 token.text + '(' + token.dep_ + ')',
                 end=" ")
             # print('')
-            displacy.serve(sent, style="dep")
+            # displacy.serve(sent, style="dep")
 
     if ignore_sentence:
         continue
@@ -91,7 +91,7 @@ for number, sent in enumerate(doc.sents):
         if cc and cc.text == 'and':
             actions.append(conjunction_action)
             previous_action = conjunction_action
-        elif cc and cc.text == 'or':
+        elif cc and (cc.text == 'or' or cc.text == 'but'):
             main_action_index = actions.index(action)
             if main_action_index > 0:
                 # remove action (since it will be in the conditions list)
@@ -132,7 +132,7 @@ for index, main_action in enumerate(actions):
             condition_marker = utils.get_marker_in_children(child)
 
             if condition_marker:
-                subclause = nlp_utils.get_subclause_from_conditional_marker(condition_marker, doc)
+                subclause = nlp_utils.get_subclause_from_token_on(condition_marker, doc)
                 if main_action_index > 0:
                     # remove action (since it will be in the conditions list)
                     previous_main_action = actions[main_action_index - 1]
@@ -171,10 +171,18 @@ for index, main_action in enumerate(actions):
                     pass
 
             else:
-                # Check if is passive, then it's an action => print for SketchMiner
-                is_action = child.tag_ == 'VBN' or child.lemma_ == 'be'
+                event_text = None
+                # If it indicates a condition, insert it as such
+                event_marker = utils.get_event_marker_in_children(child)
+
+                # Get event text if it's an event
+                if event_marker:
+                    event_text = nlp_utils.get_subclause_from_token_on(
+                        event_marker, doc)
+
                 # Build the action from the verb
-                action = utils.get_action(child, doc, main_action, is_action)
+                action = utils.get_action(child, doc, main_action, event_text)
+
                 # Check if subclause is before or after main clause
                 is_right = action.action_token in main_action.action_token.rights
 
