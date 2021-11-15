@@ -158,19 +158,44 @@ def get_subclause(action, doc):
     return subclause_tokens
 
 
-def print_participant_stories(participant_stories):
-    for participant_story in participant_stories:
-        print('--- ' + participant_story.actor.text + ' ---')
+def print_sketch_miner_line(number_of_actors, actor, action_name, condition_id):
+    sketch_miner_line = ''
 
-        for (number, participant_action) in enumerate(
-            participant_story.actions):
-            if participant_action.condition:
-                print('TOKNE:', participant_action)
-            else:
-                print(str(number + 1) + '. ' + participant_action)
+    # only print actor if we have valid ones
+    print_actor = number_of_actors > 1 or \
+                  (number_of_actors == 1 and not actor.text == 'Unknown actor')
+    if print_actor:
+        sketch_miner_line = actor.text + ': ' + action_name
+    else:
+        sketch_miner_line = action_name
 
-        print('')
-        print('')
+    is_wrong_action_condition = sketch_miner_line in condition_actions and \
+                       condition_id != condition_actions[sketch_miner_line]
+
+    is_correct_action_condition = sketch_miner_line in condition_actions and \
+                        condition_id == condition_actions[sketch_miner_line]
+
+    # if the line was already printed for this actor, we need to change it
+    # as otherwise the SketchMiner will make a loop out of it
+    if is_wrong_action_condition and not action_name == '()':
+        map_variable_name = actor.text + action_name
+        amount = already_printed_action[map_variable_name] if (
+                map_variable_name in
+                already_printed_action) else 0
+
+        if amount != 0:
+            sketch_miner_line += ' (' + str(amount) + ')'
+        # Increase the counter
+        already_printed_action[map_variable_name] = amount + 1
+    else:
+        map_variable_name = actor.text + action_name
+        already_printed_action[map_variable_name] = 1
+
+    # Add the action to used actions for this condition
+    condition_actions[sketch_miner_line] = condition_id
+
+    # Print the line
+    print(sketch_miner_line)
 
 
 def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
@@ -251,45 +276,64 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
             condition_loop_id = condition_loop_id + 1
 
 
+def print_participant_stories(participant_stories, doc):
+    for participant_story in participant_stories:
+        print('--- ' + participant_story.actor.text + ' ---')
 
-def print_sketch_miner_line(number_of_actors, actor, action_name, condition_id):
-    sketch_miner_line = ''
+        number = 1
 
-    # only print actor if we have valid ones
-    print_actor = number_of_actors > 1 or \
-                  (number_of_actors == 1 and not actor.text == 'Unknown actor')
-    if print_actor:
-        sketch_miner_line = actor.text + ': ' + action_name
-    else:
-        sketch_miner_line = action_name
+        for participant_action in participant_story.action_names:
+            if participant_action["condition"]:
+                condition = participant_action["condition"]
+                # First print action, then condition
+                print(str(number) + '. ' + participant_action["action_name"])
+                number = number + 1
+                if condition.condition_phrase:
+                    # It's an if condition
+                    # Print condition
+                    print('If ' + condition.condition_phrase)
 
-    is_wrong_action_condition = sketch_miner_line in condition_actions and \
-                       condition_id != condition_actions[sketch_miner_line]
+                    # Only print indices for the actions if there are more than 1
+                    print_left_action = len(condition.left_actions) > 1
+                    print_right_action = len(condition.right_actions) > 1
 
-    is_correct_action_condition = sketch_miner_line in condition_actions and \
-                        condition_id == condition_actions[sketch_miner_line]
+                    # Print left side first
+                    for left_index, left_action in enumerate(condition.left_actions):
+                        left_action_name = build_action_name(left_action, False, doc)
+                        left_action_index = str(left_index + 1) if print_left_action \
+                                                else ')'
+                        print('\t' + str(number) + '.a' + left_action_index + ' ' + left_action_name)
 
-    # if the line was already printed for this actor, we need to change it
-    # as otherwise the SketchMiner will make a loop out of it
-    if is_wrong_action_condition and not action_name == '()':
-        map_variable_name = actor.text + action_name
-        amount = already_printed_action[map_variable_name] if (
-                map_variable_name in
-                already_printed_action) else 0
+                    if len(condition.right_actions) > 0:
+                        print('Else')
 
-        if amount != 0:
-            sketch_miner_line += ' (' + str(amount) + ')'
-        # Increase the counter
-        already_printed_action[map_variable_name] = amount + 1
-    else:
-        map_variable_name = actor.text + action_name
-        already_printed_action[map_variable_name] = 1
+                    # Print right side
+                    for right_index, right_action in enumerate(condition.right_actions):
+                        right_action_name = build_action_name(right_action, False, doc)
+                        right_action_index = str(right_index + 1) if print_right_action \
+                                                else ')'
+                        print('\t' + str(number) + '.b' + right_action_index + ' ' + right_action_name)
+                else:
+                    # It's an exclusive condition
+                    # Print left side first
+                    for left_action in condition.left_actions:
+                        left_action_name = build_action_name(left_action, False,
+                                                             doc)
+                        print(str(number) + '.a)' + ' ' + left_action_name)
 
-    # Add the action to used actions for this condition
-    condition_actions[sketch_miner_line] = condition_id
+                    # Print right side
+                    for right_action in condition.right_actions:
+                        right_action_name = build_action_name(right_action,
+                                                              False, doc)
+                        print(str(number) + '.b)' + ' ' + right_action_name)
+            else:
+                print(str(number) + '. ' + participant_action["action_name"])
 
-    # Print the line
-    print(sketch_miner_line)
+            # Increase counter
+            number = number + 1
+
+        print('')
+        print('')
 
 
 def generate_participant_stores(actions, nlp, doc):
@@ -308,9 +352,15 @@ def generate_participant_stores(actions, nlp, doc):
         # Check if there is already a participant story for the actor, if so
         # just add the action to it
         if participant_story:
-            participant_story.action_names.append(action_name)
+            participant_story.action_names.append({
+                "condition": action.condition,
+                "action_name": action_name
+            })
         else:
-            participant_story = ParticipantStory(actor, [action_name])
+            participant_story = ParticipantStory(actor, [{
+                "condition": action.condition,
+                "action_name": action_name
+            }])
             participant_stories.append(participant_story)
 
     return participant_stories

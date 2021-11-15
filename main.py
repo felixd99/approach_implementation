@@ -10,7 +10,7 @@ import utils
 import print_utils
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Model3-1.txt").read()
+text = open("Texts/Model10-9.txt").read()
 
 processed_text = text_preprocessor.process(text)
 
@@ -92,19 +92,20 @@ for number, sent in enumerate(doc.sents):
             actions.append(conjunction_action)
             previous_action = conjunction_action
         elif cc and (cc.text == 'or' or cc.text == 'but'):
-            main_action_index = actions.index(action)
-            if main_action_index > 0:
-                # remove action (since it will be in the conditions list)
-                previous_main_action = actions[main_action_index - 1]
-                del actions[main_action_index]
-                # Insert new ConditionAction instead
-                condition_action = ConditionAction(None, [action], [conjunction_action])
+            if action in actions:
+                main_action_index = actions.index(action)
+                if main_action_index > 0:
+                    # remove action (since it will be in the conditions list)
+                    previous_main_action = actions[main_action_index - 1]
+                    del actions[main_action_index]
+                    # Insert new ConditionAction instead
+                    condition_action = ConditionAction(None, [action], [conjunction_action])
 
-                # if previous_main_action.condition:
-                #     previous_action = previous_main_action
-                # else:
-                previous_main_action.condition = condition_action
-                previous_action = previous_main_action
+                    # if previous_main_action.condition:
+                    #     previous_action = previous_main_action
+                    # else:
+                    previous_main_action.condition = condition_action
+                    previous_action = previous_main_action
         else:
             actions.append(conjunction_action)
             previous_action = conjunction_action
@@ -247,5 +248,5 @@ utils.merge_actors(actions, nlp)
 
 participant_stories = print_utils.generate_participant_stores(actions, nlp, doc)
 
-# print_utils.print_participant_stories(participant_stories)
+print_utils.print_participant_stories(participant_stories, doc)
 print_utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories), doc)
