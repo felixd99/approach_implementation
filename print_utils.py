@@ -5,27 +5,15 @@ from utils import Action, ParticipantStory
 already_printed_action = {}
 condition_actions = {}
 
-def build_action_name(action, for_sketch_miner, doc):
+
+def build_action_name(action, for_sketch_miner, for_participant_stories, doc):
     action_name = ''
     # Check if the action is an event and passive
     if action.event_text:
         if for_sketch_miner:
             action_name = '(' + action.event_text
         else:
-            # Get auxiliary for the passive verb
-            # aux_pass = get_aux_pass(action.action_token)
-
             action_name = 'Event: ' + action.event_text
-
-            # # Print special tokens (e.g. xcomp, ccomp or "to be" sentence)
-            # special_tokens = get_special_action_tokens(action, doc)
-            #
-            # if special_tokens:
-            #     action_name += special_tokens
-            # else:
-            #     action_name += direct_object.text if direct_object else ''
-            #     action_name += (' ' + aux_pass.text) if aux_pass else ''
-            #     action_name += ' ' + action.action_token.lemma_
     else:
         # Print special events in sketch miner
         if for_sketch_miner and action.action_token.lemma_ in special_event_indicators:
@@ -37,11 +25,20 @@ def build_action_name(action, for_sketch_miner, doc):
             if special_tokens:
                 action_name += special_tokens
             else:
-                action_name = action.action_token.lemma_
+                # If we have participant story, we need to print the verb in past
+                # tense
+                if for_participant_stories:
+                    action_name = action.action_token._.inflect("VBD")
+                    # If inflection is not possible, use the lemma
+                    action_name = action.action_token.lemma_ \
+                        if action_name is None else action_name
+                else:
+                    action_name = action.action_token.lemma_
                 action_name += ' ' + action.direct_object.text \
                     if action.direct_object else ''
 
-    action_name += get_indirect_objects(action)
+    if not action.event_text:
+        action_name += get_indirect_objects(action)
 
     if (action.event_text or action.action_token.lemma_ in special_event_indicators) \
         and for_sketch_miner:
@@ -117,18 +114,13 @@ def get_special_action_tokens(action, doc):
     return action_name
 
 
-def get_aux_pass(action):
-    for token in action.children:
-        if token.dep_ == 'auxpass':
-            return token
-    return None
-
-
 def get_subclause(action, doc):
     punct_token = None
     # Get the next punctation (most likely indicating that the subclause ennded)
+    # OR the next connecting conjunction which is related
     for right_action in action.rights:
-        if right_action.tag_ == '.':
+        if right_action.tag_ == '.' \
+         or (right_action.dep_ == 'cc' and right_action.head == action):
             punct_token = right_action
             break
 
@@ -207,12 +199,10 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
 
         # Check if the actor is a valid actor. If not (e.g. 'the process' or
         # 'the workflow', just ignore those actions
-        if not utils.is_valid_actor(actor, nlp) and not action.is_event:
+        if not utils.is_valid_actor(actor, nlp) and not action.event_text:
             continue
 
-        action_name = build_action_name(action, True, doc)
-        if action_name == 'close the case':
-            cond_ac = condition_actions
+        action_name = build_action_name(action, True, False, doc)
         condition_action = action.condition
 
         if condition_action:
@@ -225,13 +215,14 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
 
             if next_action_index < len(actions):
                 next_action = actions[next_action_index]
-                next_action_name = build_action_name(next_action, True, doc)
+                next_action_name = build_action_name(next_action, True, False, doc)
 
                 next_action_condition_id = id(next_action.condition) \
                     if next_action.condition else condition_loop_id + 1
 
             # Print left side
-            print_sketch_miner_line(number_of_actors, actor, action_name, current_condition_id)
+            print_sketch_miner_line(number_of_actors, actor, action_name,
+                                    current_condition_id)
 
             # Print "If" condition if there is one
             if condition_action.condition_phrase:
@@ -239,20 +230,22 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
                 print('True')
 
             for left_action in condition_action.left_actions:
-                left_action_name = build_action_name(left_action, True, doc)
+                left_action_name = build_action_name(left_action, True, False, doc)
                 print_sketch_miner_line(number_of_actors, left_action.actor,
                                         left_action_name, current_condition_id)
 
             # Print next action if available, otherwise just end
             if next_action:
                 print_sketch_miner_line(number_of_actors, next_action.actor,
-                                        next_action_name, next_action_condition_id)
+                                        next_action_name,
+                                        next_action_condition_id)
                 print('...')
 
             # Print right side
             print('')
             print('...')
-            print_sketch_miner_line(number_of_actors, actor, action_name, current_condition_id)
+            print_sketch_miner_line(number_of_actors, actor, action_name,
+                                    current_condition_id)
 
             # Print else condition if there is one
             if condition_action.condition_phrase:
@@ -260,17 +253,19 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
                 print('False')
 
             for right_action in condition_action.right_actions:
-                right_action_name = build_action_name(right_action, True, doc)
+                right_action_name = build_action_name(right_action, True, False, doc)
                 print_sketch_miner_line(number_of_actors, right_action.actor,
                                         right_action_name, current_condition_id)
 
             # Print next action if available, otherwise just end
             if next_action:
                 print_sketch_miner_line(number_of_actors, next_action.actor,
-                                        next_action_name, next_action_condition_id)
+                                        next_action_name,
+                                        next_action_condition_id)
                 print('...')
                 print('')
                 print('...')
+
         else:
             print_sketch_miner_line(number_of_actors, actor, action_name, next_action_condition_id if next_action_condition_id else current_condition_id)
             condition_loop_id = condition_loop_id + 1
@@ -282,12 +277,15 @@ def print_participant_stories(participant_stories, doc):
 
         number = 1
 
-        for participant_action in participant_story.action_names:
-            if participant_action["condition"]:
-                condition = participant_action["condition"]
+        for participant_action in participant_story.actions:
+            if participant_action["action"].condition:
+                condition = participant_action["action"].condition
                 # First print action, then condition
-                print(str(number) + '. ' + participant_action["action_name"])
-                number = number + 1
+                # Also, skip placeholder actions
+                if participant_action["action_name"] != '()':
+                    print(str(number) + '. ' + participant_action["action_name"])
+                    number = number + 1
+
                 if condition.condition_phrase:
                     # It's an if condition
                     # Print condition
@@ -299,33 +297,31 @@ def print_participant_stories(participant_stories, doc):
 
                     # Print left side first
                     for left_index, left_action in enumerate(condition.left_actions):
-                        left_action_name = build_action_name(left_action, False, doc)
-                        left_action_index = str(left_index + 1) if print_left_action \
+                        left_action_name = build_action_name(left_action, False, False, doc)
+                        left_action_index = '.' + str(left_index + 1) if print_left_action \
                                                 else ')'
-                        print('\t' + str(number) + '.a' + left_action_index + ' ' + left_action_name)
+                        print('\t' + str(number) + 'a' + left_action_index + ' ' + left_action_name)
 
                     if len(condition.right_actions) > 0:
                         print('Else')
 
                     # Print right side
                     for right_index, right_action in enumerate(condition.right_actions):
-                        right_action_name = build_action_name(right_action, False, doc)
-                        right_action_index = str(right_index + 1) if print_right_action \
+                        right_action_name = build_action_name(right_action, False, False, doc)
+                        right_action_index = '.' + str(right_index + 1) if print_right_action \
                                                 else ')'
-                        print('\t' + str(number) + '.b' + right_action_index + ' ' + right_action_name)
+                        print('\t' + str(number) + 'b' + right_action_index + ' ' + right_action_name)
                 else:
                     # It's an exclusive condition
                     # Print left side first
                     for left_action in condition.left_actions:
-                        left_action_name = build_action_name(left_action, False,
-                                                             doc)
-                        print(str(number) + '.a)' + ' ' + left_action_name)
+                        left_action_name = build_action_name(left_action, False, False, doc)
+                        print(str(number) + 'a)' + ' ' + left_action_name)
 
                     # Print right side
                     for right_action in condition.right_actions:
-                        right_action_name = build_action_name(right_action,
-                                                              False, doc)
-                        print(str(number) + '.b)' + ' ' + right_action_name)
+                        right_action_name = build_action_name(right_action, False, False, doc)
+                        print(str(number) + 'b)' + ' ' + right_action_name)
             else:
                 print(str(number) + '. ' + participant_action["action_name"])
 
@@ -343,27 +339,91 @@ def generate_participant_stores(actions, nlp, doc):
 
         # Check if the actor is a valid actor. If not (e.g. 'the process' or
         # 'the workflow', just ignore those actions
-        if not utils.is_valid_actor(actor, nlp) and not action.is_event:
+        if not utils.is_valid_actor(actor, nlp) and not action.event_text:
             continue
 
         participant_story = utils.find_participant_story_for_actor(actor, participant_stories)
-        action_name = build_action_name(action, False, doc)
+        action_name = build_action_name(action, False, False, doc)
 
         # Check if there is already a participant story for the actor, if so
         # just add the action to it
         if participant_story:
-            participant_story.action_names.append({
-                "condition": action.condition,
+            participant_story.actions.append({
+                "action": action,
                 "action_name": action_name
             })
         else:
             participant_story = ParticipantStory(actor, [{
-                "condition": action.condition,
+                "action": action,
                 "action_name": action_name
             }])
             participant_stories.append(participant_story)
 
     return participant_stories
+
+
+def print_user_stories_for_agile_methods(participant_stories, all_actions, doc):
+    for participant_story in participant_stories:
+        # Iterate through all users
+        actor_name = participant_story.actor.text
+
+        for participant_action in participant_story.actions:
+            action = participant_action["action"]
+            # If the action is an event, we don't print it but instead if a
+            # previous action is an event, we include it
+            if action.event_text:
+                continue
+
+            previous_action = utils.get_previous_action(action, all_actions)
+
+            if not action.is_a_copy:
+                print('AS ' + actor_name)
+                print('I WANT TO ' + participant_action["action_name"])
+                # Print previous action if there is one
+                if previous_action and not previous_action.is_a_copy:
+                    # If it's an event,
+                    if previous_action.event_text:
+                        print('WHEN ' + previous_action.event_text)
+                    else:
+                        previous_action_name = build_action_name(previous_action, False, True, doc)
+                        actor_text = 'I' if previous_action.actor.text.lower() == participant_story.actor.text.lower() \
+                                         else previous_action.actor.text
+                        print('AFTER ' + actor_text + ' ' + previous_action_name)
+                print('')
+
+            # Print the condition if there is one
+            if action.condition:
+                print('AS ' + actor_name)
+
+                condition_action = action.condition
+
+                if condition_action.condition_phrase:
+                    # We have an if-(else) condition
+                    print('I WANT TO', end=' ')
+                    for index, left_action in enumerate(condition_action.left_actions):
+                        if index != 0:
+                            print('\t AND', end=' ')
+                        print(build_action_name(left_action, False, False, doc))
+                    # Print condition phrase
+                    print('IF ' + condition_action.condition_phrase)
+
+                    # Print else actions if there are
+                    for index, right_action in enumerate(condition_action.right_actions):
+                        if index == 0:
+                            print('OTHERWISE', end=' ')
+                        else:
+                            print('\t AND', end=' ')
+                        print(build_action_name(right_action, False, False, doc))
+                else:
+                    # We have a simple either-or structure
+                    print('I WANT TO EITHER', end=' ')
+                    print(build_action_name(condition_action.left_actions[0], False, False, doc))
+                    print('OR ' + build_action_name(condition_action.right_actions[0], False, False, doc))
+
+                print('')
+
+        print('----')
+        print('')
 
 
 special_event_indicators = [

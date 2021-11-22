@@ -8,9 +8,10 @@ import nlp_utils
 import text_preprocessor
 import utils
 import print_utils
+import pyinflect
 from utils import Action, ConditionAction, ParticipantStory
 
-text = open("Texts/Model10-9.txt").read()
+text = open("Texts/Model3-4.txt").read()
 
 processed_text = text_preprocessor.process(text)
 
@@ -51,11 +52,11 @@ for number, sent in enumerate(doc.sents):
                 ignore_sentence = True
             action = utils.get_action(token, doc, previous_action)
 
-        if number == 2:
+        if number == 1:
             print(
-                token.text + '(' + token.dep_ + ')',
+                token.text + '(' + token.dep_ + ', ' + token.head.text + ')',
                 end=" ")
-            # print('')
+            print('')
             # displacy.serve(sent, style="dep")
 
     if ignore_sentence:
@@ -70,6 +71,8 @@ for number, sent in enumerate(doc.sents):
     actions.append(action)
 
     previous_action = action
+
+    print('')
 
     print('Conjunctions for:', action.action_token, action.action_token.conjuncts)
 
@@ -206,6 +209,8 @@ for index, main_action in enumerate(actions):
                     "index": action_index + len(actions_to_insert) + (1 if is_right else 0),
                     "action": action
                 })
+        else: #TODO: relcl
+            pass
 
     if not previous_action_was_set:
         previous_action = main_action
@@ -249,4 +254,5 @@ utils.merge_actors(actions, nlp)
 participant_stories = print_utils.generate_participant_stores(actions, nlp, doc)
 
 print_utils.print_participant_stories(participant_stories, doc)
+print_utils.print_user_stories_for_agile_methods(participant_stories, actions, doc)
 print_utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories), doc)

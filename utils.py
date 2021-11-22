@@ -8,6 +8,7 @@ class Action:
         self.condition = condition
         self.is_a_copy = is_a_copy
 
+
 class ConditionAction:
     def __init__(self, condition_phrase, left_actions=[], right_actions=[]):
         self.condition_phrase = condition_phrase
@@ -16,9 +17,9 @@ class ConditionAction:
 
 
 class ParticipantStory:
-    def __init__(self, actor, action_names):
+    def __init__(self, actor, actions):
         self.actor = actor
-        self.action_names = action_names
+        self.actions = actions
 
 
 def get_marker_in_children(token):
@@ -31,7 +32,7 @@ def get_marker_in_children(token):
 def get_else_marker_in_children(token):
     for child in token.children:
         if (child.dep_ == 'mark' or child.dep_ == 'advmod') \
-            and child.text.lower() in conditional_else_marks:
+          and child.text.lower() in conditional_else_marks:
             return child
     return None
 
@@ -39,7 +40,7 @@ def get_else_marker_in_children(token):
 def get_event_marker_in_children(token):
     for child in token.children:
         if child.text.lower() in event_tokens \
-            and token.sent[0].text.lower() in event_tokens:
+          and token.sent[0].text.lower() in event_tokens:
             return child
     return None
 
@@ -119,6 +120,19 @@ def resolve_coreferences(token, doc):
     # No co-reference found, return normal token
     return token
 
+
+def get_previous_action(action, all_actions):
+    if action not in all_actions:
+        # Action is not in array
+        return None
+
+    action_index = all_actions.index(action)
+
+    if action_index == 0:
+        # Action has no previous action
+        return None
+
+    return all_actions[action_index - 1]
 
 # get similarity
 def similarity(subjects):
