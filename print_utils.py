@@ -153,6 +153,8 @@ def get_subclause(action, doc):
 def print_sketch_miner_line(number_of_actors, actor, action_name, condition_id):
     sketch_miner_line = ''
 
+    ac = already_printed_action
+    condac = condition_actions
     # only print actor if we have valid ones
     print_actor = number_of_actors > 1 or \
                   (number_of_actors == 1 and not actor.text == 'Unknown actor')
@@ -181,7 +183,11 @@ def print_sketch_miner_line(number_of_actors, actor, action_name, condition_id):
         already_printed_action[map_variable_name] = amount + 1
     else:
         map_variable_name = actor.text + action_name
-        already_printed_action[map_variable_name] = 1
+        if is_correct_action_condition:
+            amount = already_printed_action[map_variable_name]
+            already_printed_action[map_variable_name] = amount + 1
+        else:
+            already_printed_action[map_variable_name] = 1
 
     # Add the action to used actions for this condition
     condition_actions[sketch_miner_line] = condition_id
@@ -232,7 +238,7 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
             for left_action in condition_action.left_actions:
                 left_action_name = build_action_name(left_action, True, False, doc)
                 print_sketch_miner_line(number_of_actors, left_action.actor,
-                                        left_action_name, current_condition_id)
+                                        left_action_name, current_condition_id * 2)
 
             # Print next action if available, otherwise just end
             if next_action:
@@ -255,7 +261,7 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
             for right_action in condition_action.right_actions:
                 right_action_name = build_action_name(right_action, True, False, doc)
                 print_sketch_miner_line(number_of_actors, right_action.actor,
-                                        right_action_name, current_condition_id)
+                                        right_action_name, current_condition_id * 2)
 
             # Print next action if available, otherwise just end
             if next_action:
@@ -415,10 +421,14 @@ def print_user_stories_for_agile_methods(participant_stories, all_actions, doc):
                             print('\t AND', end=' ')
                         print(build_action_name(right_action, False, False, doc))
                 else:
-                    # We have a simple either-or structure
-                    print('I WANT TO EITHER', end=' ')
+                    # We most likely have a simple either-or structure
+                    print('I WANT TO', end=' ')
+                    has_right_actions = len(condition_action.right_actions) > 0
+                    if has_right_actions:
+                        print('EITHER', end=' ')
                     print(build_action_name(condition_action.left_actions[0], False, False, doc))
-                    print('OR ' + build_action_name(condition_action.right_actions[0], False, False, doc))
+                    if has_right_actions:
+                        print('OR ' + build_action_name(condition_action.right_actions[0], False, False, doc))
 
                 print('')
 

@@ -15,6 +15,8 @@ def process(text):
         text = re.sub('.\n', '. ', text)
         # Replace "re-" verbs: SpaCy seems to create new verbs from it
         text = re.sub('re-', 're', text)
+        # Replace "back-" verbs: SpaCy seems to create new verbs from it
+        text = re.sub('back-', 'back', text)
         # Replace at other occurrences of conditional markers
         text = re.sub(conditonal_marker, 'if', text, 100000)
     return text.replace(', otherwise', '. Otherwise')

@@ -117,6 +117,7 @@ def resolve_coreferences(token, doc):
     coref_object = doc._.coref_chains.resolve(token)
     if coref_object and len(coref_object) > 0:
         return coref_object[0]
+
     # No co-reference found, return normal token
     return token
 
