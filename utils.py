@@ -1,3 +1,6 @@
+import nlp_utils
+
+
 class Action:
     def __init__(self, actor, action_token, direct_object, indirect_objects, event_text=False, condition=None, is_a_copy=False):
         self.actor = actor
@@ -80,12 +83,6 @@ def get_action(action_token, doc, previous_action, event_text=None):
         # Only get the main actor of the sentence
         if token.dep_ == 'nsubj' and head_token == action_token:
             actor = resolve_coreferences(token, doc)
-            coref_actor = doc._.coref_chains.resolve(token)
-            if coref_actor and len(coref_actor) > 0:
-                actor = coref_actor[0]
-            else:
-                actor = token
-
             # If token is still a pronoun, choose previous actor
             if actor.pos_ == 'PRON' and previous_action:
                 actor = previous_action.actor
@@ -114,7 +111,11 @@ def get_action(action_token, doc, previous_action, event_text=None):
 
 def resolve_coreferences(token, doc):
     # See if the direct object is a co-reference
-    coref_object = doc._.coref_chains.resolve(token)
+    try:
+        coref_object = doc._.coref_chains.resolve(token)
+    except IndexError:
+        return token
+
     if coref_object and len(coref_object) > 0:
         return coref_object[0]
 
@@ -212,6 +213,16 @@ def merge_actors(actions, nlp):
         previous_action = action
 
 
+def is_a_start_or_end_event(action, nlp, doc):
+    actor = nlp(action.actor.text)
+    # See if we have a sentence like "The process starts when xxx"
+    if not is_valid_actor(actor, nlp) or 'process' in action.actor.text.lower():
+        for child in action.action_token.children:
+            if child.dep_ == 'advmod':
+                event_text = nlp_utils.get_subclause_from_token_on(child, doc)
+                return event_text
+
+
 actors_to_ignore = [
     # 'process',
     'workflow',
@@ -238,5 +249,16 @@ event_tokens = [
     'once',
     'when',
     'upon',
-    'on'
+    'on',
+    'whenever',
+    'after'
+]
+
+process_begin_or_end_tokens = [
+    'begin',
+    'start',
+    'initiate',
+    'stop',
+    'end',
+    'terminate'
 ]

@@ -151,10 +151,10 @@ def get_subclause(action, doc):
 
 
 def print_sketch_miner_line(number_of_actors, actor, action_name, condition_id):
+    global already_printed_action
+    global condition_actions
     sketch_miner_line = ''
 
-    ac = already_printed_action
-    condac = condition_actions
     # only print actor if we have valid ones
     print_actor = number_of_actors > 1 or \
                   (number_of_actors == 1 and not actor.text == 'Unknown actor')
@@ -275,6 +275,12 @@ def print_actions_for_sketch_miner(actions, nlp, number_of_actors, doc):
         else:
             print_sketch_miner_line(number_of_actors, actor, action_name, next_action_condition_id if next_action_condition_id else current_condition_id)
             condition_loop_id = condition_loop_id + 1
+
+    # Reset variables
+    global already_printed_action
+    global condition_actions
+    already_printed_action = {}
+    condition_actions = {}
 
 
 def print_participant_stories(participant_stories, doc):

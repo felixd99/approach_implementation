@@ -58,7 +58,7 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
                     ignore_sentence = True
                 action = utils.get_action(token, doc, previous_action)
 
-            if number == 7 and print_help:
+            if number == 0 and print_help:
                 print(
                     token.text + '(' + token.dep_ + ', ' + token.head.text + ')',
                     end=" ")
@@ -217,8 +217,23 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
                         "index": action_index + len(actions_to_insert) + (1 if is_right else 0),
                         "action": action
                     })
-            else: #TODO: relcl
-                pass
+            elif child.dep_ == 'pobj':
+                # Get relative clause modifiers
+                for rel_child in child.children:
+                    if rel_child.dep_ == 'relcl':
+                        # Build the action from the verb
+                        action = utils.get_action(rel_child, doc, main_action,
+                                                  None)
+
+                        # Actor is the direct object
+                        action.actor = child
+
+                        action_index = actions.index(main_action)
+
+                        actions_to_insert.append({
+                            "index": action_index + len(actions_to_insert) + 1,
+                            "action": action
+                        })
 
         if not previous_action_was_set:
             previous_action = main_action
@@ -270,5 +285,10 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
     if print_sketch:
         print_utils.print_actions_for_sketch_miner(actions, nlp, len(participant_stories), doc)
 
+    return {
+        "actions": actions,
+        "participant_stories": participant_stories
+    }
 
-# transform_text("Texts/Model3-6.txt", False, False, True, True)
+
+# transform_text("Texts/Model7-1.txt", False, False, True, True)
