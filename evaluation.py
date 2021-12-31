@@ -50,7 +50,6 @@ def get_stats():
     print('All conditions (Exclusive Gateways)', conditions)
 
 # transform_all()
-# transform_single('Model7-1.txt')
 # get_stats()
 
 if len(sys.argv) != 2:

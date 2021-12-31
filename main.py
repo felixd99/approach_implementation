@@ -27,13 +27,10 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
     nlp.add_pipe("merge_noun_chunks")
     if not nlp.has_pipe("coreferee"):
         nlp.add_pipe('coreferee')
-    # doc = nlp('The MPOO registers at the GO.')
     doc = nlp(processed_text)
 
-    # print(doc[15:28])
     if print_help:
         doc._.coref_chains.print()
-    # displacy.serve(doc, style="ent")
 
     # Extract actions from the text
     previous_action = None
@@ -66,7 +63,6 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
                     token.text + '(' + token.dep_ + ', ' + token.head.text + ')',
                     end=" ")
                 print('')
-                # displacy.serve(sent, style="dep")
 
         if ignore_sentence:
             continue

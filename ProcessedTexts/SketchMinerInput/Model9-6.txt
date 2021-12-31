@@ -44,17 +44,19 @@ the design: ()
 the design passes the test?
 True
 the design: tell the other department
-the design: (both of the designs have been revised)
+the other department: need restart
 ...
 
 ...
 the design: ()
 the design passes the test?
 False
-the design: (both of the designs have been revised)
+the other department: need restart
 ...
 
 ...
+the other department: need restart
+the other department: need restart
 the design: (both of the designs have been revised)
 the design: combine any existing designs
 the design: test

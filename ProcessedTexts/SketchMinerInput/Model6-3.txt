@@ -4,6 +4,7 @@ that information: optimize our production processes
 that information: create possibly uniform work packages
 that information: minimize
 that information: create a list
+a list: procure
 that information: couple that information to our Enterprise Resource Planning system
 that information: transfer the data
 that information: is the second step By the way

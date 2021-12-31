@@ -32,6 +32,10 @@ If he has another order to prepare or deliver
 	5a) wait to do the billing
 
 
+--- a cart ---
+1. put a tablecloth on the cart
+
+
 --- the food ---
 1. Event: the food
 

@@ -68,7 +68,7 @@ AFTER I begin to firm up the issue price
 
 AS found
 I WANT TO receive clearance from the SEC
-AFTER I arranged a road show
+AFTER a road show talked to potential investors
 
 AS found
 I WANT TO enter into a firm commitment
@@ -81,6 +81,12 @@ AFTER I entered into a firm commitment
 AS found
 I WANT TO find any reason
 AFTER I offered any reason to the public
+
+----
+
+AS a road show
+I WANT TO talk to potential investors
+AFTER found arranged a road show
 
 ----
 

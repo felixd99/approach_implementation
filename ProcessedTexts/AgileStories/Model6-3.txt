@@ -42,11 +42,17 @@ AFTER I minimize
 
 AS our production planning system
 I WANT TO couple our production planning system to our Enterprise Resource Planning system
-AFTER I created a list
+AFTER a list procured
 
 AS our production planning system
 I WANT TO transfer the data
 AFTER I coupled our production planning system to our Enterprise Resource Planning system
+
+----
+
+AS a list
+I WANT TO procure
+AFTER our production planning system created a list
 
 ----
 

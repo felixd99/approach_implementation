@@ -64,6 +64,15 @@ IF interrupted
 
 ----
 
+AS the other department
+I WANT TO need restart
+
+AS the other department
+I WANT TO need restart
+AFTER I need restart
+
+----
+
 AS ,
 I WANT TO combine the revised design
 WHEN both of the designs have been revised

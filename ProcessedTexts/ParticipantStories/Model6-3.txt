@@ -18,6 +18,10 @@
 7. transfer the data
 
 
+--- a list ---
+1. procure
+
+
 --- all the data ---
 1. Event: all the data is present
 

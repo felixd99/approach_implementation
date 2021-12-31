@@ -8,6 +8,7 @@ Eighty percent: include wine
 The Evanstonian: assign the order
 the kitchen: do their tasks
 the waiter: ready a cart
+a cart: put a tableclot
 the waiter: is also responsible for non-alcoholic drinks
 the waiter: deliver The waiter to the guests room
 the waiter: debit the guest

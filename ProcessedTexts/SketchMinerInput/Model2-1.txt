@@ -74,6 +74,7 @@ the customer: base on the outcome
 ...
 the customer: base on the outcome
 the customer: create a trouble report
+a trouble report: indicate the type
 Resource Provisioning: (Resource Provisioning receives the detailed problem report)
 the customer: check whether there are any possible problems
 no problems are detected?

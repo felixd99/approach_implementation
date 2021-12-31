@@ -65,6 +65,10 @@ If Service Management is sure they can analyze it
 8. receive The trouble-shooting report
 
 
+--- a trouble report ---
+1. indicate the type
+
+
 --- Resource Provisioning ---
 1. Event: Resource Provisioning receives the detailed problem report
 2. Event: the restoration request is received

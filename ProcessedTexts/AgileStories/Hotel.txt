@@ -49,7 +49,7 @@ AFTER the kitchen do to
 
 AS the waiter
 I WANT TO is also responsible for nonalcoholic drinks
-AFTER I readied a cart
+AFTER a cart put a tablecloth on the cart
 
 AS the waiter
 I WANT TO deliver to the guest’s room
@@ -62,6 +62,12 @@ AFTER I delivered to the guest’s room
 AS the waiter
 I WANT TO wait to do the billing
 IF he has another order to prepare or deliver
+
+----
+
+AS a cart
+I WANT TO put a tablecloth on the cart
+AFTER the waiter readied a cart
 
 ----
 

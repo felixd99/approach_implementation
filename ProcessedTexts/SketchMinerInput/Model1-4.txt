@@ -12,6 +12,7 @@ Underwriters: need to check that the issue complies with the so-called blue-sky 
 the registration statement: await approval
 Underwriters: begin to firm up the issue price
 Underwriters: arrange a road show
+a road show: talk to potential investors
 Underwriters: (receive clearance)
 Underwriters: fix the issue price
 Underwriters: enter into a firm commitment

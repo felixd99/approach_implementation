@@ -161,6 +161,12 @@ AFTER the process end
 
 ----
 
+AS a trouble report
+I WANT TO indicate the type
+AFTER the customer created a trouble report
+
+----
+
 AS Resource Provisioning
 I WANT TO track all possible errors
 WHEN the restoration request is received
