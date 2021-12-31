@@ -10,6 +10,7 @@ It is recommended to use a virtual environment
 2. `source .env/bin/activate`
 
 Install spaCy v3.1.3. We are using the large english model (`en_core_web_lg`)
+
 3. `pip install -U pip setuptools wheel`
 4. `pip install -U spacy==3.1.3`
 5. `python -m spacy download en_core_web_lg`
