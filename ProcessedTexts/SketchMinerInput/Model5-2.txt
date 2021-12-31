@@ -1,0 +1,24 @@
+The process: start
+any employee: submit a vacation request
+the immediate supervisor: (the requirement is registered)
+the immediate supervisor: (receive the request)
+the immediate supervisor: approve
+the immediate supervisor: ()
+...
+
+...
+the immediate supervisor: (receive the request)
+the immediate supervisor: reject the request
+the immediate supervisor: ()
+...
+
+...
+the immediate supervisor: ()
+the request is rejected?
+True
+the immediate supervisor: return the application to the applicant
+
+...
+the immediate supervisor: ()
+the request is rejected?
+False

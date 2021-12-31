@@ -1,0 +1,208 @@
+AS the customer
+I WANT TO perceive that that has degraded At the beginning
+
+AS the customer
+I WANT TO send A list to the Customer Service department
+AFTER I perceive that that has degraded At the beginning
+
+AS the customer
+I WANT TO base on the outcome
+
+AS the customer
+I WANT TO create a trouble report
+AFTER I based on the outcome
+
+AS the customer
+I WANT TO check whether there are any possible problems
+WHEN Resource Provisioning receives the detailed problem report
+
+AS the customer
+I WANT TO create a notification
+IF no problems are detected
+
+AS the customer
+I WANT TO create
+AFTER I check whether there are any possible problems
+
+AS the customer
+I WANT TO EITHER either trouble report
+OR include the normal execution notification in a status report
+
+AS the customer
+I WANT TO send out
+AFTER the process ended
+
+AS the customer
+I WANT TO report to Billing & Collections who will adjust the billing to Billing & Collections
+AFTER this information describe for ii for ii
+
+AS the customer
+I WANT TO send The report to her
+AFTER I report to Billing & Collections who will adjust the billing to Billing & Collections
+
+AS the customer
+I WANT TO complete the process ends within Customer Service
+AFTER I sent The report to her
+
+----
+
+AS an employee
+I WANT TO enter a problem report At the customer service
+AFTER the customer sent A list to the Customer Service department
+
+AS an employee
+I WANT TO compare the problem report to the customer SLA
+AFTER I entered a problem report At the customer service
+
+AS an employee
+I WANT TO identify what the extent and the details of the service degradation are
+AFTER I compared the problem report to the customer SLA
+
+AS an employee
+I WANT TO determine the necessary counter measures including their respective priorities
+AFTER I identify what the extent and the details of the service degradation are
+
+----
+
+AS An electronic service
+I WANT TO determine the significance
+AFTER an employee determined the necessary counter measures including their respective priorities
+
+AS An electronic service
+I WANT TO link to an extra problem fix process
+IF the customer is premium
+
+AS An electronic service
+I WANT TO go
+IF the customer is of certain significance which would affect the counter measures previously decided upon
+
+----
+
+AS the process
+I WANT TO reprioritize these measures
+
+AS the process
+I WANT TO continue
+AFTER I reprioritize these measures
+
+AS the process
+I WANT TO reprioritize these measures
+AFTER I continue
+
+AS the process
+I WANT TO continue
+AFTER I reprioritize these measures
+
+AS the process
+I WANT TO take together the information ( i.e. contract commitment data + prioritized actions )
+AFTER I continue
+
+AS the process
+I WANT TO create a detailed problem report
+AFTER I take together the information ( i.e. contract commitment data + prioritized actions )
+
+AS the process
+I WANT TO send The detailed problem report to Service Management
+AFTER I created a detailed problem report
+
+AS the process
+I WANT TO end
+AFTER Service Management sent to Customer Service
+
+AS the process
+I WANT TO create a request
+	 AND happen within 2 days
+	 AND wait for a restoration request
+	 AND been on - hold on hold
+	 AND send This message to Resource Provisioning
+IF that automatic resource restoration from Resource Provisioning is required
+OTHERWISE terminate the process
+
+AS the process
+I WANT TO end
+AFTER Resource Provisioning created a trouble-shooting report
+
+AS the process
+I WANT TO end
+WHEN the customer then receives the report about service performance and problem resolution from Customer Service
+
+----
+
+AS Service Management
+I WANT TO deal on a first level
+AFTER the process sent The detailed problem report to Service Management
+
+AS Service Management
+I WANT TO investigate whether the problem is analyzable at the level of . or whether the problem may be located at Resource Provisioning
+AFTER I dealt on a first level
+
+AS Service Management
+I WANT TO send the detailed problem report to Resource Provisioning
+IF Service Management assesses the problem to be not analyzable by themselves
+
+AS Service Management
+I WANT TO perform the analysis
+IF Service Management is sure they can analyze it
+
+AS Service Management
+I WANT TO prepare the final status report
+AFTER the customer create
+
+AS Service Management
+I WANT TO create the problem resolution report
+
+AS Service Management
+I WANT TO send to Customer Service
+AFTER I created the problem resolution report
+
+AS Service Management
+I WANT TO receive The trouble-shooting report
+AFTER the process end
+
+----
+
+AS Resource Provisioning
+I WANT TO track all possible errors
+WHEN the restoration request is received
+
+AS Resource Provisioning
+I WANT TO undertake all necessary corrective actions
+AFTER I tracked all possible errors
+
+AS Resource Provisioning
+I WANT TO create a trouble-shooting report
+AFTER I undertook all necessary corrective actions
+
+----
+
+AS happen
+I WANT TO have to be determined what counter measures should be taken depending on the information in the final status report
+AFTER Service Management prepared the final status report
+
+AS happen
+I WANT TO take Three alternative process paths
+AFTER I have to be determined what counter measures should be taken depending on the information in the final status report
+
+AS happen
+I WANT TO send the actual service performance
+IF that no problem was detected at all
+
+AS happen
+I WANT TO undertake corrective actions by themselves
+IF that minor corrective actions are required
+
+----
+
+AS this information
+I WANT TO go into the creation
+AFTER Service Management received The trouble-shooting report
+
+AS this information
+I WANT TO describe for ii for ii
+AFTER I went into the creation
+
+AS this information
+I WANT TO receive the actual service performance
+
+----
+

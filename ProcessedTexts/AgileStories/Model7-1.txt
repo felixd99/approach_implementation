@@ -1,0 +1,27 @@
+AS the Manager
+I WANT TO check the open leads
+
+----
+
+AS checks
+I WANT TO select the top five ones
+AFTER the Manager checked the open leads
+
+AS checks
+I WANT TO tell checks to call the contact person of the leads
+AFTER I selected the top five ones
+
+----
+
+AS The Sales Assistant
+I WANT TO call each customer
+AFTER checks tell checks to call the contact person of the leads
+
+AS The Sales Assistant
+I WANT TO send a note to the Manager
+	 AND process the lead
+IF someone is interested
+OTHERWISE call the next customer
+
+----
+

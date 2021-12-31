@@ -1,0 +1,23 @@
+AS The SP/PU/GO request changes
+I WANT TO cause a change
+
+----
+
+AS The MPO
+I WANT TO review the change request
+AFTER The SP/PU/GO request changes caused a change
+
+AS The MPO
+I WANT TO EITHER reject the change
+OR confirm the request
+
+AS The MPO
+I WANT TO perform the measuring point change
+AFTER I reviewed the change request
+
+AS The MPO
+I WANT TO EITHER report the implementation
+OR notify the SP/PU
+
+----
+

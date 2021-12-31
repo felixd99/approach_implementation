@@ -1,0 +1,25 @@
+AS The process
+I WANT TO start on the first of each month
+
+----
+
+AS Assembler AG
+I WANT TO send the order to the supplier
+AFTER The process started on the first of each month
+
+AS Assembler AG
+I WANT TO receive the invoice
+AFTER The supplier sent an invoice to Assembler AG
+
+----
+
+AS The supplier
+I WANT TO process the order
+AFTER Assembler AG sent the order to the supplier
+
+AS The supplier
+I WANT TO send an invoice to Assembler AG
+AFTER I processed the order
+
+----
+

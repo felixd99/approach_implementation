@@ -1,0 +1,179 @@
+AS a switch-over request
+I WANT TO initiate The process
+
+AS a switch-over request
+I WANT TO put the question
+AFTER the CIS sent A request
+
+----
+
+AS the customer
+I WANT TO transmit the company to the customer service department
+AFTER a switch-over request initiated The process
+
+AS the customer
+I WANT TO is a shared service center between the departments Sales and Distribution
+AFTER I transmitted the company to the customer service department
+
+AS the customer
+I WANT TO receive The customer data
+AFTER I is a shared service center between the departments Sales and Distribution
+
+AS the customer
+I WANT TO base on this data
+AFTER I received The customer data
+
+AS the customer
+I WANT TO enter a customer data object into the CRM system
+AFTER I based on this data
+
+AS the customer
+I WANT TO compare customer data with the internal customer data base
+WHEN customer data has been entered
+
+AS the customer
+I WANT TO check for completeness
+AFTER I compared customer data with the internal customer data base
+
+AS the customer
+I WANT TO correct these on the basis
+AFTER I checked for completeness
+
+AS the customer
+I WANT TO do The comparison
+AFTER I corrected these on the basis
+
+AS the customer
+I WANT TO prevent individual customer data being stored multiple times
+AFTER I did The comparison
+
+AS the customer
+I WANT TO create a new customer object
+IF the customer does not exist in the customer data base
+
+AS the customer
+I WANT TO have the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm it
+AFTER the grid operator have to interact with the old supplier regarding termination )
+
+AS the customer
+I WANT TO EITHER end Depending acceptance/rejection if withdrawal
+OR continue if a confirmation
+
+----
+
+AS This object
+I WANT TO consist of data elements
+AFTER the customer prevent individual customer data being stored multiple times
+
+AS This object
+I WANT TO use , in combination with other customer data to prepare the contract documents for the power supplier switch ( including data such as bank connection , information on the selected rate , requested date of switch-over ) in combination
+AFTER I consisted of data elements
+
+AS This object
+I WANT TO carry an automated check In following within the CIS (customer information system in order
+AFTER I use , in combination with other customer data to prepare the contract documents for the power supplier switch ( including data such as bank connection , information on the selected rate , requested date of switch-over ) in combination
+
+AS This object
+I WANT TO EITHER are not (
+OR analyze the causing issues
+
+AS This object
+I WANT TO generate the contract documents
+AFTER I carried an automated check In following within the CIS (customer information system in order
+
+AS This object
+I WANT TO send a confirmation document to the customer
+AFTER I generated the contract documents
+
+AS This object
+I WANT TO state that the switch-over to the new supplier can be executed
+AFTER I sent a confirmation document to the customer
+
+----
+
+AS the CIS
+I WANT TO send A request
+AFTER This object state that the switch-over to the new supplier can be executed
+
+----
+
+AS the grid operator
+I WANT TO check The switch-over request
+AFTER a switch-over request put the question
+
+AS the grid operator
+I WANT TO transmit a response comment
+AFTER I checked The switch-over request
+
+AS the grid operator
+I WANT TO inform all involved suppliers
+AFTER I transmitted a response comment
+
+AS the grid operator
+I WANT TO demand the resolution
+AFTER I informed all involved suppliers
+
+AS the grid operator
+I WANT TO communicate with the old supplier
+AFTER I demanded the resolution
+
+AS the grid operator
+I WANT TO carry the termination
+AFTER I communicated with the old supplier
+
+AS the grid operator
+I WANT TO have to interact with the old supplier regarding termination )
+AFTER I carried the termination
+
+AS the grid operator
+I WANT TO create a CIS contract
+IF there are not any objections by the grid operator
+
+AS the grid operator
+I WANT TO transmit the power meter data On the switch-date to the customer service via messages
+AFTER An additional constraint is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues
+
+AS the grid operator
+I WANT TO compute the final billing At the same time
+AFTER I transmitted the power meter data On the switch-date to the customer service via messages
+
+AS the grid operator
+I WANT TO send it to the old supplier
+AFTER I computed the final billing At the same time
+
+----
+
+AS An additional constraint
+I WANT TO is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues
+AFTER the customer have the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm it
+
+AS An additional constraint
+I WANT TO EITHER is therefore not absolutely necessary ( as it will count as accepted after 7 days in any way )
+OR speed the switch process
+
+----
+
+AS the old supplier
+I WANT TO create
+AFTER the grid operator sent it to the old supplier
+
+AS the old supplier
+I WANT TO send the final billing to the customer
+AFTER I created
+
+AS the old supplier
+I WANT TO for the customer
+AFTER I sent the final billing to the customer
+
+AS the old supplier
+I WANT TO after
+AFTER I for the customer
+
+----
+
+AS The process
+I WANT TO end
+AFTER the old supplier after
+
+----
+

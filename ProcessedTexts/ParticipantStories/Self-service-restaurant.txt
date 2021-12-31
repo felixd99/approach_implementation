@@ -1,0 +1,40 @@
+--- A guest ---
+1. enter the restaurant
+2. feel hungry
+3. is enters
+4. inform the employee that As has placed the finished meal in the service hatch
+5. soon
+6. is how the guest finds out that As is ready for collection
+7. pick As
+8. eat react
+9. react to the buzzer to the buzzer
+
+
+--- enters ---
+1. choose a dish
+2. place enters
+
+
+--- The employee ---
+1. enter the order into the POS system
+2. collect the money from the guest
+3. Event: the payment
+4. inform the chef
+5. is aware that the meal is ready the money sets off the guest’s buzzer
+6. hand over his meal
+7. call for him after 5 minutes
+
+
+--- the buzzer ---
+1. ring
+
+
+--- your dinner ---
+1. is ready "
+
+
+--- The chef ---
+1. prepare the meal
+2. place sets in the service hatch
+
+

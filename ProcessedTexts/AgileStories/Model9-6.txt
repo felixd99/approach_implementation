@@ -1,0 +1,91 @@
+AS the Process
+I WANT TO perform a Task
+WHEN the Process starts
+
+AS the Process
+I WANT TO locate
+AFTER I performed a Task
+
+----
+
+AS the design
+I WANT TO start in parallel
+AFTER the Process locate
+
+AS the design
+I WANT TO are inputs to both Activities
+AFTER I started in parallel
+
+AS the design
+I WANT TO restart
+AFTER a successful update interrupted Development
+
+AS the design
+I WANT TO review any existing designs In each department
+AFTER I restarted
+
+AS the design
+I WANT TO result in an Update Plan for the revised design ( i.e. one in Electrical and another in a revised design ) in an Update Plan
+AFTER I reviewed any existing designs In each department
+
+AS the design
+I WANT TO use the Update Plan and the existing Draft of the Electrical/Physical Design
+AFTER I result in an Update Plan for the revised design ( i.e. one in Electrical and another in a revised design ) in an Update Plan
+
+AS the design
+I WANT TO create a revised design
+AFTER I use the Update Plan and the existing Draft of the Electrical/Physical Design
+
+AS the design
+I WANT TO test the revised design
+WHEN completed
+
+AS the design
+I WANT TO send
+IF the design fails the test
+
+AS the design
+I WANT TO review
+AFTER I tested the revised design
+
+AS the design
+I WANT TO tell the other department
+IF the design passes the test
+
+----
+
+AS a successful update
+I WANT TO interrupt Development
+AFTER the design are inputs to both Activities
+
+AS a successful update
+I WANT TO stop all current work
+IF interrupted
+
+----
+
+AS ,
+I WANT TO combine the revised design
+WHEN both of the designs have been revised
+
+AS ,
+I WANT TO test
+AFTER I combined the revised design
+
+AS ,
+I WANT TO send the revised design
+IF the combined design fails the test
+
+AS ,
+I WANT TO initiate another design cycle
+AFTER I tested
+
+AS ,
+I WANT TO deem they
+IF the designs pass the test
+
+AS ,
+I WANT TO send to the manufacturing Process
+
+----
+

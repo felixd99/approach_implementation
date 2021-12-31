@@ -1,0 +1,86 @@
+AS a company
+I WANT TO prepare a registration statement for the approval
+AFTER Established underwriters gave with to it
+
+AS a company
+I WANT TO need to check that the issue complies with the so-called blue-sky laws of each state that regulate sales of securities within the state
+AFTER I prepared a registration statement for the approval
+
+----
+
+AS makes
+I WANT TO is to select the underwriters
+WHEN a company makes the decision to go public
+
+----
+
+AS a new issue
+I WANT TO act as financial midwives to a new issue
+AFTER makes is to select the underwriters
+
+AS a new issue
+I WANT TO buy the issue ,
+AFTER I acted as financial midwives to a new issue
+
+AS a new issue
+I WANT TO resell they to the public
+AFTER I buy the issue ,
+
+----
+
+AS Established underwriters
+I WANT TO are careful of fairly
+AFTER a new issue resold they to the public
+
+AS Established underwriters
+I WANT TO handle a new issue
+AFTER I are careful of fairly
+
+AS Established underwriters
+I WANT TO give with to it
+AFTER fairly believe presented
+
+AS Established underwriters
+I WANT TO fix the issue price
+AFTER found receive clearance from the SEC
+
+----
+
+AS fairly
+I WANT TO believe presented
+AFTER Established underwriters handled a new issue
+
+----
+
+AS the registration statement
+I WANT TO await approval
+AFTER a company need to check that the issue complies with the so-called blue-sky laws of each state that regulate sales of securities within the state
+
+----
+
+AS found
+I WANT TO begin to firm up the issue price
+AFTER the registration statement await approval
+
+AS found
+I WANT TO arrange a road show
+AFTER I begin to firm up the issue price
+
+AS found
+I WANT TO receive clearance from the SEC
+AFTER I arranged a road show
+
+AS found
+I WANT TO enter into a firm commitment
+AFTER Established underwriters fixed the issue price
+
+AS found
+I WANT TO offer any reason to the public
+AFTER I entered into a firm commitment
+
+AS found
+I WANT TO find any reason
+AFTER I offered any reason to the public
+
+----
+

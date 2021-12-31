@@ -1,0 +1,26 @@
+AS I
+I WANT TO report the vacancy
+WHEN I have detected a number of personnel requirements
+
+AS I
+I WANT TO wait to get the job description for review before . is advertized
+AFTER I reported the vacancy
+
+AS I
+I WANT TO ask Under certain circumstances for corrections
+AFTER I wait to get the job description for review before . is advertized
+
+AS I
+I WANT TO approve the job description
+AFTER I asked Under certain circumstances for corrections
+
+AS I
+I WANT TO happen that the colleague from the HR department still has questions about the tasks and requirements before he can describe the job
+AFTER I approved the job description
+
+AS I
+I WANT TO am available for clarifications , of course of course
+AFTER I happen that the colleague from the HR department still has questions about the tasks and requirements before he can describe the job
+
+----
+

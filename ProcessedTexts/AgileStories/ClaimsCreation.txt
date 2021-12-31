@@ -1,0 +1,29 @@
+AS Unknown actor
+I WANT TO search The Police Report within the Police Report database
+
+AS Unknown actor
+I WANT TO put a file with the Claim Documentation
+AFTER I searched The Police Report within the Police Report database
+
+AS Unknown actor
+I WANT TO serve as input to a claims handler
+AFTER I put a file with the Claim Documentation
+
+----
+
+AS the claims handler
+I WANT TO create an Action Plan
+AFTER Unknown actor served as input to a claims handler
+
+----
+
+AS a claims manager
+I WANT TO try to negotiate a settlement on the claim estimate
+AFTER the claims handler created an Action Plan
+
+AS a claims manager
+I WANT TO inform The claimant of the outcome
+AFTER I try to negotiate a settlement on the claim estimate
+
+----
+

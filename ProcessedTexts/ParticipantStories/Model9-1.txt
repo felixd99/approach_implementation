@@ -1,0 +1,28 @@
+--- Unknown actor ---
+1. back the database
+2. check
+3. see whether the Account Defaulters table has new records
+If no new records are found
+	4a) check the CRM system
+If new returns exist
+	5a) register all defaulting accounts
+
+
+--- the process ---
+1. see whether new returns have been filed
+2. send
+3. account management
+4a) complete All
+
+
+--- 2:30 pm ---
+1. send an alert to the supervisor
+2. Event: the new defaulting account report has been completed
+3. check the CRM system
+4. see whether new returns have been filed
+If new returns have been filed
+	5a) reconcile with the existing account defaulters table
+Else
+	5b) send a message
+
+

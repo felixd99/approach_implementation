@@ -1,0 +1,15 @@
+AS The MSPN
+I WANT TO sent a dismissal to the MSPO
+
+----
+
+AS The MSPO
+I WANT TO review the dismissal
+AFTER The MSPN sent a dismissal to the MSPO
+
+AS The MSPO
+I WANT TO EITHER reject the dismissal
+OR confirm the dismissal
+
+----
+

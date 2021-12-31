@@ -1,0 +1,53 @@
+The process: start
+any employee: submit an office supply request
+the immediate supervisor: (the requirement is registered)
+the immediate supervisor: (receive the request)
+the immediate supervisor: approve
+the immediate supervisor: ()
+...
+
+...
+the immediate supervisor: (receive the request)
+the immediate supervisor: ask for a change
+the immediate supervisor: ()
+...
+
+...
+the immediate supervisor: ()
+the request is rejected?
+True
+The process: end
+The process: ()
+...
+
+...
+the immediate supervisor: ()
+the request is rejected?
+False
+The process: ()
+...
+
+...
+The process: ()
+the request is approved?
+True
+the request: go to the purchase department
+the system: (a vendor is selected and confirmed)
+...
+
+...
+The process: ()
+the request is approved?
+False
+the system: (a vendor is selected and confirmed)
+...
+
+...
+the system: (a vendor is selected and confirmed)
+the system: generate
+the system: (send a purchase order)
+the invoice: )
+the invoice: wait
+the invoice: deliver
+the system: (send a notification In any case)
+approval: require the system will send the user a notification In any

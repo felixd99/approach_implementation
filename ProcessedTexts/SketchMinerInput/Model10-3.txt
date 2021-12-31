@@ -1,0 +1,34 @@
+Unknown actor: the MPOO deregister at the GO
+The GO: verify the deregistration
+The GO: reject the deregistration
+The GO: prepare the readmission
+...
+
+...
+The GO: verify the deregistration
+The GO: confirm the deregistration
+The GO: prepare the readmission
+...
+
+...
+The GO: prepare the readmission
+The GO: oblige the MPOO to continue the operations
+the GO binds the MPOO to continue the operation?
+True
+the MPOO: confirm the continuation
+The GO: perform the equipment acquisition and/or equipment changes
+...
+
+...
+The GO: oblige the MPOO to continue the operations
+the GO binds the MPOO to continue the operation?
+False
+The GO: perform the equipment acquisition and/or equipment changes
+...
+
+...
+The GO: perform the equipment acquisition and/or equipment changes
+The GO: assign the GO as MPO
+The GO: inform the MPOO about the end
+The GO: inform the MSPO about the assignment
+The GO: inform the SP about the assignment

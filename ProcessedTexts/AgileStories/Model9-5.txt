@@ -1,0 +1,37 @@
+AS Unknown actor
+I WANT TO create a new account
+WHEN the Expense Report is received
+
+AS Unknown actor
+I WANT TO review The report for automatic approval
+AFTER I created a new account
+
+AS Unknown actor
+I WANT TO EITHER approve Amounts
+OR require approval
+
+----
+
+AS the reimbursement
+I WANT TO direct deposit bank account
+AFTER Unknown actor reviewed The report for automatic approval
+
+AS the reimbursement
+I WANT TO receive an approval
+IF the request is not completed in 7 days
+
+AS the reimbursement
+I WANT TO stop the process
+IF the request is not finished within 30 days
+
+----
+
+AS the employee
+I WANT TO receive an email cancellation notice
+
+AS the employee
+I WANT TO resubmit the expense report
+AFTER I received an email cancellation notice
+
+----
+

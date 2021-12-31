@@ -1,0 +1,26 @@
+AS Unknown actor
+I WANT TO process need
+
+AS Unknown actor
+I WANT TO make sure which are in order for the court hearing that day
+AFTER I processed need
+
+AS Unknown actor
+I WANT TO initiate a search
+IF some files are missing
+OTHERWISE track the files to the intended location
+
+AS Unknown actor
+I WANT TO hand these to the Associate
+WHEN all the files are ready
+
+AS Unknown actor
+I WANT TO meantime the Judges Lawlist is distributed to the relevant people
+AFTER I handed these to the Associate
+
+AS Unknown actor
+I WANT TO conduct the directions hearings
+AFTER I meantime the Judges Lawlist is distributed to the relevant people
+
+----
+

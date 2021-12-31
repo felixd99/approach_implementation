@@ -1,0 +1,30 @@
+AS The loan approval process
+I WANT TO start
+
+AS The loan approval process
+I WANT TO invoke The risk assessment Web service
+AFTER I started
+
+AS The loan approval process
+I WANT TO assess the request
+AFTER I invoked The risk assessment Web service
+
+AS The loan approval process
+I WANT TO approve the loan
+IF the loan is small and the customer is low risk
+
+AS The loan approval process
+I WANT TO deny the loan
+IF the customer is high risk
+
+AS The loan approval process
+I WANT TO send to the approver Web service to the approver Web service
+
+----
+
+AS The customer
+I WANT TO receive feedback from the assessor
+AFTER The loan approval process send to the approver Web service to the approver Web service
+
+----
+

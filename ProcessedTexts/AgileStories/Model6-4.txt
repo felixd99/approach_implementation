@@ -1,0 +1,77 @@
+AS The first step
+I WANT TO is to determine contact details of potential customers
+
+AS The first step
+I WANT TO achieve This in several ways
+AFTER I is to determine contact details of potential customers
+
+AS The first step
+I WANT TO give If if a more technical presentation
+AFTER the head try to acquire the customer
+
+AS The first step
+I WANT TO wait
+AFTER I gave If if a more technical presentation
+
+----
+
+AS our marketing staff
+I WANT TO participate in exhibitions in exhibitions
+AFTER The first step achieved This in several ways
+
+AS our marketing staff
+I WANT TO happen to know somebody , who is interested in the product
+AFTER I participate in exhibitions in exhibitions
+
+AS our marketing staff
+I WANT TO start calling the customer
+AFTER I happen to know somebody , who is interested in the product
+
+----
+
+AS the call center staff
+I WANT TO do That
+AFTER our marketing staff start calling the customer
+
+----
+
+AS determining
+I WANT TO determine the contact person
+AFTER the call center staff did That
+
+AS determining
+I WANT TO is also important
+AFTER I determined the contact person
+
+AS determining
+I WANT TO leave whether
+IF this is not the case
+
+----
+
+AS the head
+I WANT TO try to acquire the customer
+AFTER determining is also important
+
+AS the head
+I WANT TO is a detailed online presentation
+IF the customer is interested in the end
+
+----
+
+AS the customer
+I WANT TO come back to us
+AFTER The first step waited
+
+AS the customer
+I WANT TO call the customer
+IF we are not contacted within 2 weeks
+
+----
+
+AS The last phase
+I WANT TO is the creation of a quotation
+AFTER the customer come back to us
+
+----
+

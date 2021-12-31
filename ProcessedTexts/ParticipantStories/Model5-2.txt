@@ -1,0 +1,17 @@
+--- The process ---
+1. start
+
+
+--- any employee ---
+1. submit a vacation request
+
+
+--- the immediate supervisor ---
+1. Event: the requirement is registered
+2. receive the request
+3a) approve
+3b) reject the request
+If the request is rejected
+	4a) return the application to the applicant
+
+

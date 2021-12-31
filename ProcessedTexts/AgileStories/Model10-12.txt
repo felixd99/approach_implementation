@@ -1,0 +1,21 @@
+AS The EC
+I WANT TO tell the INQ about the change
+
+----
+
+AS The INQ
+I WANT TO notify the IP
+AFTER The EC told the INQ about the change
+
+----
+
+AS The IP
+I WANT TO check whether the master data can be changed at the desired time
+AFTER The INQ notified the IP
+
+AS The IP
+I WANT TO confirm the changes of the INQ or the IP rejects the changes of the INQ
+AFTER I check whether the master data can be changed at the desired time
+
+----
+

@@ -1,0 +1,5 @@
+The process: start on the first of each month
+Assembler AG: (send the order to the supplier)
+The supplier: process the order
+The supplier: (send an invoice to Assembler AG)
+Assembler AG: (receive the invoice)

@@ -1,0 +1,34 @@
+AS I
+I WANT TO create a job description
+WHEN a vacancy is reported to me
+
+AS I
+I WANT TO ask the Department
+IF there is still confusion in the message
+
+AS I
+I WANT TO submit the job description
+AFTER I created a job description
+
+AS I
+I WANT TO wait for the approval
+AFTER I submitted the job description
+
+AS I
+I WANT TO EITHER happen that the department does not approve the job description ,
+OR reject and
+
+AS I
+I WANT TO correct the description
+AFTER I waited for the approval
+
+AS I
+I WANT TO submit But for consideration
+AFTER I corrected the description
+
+AS I
+I WANT TO post the job
+IF the description is finally approved
+
+----
+

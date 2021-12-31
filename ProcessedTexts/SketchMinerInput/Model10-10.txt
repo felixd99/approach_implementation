@@ -1,0 +1,32 @@
+The fault detector: report a failure to the user or user has a suspicion of their own fault
+The user: examine the failure
+The user: reject the failure
+The user: ()
+...
+
+...
+The user: examine the failure
+The user: confirm the failure
+The user: ()
+...
+
+...
+The user: ()
+the user confirms the failure of the fault detector?
+True
+The user: inform the customer
+The user: fix the fault at the measuring device
+...
+
+...
+The user: ()
+the user confirms the failure of the fault detector?
+False
+The user: fix the fault at the measuring device
+...
+
+...
+The user: fix the fault at the measuring device
+The user: share the results
+The user: inform the customer about the resolution
+The user: inform the manager about the resolution

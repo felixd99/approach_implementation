@@ -1,0 +1,57 @@
+Unknown actor: summarise The examination process
+The process: start
+an outpatient physician: examine the female patient
+an outpatient physician: is healthy
+an outpatient physician: in th .
+...
+
+...
+an outpatient physician: examine the female patient
+an outpatient physician: need to undertake an additional examination
+an outpatient physician: in th .
+...
+
+...
+an outpatient physician: in th .
+an outpatient physician: fill the examination form
+an outpatient physician: leave
+an examination and follow-up treatment order: is place In the latter case
+an examination and follow-up treatment order: by the physician
+an outpatient physician: fill a request form
+an examination and follow-up treatment order: beyond informatio
+the request form: include details about the patient
+the request form: request
+the request form: refer to a suitable lab
+the request form: furthermore, the outpatient physicia
+the request form: inform the patient
+an outpatient physician: sign an informed consen
+an outpatient physician: agree to continue with the procedure , a delegate of the physicia
+an outpatient physician: arrange an appointment
+an outpatient physician: responsible
+a nurse: prepare the required examination Before th Before . appointment
+a nurse: then
+ward physician: take the sample
+ward physician: (send the sample to the lab)
+ward physician: indicate
+ward physician: in the request form
+ward physician: conduct the follow-up treatment
+an outpatient physician: validate its state
+an outpatient physician: decide
+an outpatient physician: use the sample for analysis
+an outpatient physician: require a new sample
+...
+
+...
+an outpatient physician: decide
+an outpatient physician: contaminate an
+an outpatient physician: require a new sample
+...
+
+...
+an outpatient physician: require a new sample
+a medical technica: perform the analysis
+a lab physician: validate the results
+a lab physician: finally, a physicia
+a lab physician: make the diagnosis from the outpatient department
+a lab physician: prescribe the therap
+a lab physician: for the patient

@@ -1,0 +1,9 @@
+--- The MPON ---
+1. send the dismissal to the MPOO
+
+
+--- The MPOO ---
+1. review the dismissal
+2. oppose the dismissal of sends or the MPOO confirms the dismissal of the MPON
+
+

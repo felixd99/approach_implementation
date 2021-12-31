@@ -1,0 +1,19 @@
+The SP/PU/GO request changes: cause a change
+the MPO: review the change request
+the MPO: reject the change
+the MPO: perform the measuring point change
+...
+
+...
+the MPO: review the change request
+the MPO: confirm the request
+the MPO: perform the measuring point change
+...
+
+...
+the MPO: perform the measuring point change
+the MPO: report the implementation
+
+...
+the MPO: perform the measuring point change
+the MPO: notify the SP/PU

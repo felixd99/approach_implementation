@@ -1,0 +1,77 @@
+AS a visitor
+I WANT TO want to become a member of Barcelona's ZooClub
+
+AS a visitor
+I WANT TO take the following steps
+AFTER I want to become a member of Barcelona's ZooClub
+
+AS a visitor
+I WANT TO spawn
+
+----
+
+AS the customer
+I WANT TO decide whether . wants an individual or family membership
+AFTER a visitor took the following steps
+
+AS the customer
+I WANT TO prepare .
+IF he wants an individual membership
+
+AS the customer
+I WANT TO prepare the information
+IF he wants a family membership
+
+AS the customer
+I WANT TO give this information to the ZooClub department
+AFTER a visitor spawned
+
+----
+
+AS The ZooClub department
+I WANT TO introduce the visitor's personal data
+AFTER the customer gave this information to the ZooClub department
+
+AS The ZooClub department
+I WANT TO take the payment request to the Billing department
+AFTER I introduced the visitor's personal data
+
+AS The ZooClub department
+I WANT TO forward the visitor's information
+AFTER I took the payment request to the Billing department
+
+AS The ZooClub department
+I WANT TO print the card
+WHEN the payment is confirmed
+
+AS The ZooClub department
+I WANT TO deliver it to the visitor
+AFTER I printed the card
+
+----
+
+AS The billing department
+I WANT TO send the payment request to the bank
+AFTER The ZooClub department forwarded the visitor's information
+
+----
+
+AS The bank
+I WANT TO process the payment information
+AFTER The billing department sent the payment request to the bank
+
+AS The bank
+I WANT TO charge the payment
+
+----
+
+AS the Marketing department
+I WANT TO make a request In the meantime
+AFTER The ZooClub department delivered it to the visitor
+
+AS the Marketing department
+I WANT TO go
+WHEN the visitor receives the card
+
+----
+

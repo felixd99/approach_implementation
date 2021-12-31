@@ -1,0 +1,15 @@
+AS The MPON
+I WANT TO send the dismissal to the MPOO
+
+----
+
+AS The MPOO
+I WANT TO review the dismissal
+AFTER The MPON sent the dismissal to the MPOO
+
+AS The MPOO
+I WANT TO oppose the dismissal of sends or the MPOO confirms the dismissal of the MPON
+AFTER I reviewed the dismissal
+
+----
+

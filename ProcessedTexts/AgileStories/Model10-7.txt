@@ -1,0 +1,31 @@
+AS The MSPN
+I WANT TO register the measurement at the GO
+
+----
+
+AS The GO
+I WANT TO examine the application
+AFTER The MSPN registered the measurement at the GO
+
+AS The GO
+I WANT TO reject the application of the MSPN or the GO confirms the application of the MSPN
+AFTER I examined the application
+
+AS The GO
+I WANT TO assign the MSPN
+AFTER I reject the application of the MSPN or the GO confirms the application of the MSPN
+
+AS The GO
+I WANT TO inform the MSPO about the assignment
+AFTER I assigned the MSPN
+
+AS The GO
+I WANT TO inform the MPO about the assignment
+AFTER I informed the MSPO about the assignment
+
+AS The GO
+I WANT TO inform the SP about the assignment
+AFTER I informed the MPO about the assignment
+
+----
+

@@ -1,0 +1,15 @@
+--- Unknown actor ---
+1. search The Police Report within the Police Report database
+2. put a file with the Claim Documentation
+3. serve as input to a claims handler
+
+
+--- the claims handler ---
+1. create an Action Plan
+
+
+--- a claims manager ---
+1. try to negotiate a settlement on the claim estimate
+2. inform The claimant of the outcome
+
+

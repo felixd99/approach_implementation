@@ -1,0 +1,23 @@
+AS The MPON
+I WANT TO request a device takeover bid
+
+AS The MPON
+I WANT TO place an order
+AFTER The MPOO sent a tender to the MPON
+
+----
+
+AS The MPOO
+I WANT TO send a tender to the MPON
+AFTER The MPON requested a device takeover bid
+
+AS The MPOO
+I WANT TO confirm the order
+AFTER The MPON placed an order
+
+AS The MPOO
+I WANT TO send the master data
+AFTER I confirmed the order
+
+----
+

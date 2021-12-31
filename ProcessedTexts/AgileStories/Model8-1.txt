@@ -1,0 +1,23 @@
+AS the demand
+I WANT TO trigger The process
+
+AS the demand
+I WANT TO fill a post
+AFTER I triggered The process
+
+AS the demand
+I WANT TO advertise checked
+AFTER I fill a post
+
+----
+
+AS The process
+I WANT TO finish through the conclusion
+AFTER the demand advertise checked
+
+AS The process
+I WANT TO fill
+AFTER I finished through the conclusion
+
+----
+

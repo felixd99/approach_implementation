@@ -1,0 +1,39 @@
+AS The MPON
+I WANT TO notify the MPOO about equipment change intentions
+
+AS The MPON
+I WANT TO EITHER announce dismounting
+OR notify the MPON about no self-dismounting
+
+AS The MPON
+I WANT TO perform the final reading
+AFTER I notified the MPOO about equipment change intentions
+
+AS The MPON
+I WANT TO dismount the old equipment
+AFTER I performed the final reading
+
+AS The MPON
+I WANT TO mount the new device
+AFTER I dismounted the old equipment
+
+AS The MPON
+I WANT TO read the meter count
+AFTER I mounted the new device
+
+AS The MPON
+I WANT TO send the values
+AFTER I read the meter count
+
+AS The MPON
+I WANT TO tell the GO about the device changes , the master data and the meter count at installation about the device changes
+AFTER I sent the values
+
+----
+
+AS The GO
+I WANT TO notify the MSP about the device changes
+AFTER The MPON tell the GO about the device changes , the master data and the meter count at installation about the device changes
+
+----
+

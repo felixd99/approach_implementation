@@ -1,0 +1,18 @@
+--- I ---
+1. get information
+2. check that case
+If the possibility is really there
+	3a) send a request
+4. make reminder
+If recourse is not possible
+	5a) close the case
+6. Event: we receive the money
+7. make a booking
+8. close the case
+If the insurant disagrees with the recourse
+	9a) have to check the reasoning of that
+If he is right
+	10a) close the case
+11. forward the case to the collection agency as well to the collection agency
+
+

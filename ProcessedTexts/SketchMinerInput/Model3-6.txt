@@ -1,0 +1,36 @@
+(a claim is received)
+check whether the claimant is insured by the organization
+not?
+True
+inform that the claim must be rejected
+(send relevant forms to the claimant)
+...
+
+...
+check whether the claimant is insured by the organization
+not?
+False
+evaluate the severity
+(send relevant forms to the claimant)
+...
+
+...
+(send relevant forms to the claimant)
+(the forms are returned)
+check the forms for completeness
+the forms provide all relevant details?
+True
+register the claim in the Claims Management system
+check the forms Upon reception
+...
+
+...
+check the forms for completeness
+the forms provide all relevant details?
+False
+inform to update the forms
+check the forms Upon reception
+...
+
+...
+check the forms Upon reception

@@ -1,0 +1,90 @@
+--- the customer ---
+1. perceive that that has degraded At the beginning
+2. send A list to the Customer Service department
+3. base on the outcome
+4. create a trouble report
+5. check whether there are any possible problems
+If no problems are detected
+	6a) create a notification
+7. create
+8a) either trouble report
+8b) include the normal execution notification in a status report
+9. send out
+10. report to Billing & Collections who will adjust the billing to Billing & Collections
+11. send The report to her
+12. complete the process ends within Customer Service
+13. Event: the customer then receives the report about service performance and problem resolution from Customer Service
+
+
+--- an employee ---
+1. enter a problem report At the customer service
+2. compare the problem report to the customer SLA
+3. identify what the extent and the details of the service degradation are
+4. determine the necessary counter measures including their respective priorities
+
+
+--- An electronic service ---
+1. determine the significance
+If the customer is premium
+	2a) link to an extra problem fix process
+If the customer is of certain significance which would affect the counter measures previously decided upon
+	3a) go
+
+
+--- the process ---
+1. reprioritize these measures
+2. continue
+3. reprioritize these measures
+4. continue
+5. take together the information ( i.e. contract commitment data + prioritized actions )
+6. create a detailed problem report
+7. send The detailed problem report to Service Management
+8. end
+If that automatic resource restoration from Resource Provisioning is required
+	9a.1 create a request
+	9a.2 happen within 2 days
+	9a.3 wait for a restoration request
+	9a.4 been on - hold on hold
+	9a.5 send This message to Resource Provisioning
+Else
+	9b) terminate the process
+10. end
+11. end
+
+
+--- Service Management ---
+1. deal on a first level
+2. investigate whether the problem is analyzable at the level of . or whether the problem may be located at Resource Provisioning
+If Service Management assesses the problem to be not analyzable by themselves
+	3a) send the detailed problem report to Resource Provisioning
+If Service Management is sure they can analyze it
+	4a) perform the analysis
+5. prepare the final status report
+6. create the problem resolution report
+7. send to Customer Service
+8. receive The trouble-shooting report
+
+
+--- Resource Provisioning ---
+1. Event: Resource Provisioning receives the detailed problem report
+2. Event: the restoration request is received
+3. track all possible errors
+4. undertake all necessary corrective actions
+5. create a trouble-shooting report
+
+
+--- happen ---
+1. have to be determined what counter measures should be taken depending on the information in the final status report
+2. take Three alternative process paths
+If that no problem was detected at all
+	3a) send the actual service performance
+If that minor corrective actions are required
+	4a) undertake corrective actions by themselves
+
+
+--- this information ---
+1. go into the creation
+2. describe for ii for ii
+3a) receive the actual service performance
+
+

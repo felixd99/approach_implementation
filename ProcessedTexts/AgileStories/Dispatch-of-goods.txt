@@ -1,0 +1,41 @@
+AS the secretary
+I WANT TO clarify who will do the shipping
+
+AS the secretary
+I WANT TO be necessary
+IF you have large amounts
+
+AS the secretary
+I WANT TO invite three logistic companies In these cases
+AFTER I clarify who will do the shipping
+
+AS the secretary
+I WANT TO make offers
+AFTER I invited three logistic companies In these cases
+
+AS the secretary
+I WANT TO write a package label
+AFTER clarifies used normal post shipment small amounts
+
+----
+
+AS clarifies
+I WANT TO select one
+AFTER the secretary make offers
+
+AS clarifies
+I WANT TO use normal post shipment small amounts
+AFTER I selected one
+
+----
+
+AS the warehousemen
+I WANT TO package the goods In the meantime
+AFTER the secretary wrote a package label
+
+AS the warehousemen
+I WANT TO prepare the packaged goods
+IF everything is ready
+
+----
+

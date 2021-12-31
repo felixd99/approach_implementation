@@ -1,0 +1,17 @@
+Unknown actor: the MSPO deregister at the GO
+The GO: verify the deregistration
+The GO: reject the deregistration
+The GO: assign The GO as MSP
+...
+
+...
+The GO: verify the deregistration
+The GO: confirm the deregistration
+The GO: assign The GO as MSP
+...
+
+...
+The GO: assign The GO as MSP
+The GO: inform the MSPO about the end
+The GO: inform the MPO about the assignment
+The GO: inform the SP about the assignment

@@ -1,0 +1,13 @@
+--- The EC ---
+1. tell the INQ about the change
+
+
+--- The INQ ---
+1. notify the IP
+
+
+--- The IP ---
+1. check whether the master data can be changed at the desired time
+2. confirm the changes of the INQ or the IP rejects the changes of the INQ
+
+

@@ -1,0 +1,21 @@
+process need
+make sure the files are in order for the court hearing that day
+some files are missing?
+True
+initiate a search
+(all the files are ready)
+...
+
+...
+make sure the files are in order for the court hearing that day
+some files are missing?
+False
+track the files to the intended location
+(all the files are ready)
+...
+
+...
+(all the files are ready)
+hand these to the Associate
+meantime the Judges Lawlist is distributed to the relevant people
+conduct the directions hearings

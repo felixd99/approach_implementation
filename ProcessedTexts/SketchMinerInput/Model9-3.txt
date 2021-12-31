@@ -1,0 +1,7 @@
+the Coordination Unit: draft a schedule In November of each year
+the Coordination Unit: add draft dates
+The Support Officer: check the dates
+The Support Officer: suggest modifications
+the Coordination Unit: recheck all dates
+the Coordination Unit: look for potential conflicts
+email: (send The final schedule to all the independent Committee Members)

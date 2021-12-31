@@ -1,0 +1,17 @@
+AS it
+I WANT TO is sometimes necessary to send a questionnaire to the claimant to gather additional information In the context
+
+AS it
+I WANT TO expect to return the questionnaire within five days
+AFTER I is sometimes necessary to send a questionnaire to the claimant to gather additional information In the context
+
+AS it
+I WANT TO send a reminder to the claimant
+IF no response is received after five days
+
+AS it
+I WANT TO send another reminder
+IF after another five days there is still no response
+
+----
+

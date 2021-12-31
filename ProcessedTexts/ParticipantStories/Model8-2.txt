@@ -1,0 +1,15 @@
+--- I ---
+1. Event: a vacancy is reported to me
+2. create a job description
+If there is still confusion in the message
+	3a) ask the Department
+4. submit the job description
+5. wait for the approval
+6a) happen that the department does not approve the job description ,
+6b) reject and
+7. correct the description
+8. submit But for consideration
+If the description is finally approved
+	9a) post the job
+
+

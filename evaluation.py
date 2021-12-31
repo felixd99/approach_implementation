@@ -37,7 +37,7 @@ def get_stats():
         for action in actions:
             all_objects = all_objects + (1 if action.direct_object else 0)
             all_objects += len(action.indirect_objects)
-            conjunctions += len(action.action_token.conjuncts)
+            conjunctions += len(action.verb.conjuncts)
             if action.condition:
                 conditions = conditions + 1
                 all_actions = all_actions + len(action.condition.left_actions)

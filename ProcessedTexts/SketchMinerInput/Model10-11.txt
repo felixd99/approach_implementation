@@ -1,0 +1,7 @@
+The GO: request the measurements
+the MSP: check the received request
+the MSP: deny the request of The GO or the MSP performs the measurement
+the MSP: inform The GO transmits
+the MSP: process the measured values
+The GO: (send the changed values to the MSP)
+The GO: transmit the readings to the SP

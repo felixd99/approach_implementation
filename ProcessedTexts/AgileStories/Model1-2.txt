@@ -1,0 +1,39 @@
+AS A customer
+I WANT TO bring a defective computer
+
+----
+
+AS the CRS
+I WANT TO check the defect
+AFTER A customer brought a defective computer
+
+AS the CRS
+I WANT TO hand a repair cost calculation
+AFTER I checked the defect
+
+AS the CRS
+I WANT TO continue
+IF the customer decides that the costs are acceptable
+OTHERWISE take brings unrepaired
+
+----
+
+AS The ongoing repair
+I WANT TO consist of two activities in an arbitrary order
+AFTER the CRS handed a repair cost calculation
+
+AS The ongoing repair
+I WANT TO is to check and repair the hardware , whereas the second activity checks and configures the software
+AFTER I consisted of two activities in an arbitrary order
+
+AS The ongoing repair
+I WANT TO test the proper system functionality
+AFTER I is to check and repair the hardware , whereas the second activity checks and configures the software
+
+AS The ongoing repair
+I WANT TO execute another arbitrary repair activity
+IF an error is detected
+OTHERWISE finish the repair
+
+----
+

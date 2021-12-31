@@ -1,0 +1,23 @@
+--- Unknown actor ---
+1. Event: the Expense Report is received
+2. create a new account
+3. review The report for automatic approval
+4a) approve Amounts
+4a) receive a rejection notice If rejection
+4b) require approval
+4b) go to the employees
+
+
+--- the reimbursement ---
+1. direct deposit bank account
+If the request is not completed in 7 days
+	2a) receive an approval
+If the request is not finished within 30 days
+	3a) stop the process
+
+
+--- the employee ---
+1. receive an email cancellation notice
+2. resubmit the expense report
+
+

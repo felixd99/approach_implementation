@@ -16,7 +16,7 @@ def build_action_name(action, for_sketch_miner, for_participant_stories, doc):
             action_name = 'Event: ' + action.event_text
     else:
         # Print special events in sketch miner
-        if for_sketch_miner and action.action_token.lemma_ in special_event_indicators:
+        if for_sketch_miner and action.verb.lemma_ in special_event_indicators:
             action_name = build_sketch_miner_event_name(action, doc)
         else:
             # Print special tokens (e.g. xcomp, ccomp or "to be" sentence)
@@ -28,19 +28,19 @@ def build_action_name(action, for_sketch_miner, for_participant_stories, doc):
                 # If we have participant story, we need to print the verb in past
                 # tense
                 if for_participant_stories:
-                    action_name = action.action_token._.inflect("VBD")
+                    action_name = action.verb._.inflect("VBD")
                     # If inflection is not possible, use the lemma
-                    action_name = action.action_token.lemma_ \
+                    action_name = action.verb.lemma_ \
                         if action_name is None else action_name
                 else:
-                    action_name = action.action_token.lemma_
+                    action_name = action.verb.lemma_
                 action_name += ' ' + action.direct_object.text \
                     if action.direct_object else ''
 
     if not action.event_text:
         action_name += get_indirect_objects(action)
 
-    if (action.event_text or action.action_token.lemma_ in special_event_indicators) \
+    if (action.event_text or action.verb.lemma_ in special_event_indicators) \
         and for_sketch_miner:
         action_name += ')'
 
@@ -58,7 +58,7 @@ def get_indirect_objects(action):
             continue
 
         # Skip objects that indicate the passive actor
-        if action.action_token.tag_ == 'VBN' and \
+        if action.verb.tag_ == 'VBN' and \
             (indirect_object.head.dep_ == 'agent' or
              indirect_object.head.text == 'by'):
             continue
@@ -80,13 +80,13 @@ def build_sketch_miner_event_name(action, doc):
     # Set subject as direct_object if it's a form of 'be'
     # (e.g. "Once all files are ready"), otherwise use the direct object
     direct_object = None
-    if action.action_token.lemma_ == 'be':
+    if action.verb.lemma_ == 'be':
         direct_object = action.actor
     elif action.direct_object:
         direct_object = action.direct_object
 
-        if action.action_token.lemma_ in special_event_indicators:
-            action_name = '(' + action.action_token.lemma_
+        if action.verb.lemma_ in special_event_indicators:
+            action_name = '(' + action.verb.lemma_
             action_name += ' ' + direct_object.text
         else:
             action_name = '(' + direct_object.text
@@ -100,13 +100,13 @@ def build_sketch_miner_event_name(action, doc):
 def get_special_action_tokens(action, doc):
     action_name = None
     comp_child_token = nlp_utils.get_xcomp_ccomp_in_children(action)
-    has_multiple_dobjs = nlp_utils.has_mulitple_direct_objects(action.action_token)
-    if action.action_token.lemma_ == 'be' or action.action_token.dep_ == 'advcl' \
+    has_multiple_dobjs = nlp_utils.has_mulitple_direct_objects(action.verb)
+    if action.verb.lemma_ == 'be' or action.verb.dep_ == 'advcl' \
         or comp_child_token is not None or has_multiple_dobjs:
 
-        action_name = action.action_token.text \
-            if action.action_token.lemma_ == 'be' else action.action_token.lemma_
-        subclause = get_subclause(action.action_token, doc)
+        action_name = action.verb.text \
+            if action.verb.lemma_ == 'be' else action.verb.lemma_
+        subclause = get_subclause(action.verb, doc)
 
         for token_right in subclause:
             action_name += ' ' + utils.resolve_coreferences(token_right, doc).text

@@ -1,0 +1,206 @@
+AS the family doctor
+I WANT TO do This notice
+AFTER The intake workflow started with a notice
+
+AS the family doctor
+I WANT TO act as the second intaker
+AFTER the team-leader assigned Each patient to a social-medical worker
+
+AS the family doctor
+I WANT TO is also determined whether the medical file of the patient is required For each new assignment
+AFTER the team-leader recorded The assignments on an assignment list
+
+AS the family doctor
+I WANT TO add This information to the assignment list
+AFTER I is also determined whether the medical file of the patient is required For each new assignment
+
+AS the family doctor
+I WANT TO the secretarial office store
+AFTER I added This information to the assignment list
+
+AS the family doctor
+I WANT TO pass the produced registration cards to the first and second intaker
+AFTER I the secretarial office store
+
+----
+
+AS The secretarial worker
+I WANT TO inquire after the name
+AFTER the family doctor did This notice
+
+AS The secretarial worker
+I WANT TO put the doctor On the basis to the nursing officer
+AFTER I inquired after the name
+
+----
+
+AS The nursing officer
+I WANT TO make a full inquiry
+AFTER The secretarial worker put the doctor On the basis to the nursing officer
+
+AS The nursing officer
+I WANT TO record This information on a registration form
+AFTER I made a full inquiry
+
+AS The nursing officer
+I WANT TO hand this form At the end at the secretarial office
+AFTER I recorded This information on a registration form
+
+AS The nursing officer
+I WANT TO store the information in the information system
+AFTER I handed this form At the end at the secretarial office
+
+AS The nursing officer
+I WANT TO print
+AFTER I stored the information in the information system
+
+AS The nursing officer
+I WANT TO create a patient file For new patients
+AFTER I printed
+
+AS The nursing officer
+I WANT TO store The registration form in the patient file
+AFTER I created a patient file For new patients
+
+AS The nursing officer
+I WANT TO keep Patient files at the secretarial office
+AFTER I stored The registration form in the patient file
+
+AS The nursing officer
+I WANT TO leave the building
+AFTER I kept Patient files at the secretarial office
+
+AS The nursing officer
+I WANT TO produce two registration cards At the secretarial office for the future first and second intaker
+AFTER I left the building
+
+----
+
+AS The registration card
+I WANT TO contain a set
+AFTER The nursing officer produced two registration cards At the secretarial office for the future first and second intaker
+
+AS The registration card
+I WANT TO add The new patient on the list
+AFTER I contained a set
+
+----
+
+AS a staff meeting
+I WANT TO take place at Wednesday
+AFTER The registration card added The new patient on the list
+
+----
+
+AS The medical team
+I WANT TO consist of social-medical workers
+AFTER a staff meeting took place at Wednesday
+
+----
+
+AS the team-leader
+I WANT TO assign all new patients At this meeting on the list to members
+AFTER The medical team consisted of social-medical workers
+
+AS the team-leader
+I WANT TO assign Each patient to a social-medical worker
+AFTER I assigned all new patients At this meeting on the list to members
+
+AS the team-leader
+I WANT TO take requesting into account
+AFTER the family doctor acted as the second intaker
+
+AS the team-leader
+I WANT TO record The assignments on an assignment list
+AFTER I took requesting into account
+
+----
+
+AS An intaker
+I WANT TO keep this registration with him at times
+AFTER the family doctor passed the produced registration cards to the first and second intaker
+
+AS An intaker
+I WANT TO plan a meeting
+AFTER the secretarial office added the copy to the patient file
+
+AS An intaker
+I WANT TO examine the patient During the first meeting
+AFTER I planned a meeting
+
+AS An intaker
+I WANT TO use a standard checklist which is filled out
+AFTER I examined the patient During the first meeting
+
+AS An intaker
+I WANT TO register Additional observations in a personal notebook
+AFTER I use a standard checklist which is filled out
+
+AS An intaker
+I WANT TO put a copy After a visit in the file
+AFTER I registered Additional observations in a personal notebook
+
+AS An intaker
+I WANT TO add The standard checklist to the patient's file
+AFTER I put a copy After a visit in the file
+
+AS An intaker
+I WANT TO plan the first meeting
+AFTER I added The standard checklist to the patient's file
+
+AS An intaker
+I WANT TO formulate a treatment plan
+AFTER the secretarial office provided the team-leader For the staff meeting
+
+----
+
+AS the secretarial office
+I WANT TO is at the office at the office
+AFTER An intaker kept this registration with him at times
+
+AS the secretarial office
+I WANT TO prepare For each patient
+AFTER I is at the office at the office
+
+AS the secretarial office
+I WANT TO send a letter to the family doctor
+AFTER I prepared For each patient
+
+AS the secretarial office
+I WANT TO request for for a copy
+AFTER I sent a letter to the family doctor
+
+AS the secretarial office
+I WANT TO inform the second intaker
+AFTER I request for for a copy
+
+AS the secretarial office
+I WANT TO add the copy to the patient file
+AFTER I informed the second intaker
+
+AS the secretarial office
+I WANT TO put the patient on the list
+AFTER Physicians the secretarial office type out these tapes
+
+AS the secretarial office
+I WANT TO provide the team-leader For the staff meeting
+AFTER I put the patient on the list
+
+----
+
+AS Physicians
+I WANT TO use dictaphones to record their observations made during meetings with patients
+AFTER An intaker planned the first meeting
+
+AS Physicians
+I WANT TO the secretarial office type out these tapes
+AFTER I use dictaphones to record their observations made during meetings with patients
+
+----
+
+AS This treatment plan
+I WANT TO end the intake procedure
+AFTER An intaker formulated a treatment plan
+
+----
+

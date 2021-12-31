@@ -1,0 +1,40 @@
+AS I
+I WANT TO get information
+
+AS I
+I WANT TO check that case
+AFTER I got information
+
+AS I
+I WANT TO send a request
+IF the possibility is really there
+
+AS I
+I WANT TO make reminder
+AFTER I checked that case
+
+AS I
+I WANT TO close the case
+IF recourse is not possible
+
+AS I
+I WANT TO make a booking
+WHEN we receive the money
+
+AS I
+I WANT TO close the case
+AFTER I made a booking
+
+AS I
+I WANT TO have to check the reasoning of that
+IF the insurant disagrees with the recourse
+
+AS I
+I WANT TO close the case
+IF he is right
+
+AS I
+I WANT TO forward the case to the collection agency as well to the collection agency
+
+----
+

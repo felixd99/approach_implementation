@@ -1,0 +1,182 @@
+the customer: perceive that her subscribed service has degraded At the beginning
+the customer: (send A list to the Customer Service department)
+an employee: enter a problem report At the customer service
+an employee: compare the problem report to the customer SLA
+an employee: identify what the extent and the details of the service degradation are
+an employee: determine the necessary counter measures including their respective priorities
+An electronic service: determine the significance
+the customer is premium?
+True
+the process: link to an extra problem fix process
+An electronic service: ()
+...
+
+...
+An electronic service: determine the significance
+the customer is premium?
+False
+An electronic service: ()
+...
+
+...
+An electronic service: ()
+the customer is of certain significance which would affect the counter measures previously decided upon?
+True
+the process: go
+the process: reprioritize these measures
+...
+
+...
+An electronic service: ()
+the customer is of certain significance which would affect the counter measures previously decided upon?
+False
+the process: reprioritize these measures
+...
+
+...
+the process: reprioritize these measures
+the process: continue
+the process: reprioritize these measures
+the process: continue
+the process: take together the information ( i.e. contract commitment data + prioritized actions )
+the process: create a detailed problem report
+the process: (send The detailed problem report to Service Management)
+Service Management: deal on a first level
+Service Management: investigate whether the problem is analyzable at the level of their department or whether the problem may be located at Resource Provisioning
+Service Management assesses the problem to be not analyzable by themselves?
+True
+Service Management: (send the detailed problem report to Resource Provisioning)
+Service Management: ()
+...
+
+...
+Service Management: investigate whether the problem is analyzable at the level of their department or whether the problem may be located at Resource Provisioning
+Service Management assesses the problem to be not analyzable by themselves?
+False
+Service Management: ()
+...
+
+...
+Service Management: ()
+Service Management is sure they can analyze it?
+True
+the customer: perform the analysis
+the customer: base on the outcome
+...
+
+...
+Service Management: ()
+Service Management is sure they can analyze it?
+False
+the customer: base on the outcome
+...
+
+...
+the customer: base on the outcome
+the customer: create a trouble report
+Resource Provisioning: (Resource Provisioning receives the detailed problem report)
+the customer: check whether there are any possible problems
+no problems are detected?
+True
+the customer: create a notification
+the customer: create
+...
+
+...
+the customer: check whether there are any possible problems
+no problems are detected?
+False
+the customer: create
+...
+
+...
+the customer: create
+the customer: either trouble report
+Service Management: prepare the final status report
+...
+
+...
+the customer: create
+the customer: include the normal execution notification in a status report
+Service Management: prepare the final status report
+...
+
+...
+Service Management: prepare the final status report
+Service Management: have to be determined what counter measures should be taken depending on the information in the final status report
+Service Management: take Three alternative process paths
+that no problem was detected at all?
+True
+Service Management: (send the actual service performance)
+Service Management: ()
+...
+
+...
+Service Management: take Three alternative process paths
+that no problem was detected at all?
+False
+Service Management: ()
+...
+
+...
+Service Management: ()
+that minor corrective actions are required?
+True
+Service Management: undertake corrective actions by themselves
+Service Management: create the problem resolution report
+...
+
+...
+Service Management: ()
+that minor corrective actions are required?
+False
+Service Management: create the problem resolution report
+...
+
+...
+Service Management: create the problem resolution report
+Service Management:  to Customer Service)
+the process: end
+that automatic resource restoration from Resource Provisioning is required?
+True
+Service Management: create a request
+the customer: happen within 2 days
+Resource Provisioning: wait for a restoration request
+Resource Provisioning: been on - hold on hold
+Service Management: (send This message to Resource Provisioning)
+the customer: (send the status report)
+...
+
+...
+the process: end
+that automatic resource restoration from Resource Provisioning is required?
+False
+Resource Provisioning: terminate the process
+the customer: (send the status report)
+...
+
+...
+the customer: (send the status report)
+Resource Provisioning: (the restoration request is received)
+Resource Provisioning: track all possible errors
+Resource Provisioning: undertake all necessary corrective actions
+Resource Provisioning: create a trouble-shooting report
+the process: end (2)
+Service Management: (receive The trouble-shooting report)
+this information: go into the creation
+this information: describe for ii for ii
+the customer: (receive the actual service performance)
+the customer: report to Billing & Collections who will adjust the billing to Billing & Collections
+...
+
+...
+this information: describe for ii for ii
+the customer: report to Billing & Collections who will adjust the billing to Billing & Collections
+...
+
+...
+the customer: report to Billing & Collections who will adjust the billing to Billing & Collections
+the customer: (send The report to her)
+the customer: complete the process ends within Customer Service
+the customer: (the customer then receives the report about service performance and problem resolution from Customer Service)
+the process: end (3)

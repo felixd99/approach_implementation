@@ -1,0 +1,22 @@
+A guest: enter the restaurant
+A guest: feel hungry
+A guest: choose a dish
+a dish: is his turn
+A guest: place his order
+The employee: enter the order into the POS system
+The employee: collect the money from the guest
+The employee: (the payment)
+the buzzer: ring
+your dinner: is ready "
+The employee: inform the chef
+The chef: prepare the meal
+The chef: place the meal in the service hatch
+The chef: inform the employee that He has placed the finished meal in the service hatch
+The chef: soon
+The employee: is aware that the meal is ready He sets off the guest’s buzzer
+A guest: is how the guest finds out that his meal is ready for collection
+A guest: pick his meal
+A guest: eat his meal
+The employee: hand over his meal
+A guest: react to the buzzer to the buzzer
+The employee: call for him after 5 minutes

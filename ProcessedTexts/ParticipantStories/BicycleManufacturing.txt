@@ -1,0 +1,31 @@
+--- A small company ---
+1. manufacture customized bicycles
+2. create a new process instance
+3a) reject
+3b) accept the order
+4. finish the process instance In the former case
+5. inform the storehouse In the latter case
+
+
+--- the sales department ---
+1. Event: the sales department receives an order
+2. ship the bicycle to the customer
+3. finish the process instance
+
+
+--- The storehouse ---
+1. process the part list
+2. check the required quantity
+If the part is available in
+	3a) reserve it
+If it is not available
+	4a) backordere it
+5. repeat This procedure for each item on the part list
+
+
+--- the engineering department ---
+1. prepare everything In the meantime for the assembling
+If the storehouse has successfully reserved or backordered every item of the part list and the preparation activity has finished
+	2a) assemble the bicycle
+
+

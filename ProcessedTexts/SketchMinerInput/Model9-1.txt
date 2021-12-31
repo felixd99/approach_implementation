@@ -1,0 +1,58 @@
+Unknown actor: back the database
+Unknown actor: check
+Unknown actor: see whether the Account Defaulters table has new records
+no new records are found?
+True
+the process: check the CRM system
+the process: see whether new returns have been filed
+...
+
+...
+Unknown actor: see whether the Account Defaulters table has new records
+no new records are found?
+False
+the process: see whether new returns have been filed
+...
+
+...
+the process: see whether new returns have been filed
+Unknown actor: ()
+new returns exist?
+True
+the process: register all defaulting accounts
+the process: )
+...
+
+...
+Unknown actor: ()
+new returns exist?
+False
+the process: )
+...
+
+...
+the process: )
+the process: account management
+2:30 pm: complete All
+2:30 pm: (send an alert to the supervisor)
+...
+
+...
+the process: account management
+2:30 pm: (send an alert to the supervisor)
+...
+
+...
+2:30 pm: (send an alert to the supervisor)
+2:30 pm: (the new defaulting account report has been completed)
+2:30 pm: check the CRM system
+2:30 pm: see whether new returns have been filed
+new returns have been filed?
+True
+2:30 pm: reconcile with the existing account defaulters table
+
+...
+2:30 pm: see whether new returns have been filed
+new returns have been filed?
+False
+2:30 pm: (send a message)

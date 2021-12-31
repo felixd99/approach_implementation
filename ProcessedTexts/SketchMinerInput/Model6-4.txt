@@ -1,0 +1,55 @@
+The first step: is to determine contact details of potential customers
+The first step: achieve This in several ways
+our marketing staff: participate in exhibitions in exhibitions
+our marketing staff: happen to know somebody , who is interested in the product
+our marketing staff: start calling the customer
+the call center staff: do That
+exhibitions: determine the contact person
+exhibitions: is also important
+this is not the case?
+True
+exhibitions: leave somebody
+the head: try to acquire the customer
+...
+
+...
+exhibitions: is also important
+this is not the case?
+False
+the head: try to acquire the customer
+...
+
+...
+the head: try to acquire the customer
+the customer is interested in the end?
+True
+The first step: is a detailed online presentation
+The first step: give the customer if a more technical presentation
+...
+
+...
+the head: try to acquire the customer
+the customer is interested in the end?
+False
+The first step: give the customer if a more technical presentation
+...
+
+...
+The first step: give the customer if a more technical presentation
+The first step: wait
+the customer: come back to us
+we are not contacted within 2 weeks?
+True
+a sales representative: call the customer
+The last phase: is the creation of a quotation
+...
+
+...
+the customer: come back to us
+we are not contacted within 2 weeks?
+False
+The last phase: is the creation of a quotation
+...
+
+...
+The last phase: is the creation of a quotation

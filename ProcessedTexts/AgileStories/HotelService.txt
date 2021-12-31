@@ -1,0 +1,75 @@
+AS The Evanstonian
+I WANT TO is an upscale independent hotel
+
+----
+
+AS a guest
+I WANT TO call room service at The Evanstonian
+AFTER The Evanstonian is an upscale independent hotel
+
+----
+
+AS  
+I WANT TO take the order
+AFTER a guest called room service at The Evanstonian
+
+----
+
+AS ,
+I WANT TO submit an order ticket
+AFTER   took the order
+
+AS ,
+I WANT TO begin preparing the food
+AFTER I submitted an order ticket
+
+AS ,
+I WANT TO give an orde
+AFTER I begin preparing the food
+
+----
+
+AS Eighty percent
+I WANT TO include wine
+AFTER , gave an orde
+
+----
+
+AS wine
+I WANT TO assign the order
+AFTER Eighty percent included wine
+
+----
+
+AS the kitchen
+I WANT TO do the guests room
+AFTER wine assigned the order
+
+----
+
+AS the waiter
+I WANT TO ready a cart
+AFTER the kitchen do the guests room
+
+AS the waiter
+I WANT TO is also responsible for non-alcoholic drinks
+AFTER I readied a cart
+
+AS the waiter
+I WANT TO deliver it to the guests room
+AFTER I is also responsible for non-alcoholic drinks
+
+AS the waiter
+I WANT TO debit the guest
+AFTER I delivered it to the guests room
+
+AS the waiter
+I WANT TO account
+AFTER I debited the guest
+
+AS the waiter
+I WANT TO wait to do the billing
+IF he has another order to prepare or deliver
+
+----
+

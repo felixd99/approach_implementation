@@ -1,0 +1,15 @@
+AS The INQ
+I WANT TO transmit the transaction data request to the IP
+
+----
+
+AS The IP
+I WANT TO check the request
+AFTER The INQ transmitted the transaction data request to the IP
+
+AS The IP
+I WANT TO answer the question
+AFTER I checked the request
+
+----
+

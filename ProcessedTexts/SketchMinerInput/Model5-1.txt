@@ -1,0 +1,34 @@
+The loan approval process: start
+The loan approval process: invoke The risk assessment Web service
+The loan approval process: assess the request
+the loan is small and the customer is low risk?
+True
+The loan approval process: approve the loan
+The loan approval process: ()
+...
+
+...
+The loan approval process: assess the request
+the loan is small and the customer is low risk?
+False
+The loan approval process: ()
+...
+
+...
+The loan approval process: ()
+the customer is high risk?
+True
+The loan approval process: deny the loan
+The loan approval process: (send the request to the approver Web service)
+...
+
+...
+The loan approval process: ()
+the customer is high risk?
+False
+The loan approval process: (send the request to the approver Web service)
+...
+
+...
+The loan approval process: (send the request to the approver Web service)
+The customer: (receive feedback from the assessor)

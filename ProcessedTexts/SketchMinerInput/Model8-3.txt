@@ -1,0 +1,7 @@
+I: (I have detected a number of personnel requirements)
+I: report the vacancy
+I: wait to get the job description for review before the job description is advertized
+I: ask Under certain circumstances for corrections
+I: approve the job description
+I: happen that the colleague from the HR department still has questions about the tasks and requirements before the Personnel Department can describe the job
+I: am available for clarifications , of course of course

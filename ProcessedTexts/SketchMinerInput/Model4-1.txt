@@ -1,0 +1,46 @@
+the family doctor: do This notice
+The secretarial worker: inquire after the name
+The secretarial worker: put the doctor On the basis to the nursing officer
+The nursing officer: make a full inquiry
+The nursing officer: record This information on a registration form
+The nursing officer: hand this form At the end at the secretarial office
+The nursing officer: store the information in the information system
+The nursing officer: print
+The nursing officer: create a patient file For new patients
+The nursing officer: store The registration form in the patient file
+The nursing officer: keep Patient files at the secretarial office
+The nursing officer: leave the building
+The nursing officer: produce two registration cards At the secretarial office for the future first and second intaker
+The registration card: contain a set
+The registration card: add The new patient on the list
+a staff meeting: take place at Wednesday
+The medical team: consist of social-medical workers
+the team-leader: assign all new patients At this meeting on the list to members
+the team-leader: assign Each patient to a social-medical worker
+the family doctor: act as the second intaker
+the team-leader: take their expertise into account
+the team-leader: record The assignments on an assignment list
+the team-leader: is also determined whether the medical file of the patient is required For each new assignment
+the team-leader: add This information to the assignment list
+the team-leader: the secretarial office store
+each patient: pass the produced registration cards to the first and second intaker
+An intaker: keep this registration with him at times
+An intaker: is at the office at the office
+the secretarial office: prepare For each patient
+the secretarial office: (send a letter to the family doctor)
+the secretarial office: request for for a copy
+the secretarial office: inform the second intaker
+the secretarial office: add the copy to the patient file
+An intaker: plan a meeting
+An intaker: examine the patient During the first meeting
+An intaker: use a standard checklist which is filled out
+An intaker: register Additional observations in a personal notebook
+An intaker: put a copy After a visit in the file
+An intaker: add The standard checklist to the patient's file
+An intaker: plan the first meeting
+Physicians: use dictaphones to record their observations made during meetings with patients
+Physicians: the secretarial office type out these tapes
+the secretarial office: put the patient on the list
+each patient: provide the team-leader For the staff meeting
+An intaker: formulate a treatment plan
+This treatment plan: end the intake procedure

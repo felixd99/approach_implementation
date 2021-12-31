@@ -1,0 +1,39 @@
+I: (a vacancy is reported to me)
+I: create a job description
+there is still confusion in the message?
+True
+I: ask the Department
+I: submit the job description
+...
+
+...
+I: create a job description
+there is still confusion in the message?
+False
+I: submit the job description
+...
+
+...
+I: submit the job description
+I: wait for the approval
+the Department: happen that the department does not approve the Department ,
+I: correct the description
+...
+
+...
+I: wait for the approval
+the Department: reject the department
+I: correct the description
+...
+
+...
+I: correct the description
+I: submit the description for consideration
+the description is finally approved?
+True
+I: post the job
+
+...
+I: submit the description for consideration
+the description is finally approved?
+False

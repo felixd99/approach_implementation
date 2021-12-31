@@ -1,0 +1,37 @@
+AS The party
+I WANT TO send a warrant possession request
+
+----
+
+AS The Client Service Back Office
+I WANT TO receive the request
+AFTER The party sent a warrant possession request
+
+AS The Client Service Back Office
+I WANT TO retrieve the SCTT file
+AFTER I received the request
+
+AS The Client Service Back Office
+I WANT TO forward the SCT Warrant Possession to Queensland Police
+AFTER I retrieved the SCTT file
+
+AS The Client Service Back Office
+I WANT TO store The SCTT physical file
+AFTER I forwarded the SCT Warrant Possession to Queensland Police
+
+AS The Client Service Back Office
+I WANT TO retrieve the respective SCT file
+WHEN the report is received
+
+AS The Client Service Back Office
+I WANT TO attach the new SCT document
+AFTER I retrieved the respective SCT file
+
+----
+
+AS some other MC internal staff
+I WANT TO receive the physical SCT file
+AFTER The Client Service Back Office attached the new SCT document
+
+----
+

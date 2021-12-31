@@ -1,0 +1,47 @@
+AS Unknown actor
+I WANT TO the MPOO deregister at the GO
+
+----
+
+AS The GO
+I WANT TO verify the deregistration
+AFTER Unknown actor the MPOO deregister at the GO
+
+AS The GO
+I WANT TO EITHER reject the deregistration
+OR confirm the deregistration
+
+AS The GO
+I WANT TO prepare the readmission
+AFTER I verified the deregistration
+
+AS The GO
+I WANT TO oblige the MPOO to continue the operations
+AFTER I prepared the readmission
+
+AS The GO
+I WANT TO confirm the continuation
+IF the GO binds the MPOO to continue the operation
+
+AS The GO
+I WANT TO perform the equipment acquisition and/or equipment changes
+AFTER I oblige the MPOO to continue the operations
+
+AS The GO
+I WANT TO assign the GO as MPO
+AFTER I performed the equipment acquisition and/or equipment changes
+
+AS The GO
+I WANT TO inform the MPOO about the end
+AFTER I assigned the GO as MPO
+
+AS The GO
+I WANT TO inform the MSPO about the assignment
+AFTER I informed the MPOO about the end
+
+AS The GO
+I WANT TO inform the SP about the assignment
+AFTER I informed the MSPO about the assignment
+
+----
+

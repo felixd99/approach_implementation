@@ -1,0 +1,48 @@
+Unknown actor: (the Expense Report is received)
+Unknown actor: create a new account
+Unknown actor: review The report for automatic approval
+Unknown actor: approve Amounts
+the employee: (receive a rejection notice If rejection)
+the reimbursement: direct deposit bank account
+...
+
+...
+Unknown actor: review The report for automatic approval
+Unknown actor: require approval
+the reimbursement: go to the employees
+the reimbursement: direct deposit bank account
+...
+
+...
+the reimbursement: direct deposit bank account
+the request is not completed in 7 days?
+True
+the employee: (receive an approval)
+the reimbursement: ()
+...
+
+...
+the reimbursement: direct deposit bank account
+the request is not completed in 7 days?
+False
+the reimbursement: ()
+...
+
+...
+the reimbursement: ()
+the request is not finished within 30 days?
+True
+the employee: stop the process
+the employee: (receive an email cancellation notice)
+...
+
+...
+the reimbursement: ()
+the request is not finished within 30 days?
+False
+the employee: (receive an email cancellation notice)
+...
+
+...
+the employee: (receive an email cancellation notice)
+the employee: resubmit the expense report

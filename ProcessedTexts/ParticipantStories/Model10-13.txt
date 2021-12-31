@@ -1,0 +1,9 @@
+--- The INQ ---
+1. transmit the transaction data request to the IP
+
+
+--- The IP ---
+1. check the request
+2. answer the question
+
+

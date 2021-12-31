@@ -1,0 +1,29 @@
+the secretary: clarify who will do the shipping
+you have large amounts?
+True
+special shipping: be necessary
+the secretary: invite three logistic companies In these cases
+...
+
+...
+the secretary: clarify who will do the shipping
+you have large amounts?
+False
+the secretary: invite three logistic companies In these cases
+...
+
+...
+the secretary: invite three logistic companies In these cases
+the secretary: make offers
+the secretary: select one
+the secretary: use normal post shipment small amounts
+the secretary: write a package label
+the warehousemen: package the goods In the meantime
+everything is ready?
+True
+the warehousemen: prepare the packaged goods
+
+...
+the warehousemen: package the goods In the meantime
+everything is ready?
+False

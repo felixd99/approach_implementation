@@ -1,0 +1,64 @@
+I: get information
+I: check that case
+the possibility is really there?
+True
+I: (send a request)
+I: make reminder
+...
+
+...
+I: check that case
+the possibility is really there?
+False
+I: make reminder
+...
+
+...
+I: make reminder
+recourse is not possible?
+True
+I: close the case
+I: (we receive the money)
+...
+
+...
+I: make reminder
+recourse is not possible?
+False
+I: (we receive the money)
+...
+
+...
+I: (we receive the money)
+I: make a booking
+I: close the case (1)
+the insurant disagrees with the recourse?
+True
+I: have to check the reasoning of that
+I: ()
+...
+
+...
+I: close the case (2)
+the insurant disagrees with the recourse?
+False
+I: ()
+...
+
+...
+I: ()
+he is right?
+True
+I: close the case (3)
+I: forward the case to the collection agency as well to the collection agency
+...
+
+...
+I: ()
+he is right?
+False
+I: forward the case to the collection agency as well to the collection agency
+...
+
+...
+I: forward the case to the collection agency as well to the collection agency

@@ -1,0 +1,12 @@
+--- a claims officer ---
+1. Event: a claim is registered
+2. examine a claim
+3. write a settlement recommendation
+4. check This recommendation
+If the claim is marked as Not OK
+	5a) send it
+6. repeat the recommendation
+If the claim is OK
+	7a) claim
+
+

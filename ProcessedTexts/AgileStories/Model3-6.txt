@@ -1,0 +1,28 @@
+AS Unknown actor
+I WANT TO check whether the claimant is insured by the organization
+WHEN a claim is received
+
+AS Unknown actor
+I WANT TO inform that the claim must be rejected
+IF not
+OTHERWISE evaluate the severity
+
+AS Unknown actor
+I WANT TO send relevant forms to the claimant
+AFTER I check whether the claimant is insured by the organization
+
+AS Unknown actor
+I WANT TO check , for completeness
+WHEN the forms are returned
+
+AS Unknown actor
+I WANT TO register the claim in the Claims Management system
+IF the forms provide all relevant details
+OTHERWISE inform to update the forms
+
+AS Unknown actor
+I WANT TO check they Upon reception
+AFTER I checked , for completeness
+
+----
+

@@ -1,0 +1,23 @@
+The Evanstonian: is an upscale independent hotel
+a guest: (a guest calls room service at The Evanstonian)
+the room-service manager: take the order
+The Evanstonian: submit an order ticket
+The Evanstonian: begin preparing the food
+The Evanstonian: give an order to the sommelier
+The Evanstonian: fetch wine from the cellar from the cellar
+Eighty percent: include wine
+The Evanstonian: assign the order to the waiter
+the kitchen: do their tasks
+the waiter: ready a cart
+the waiter: is also responsible for nonalcoholic drinks
+the food: (the food)
+the waiter: deliver the food to the guest’s room
+the waiter: debit the guest’s account
+he has another order to prepare or deliver?
+True
+the waiter: wait to do the billing
+
+...
+the waiter: debit the guest’s account
+he has another order to prepare or deliver?
+False

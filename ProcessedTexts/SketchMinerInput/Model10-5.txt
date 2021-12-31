@@ -1,0 +1,5 @@
+The MPON: request a device takeover bid
+the MPOO: (send a tender to the MPON)
+The MPON: place an order
+the MPOO: confirm the order
+the MPOO: (send the master data)

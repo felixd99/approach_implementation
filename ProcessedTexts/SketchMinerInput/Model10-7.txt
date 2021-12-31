@@ -1,0 +1,7 @@
+The MSPN: register the measurement at the GO
+the GO: examine the application
+the GO: reject the application of The MSPN or the GO confirms the application of The MSPN
+the GO: assign The MSPN
+the GO: inform the MSPO about the assignment
+the GO: inform the MPO about the assignment
+the GO: inform the SP about the assignment

@@ -1,0 +1,19 @@
+The MPON: notify the MPOO about equipment change intentions
+the MPOO: announce dismounting
+The MPON: perform the final reading
+...
+
+...
+The MPON: notify the MPOO about equipment change intentions
+the MPOO: notify The MPON about no self-dismounting
+The MPON: perform the final reading
+...
+
+...
+The MPON: perform the final reading
+The MPON: dismount the old equipment
+The MPON: mount the new device
+The MPON: read the meter count
+The MPON: (send the values)
+The MPON: tell the GO about the device changes , the master data and the meter count at installation about the device changes
+the GO: notify the MSP about the device changes

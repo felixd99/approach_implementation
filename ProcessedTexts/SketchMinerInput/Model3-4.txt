@@ -1,0 +1,25 @@
+it: is sometimes necessary to send a questionnaire to the claimant to gather additional information In the context
+it: expect to return the questionnaire within five days
+no response is received after five days?
+True
+it: (send a reminder to the claimant)
+it: ()
+...
+
+...
+it: expect to return the questionnaire within five days
+no response is received after five days?
+False
+it: ()
+...
+
+...
+it: ()
+after another five days there is still no response?
+True
+it: (send another reminder)
+
+...
+it: ()
+after another five days there is still no response?
+False

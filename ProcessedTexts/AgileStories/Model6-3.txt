@@ -1,0 +1,64 @@
+AS that information
+I WANT TO is the second step By the way
+AFTER our production planning system transferred the data
+
+AS that information
+I WANT TO need to decide whether any parts are missing
+WHEN all the data is present
+
+AS that information
+I WANT TO procure
+AFTER I need to decide whether any parts are missing
+
+AS that information
+I WANT TO is not necessary
+AFTER I procured
+
+AS that information
+I WANT TO receive a notice
+WHEN production is scheduled to start
+
+----
+
+AS our production planning system
+I WANT TO have to be entered into our production planning system ( PPS )
+WHEN that information is present
+
+AS our production planning system
+I WANT TO optimize our production processes
+AFTER I have to be entered into our production planning system ( PPS )
+
+AS our production planning system
+I WANT TO create possibly uniform work packages
+AFTER I optimized our production processes
+
+AS our production planning system
+I WANT TO minimize
+AFTER I created possibly uniform work packages
+
+AS our production planning system
+I WANT TO create a list
+AFTER I minimize
+
+AS our production planning system
+I WANT TO couple our production planning system to our Enterprise Resource Planning system
+AFTER I created a list
+
+AS our production planning system
+I WANT TO transfer the data
+AFTER I coupled our production planning system to our Enterprise Resource Planning system
+
+----
+
+----
+
+AS an employee
+I WANT TO take care of the implementation
+AFTER that information received a notice
+
+AS an employee
+I WANT TO check the order for its quality
+AFTER I took care of the implementation
+
+----
+

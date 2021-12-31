@@ -1,4 +1,7 @@
 import copy
+import os
+from pathlib import Path
+from typing import List
 
 import spacy, coreferee
 from spacy import displacy
@@ -81,10 +84,10 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
         if print_help:
             print('')
 
-            print('Conjunctions for:', action.action_token, action.action_token.conjuncts)
+            print('Conjunctions for:', action.verb, action.verb.conjuncts)
 
         # Loop through all conjunctions and create actions from them
-        for conjunction in action.action_token.conjuncts:
+        for conjunction in action.verb.conjuncts:
             if not conjunction.pos_ == 'VERB':
                 continue
             conjunction_action = utils.get_action(conjunction, doc, previous_action)
@@ -97,7 +100,7 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
                     action.actor = nlp('Unknown actor')[0]
 
             # Check if it's a "regular" conjunction or a conditional statement
-            cc = nlp_utils.get_connecting_conjunction(doc, action.action_token, conjunction_action.action_token)
+            cc = nlp_utils.get_connecting_conjunction(doc, action.verb, conjunction_action.verb)
             if cc and cc.text == 'and':
                 actions.append(conjunction_action)
                 previous_action = conjunction_action
@@ -137,7 +140,7 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
         previous_action_was_set = False
 
         # Loop through all children to detect subclauses
-        for child in main_action.action_token.children:
+        for child in main_action.verb.children:
 
             if child.dep_ == 'advcl' and child.pos_ in ['VERB', 'AUX', 'PART']:
                 # If it indicates a condition, insert it as such
@@ -196,7 +199,7 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
                     action = utils.get_action(child, doc, main_action, event_text)
 
                     # Check if subclause is before or after main clause
-                    is_right = action.action_token in main_action.action_token.rights
+                    is_right = action.verb in main_action.verb.rights
 
                     # Set main action's actor if none was found
                     if action.actor is None:
@@ -217,7 +220,7 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
                         "index": action_index + len(actions_to_insert) + (1 if is_right else 0),
                         "action": action
                     })
-            elif child.dep_ == 'pobj':
+            elif child.dep_ == 'pobj' or child.dep_ == 'dobj':
                 # Get relative clause modifiers
                 for rel_child in child.children:
                     if rel_child.dep_ == 'relcl':
@@ -240,7 +243,7 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
 
         # See if we have any 'Otherwise' or 'Else' sentences. If so, add them to the
         # previous condition
-        else_condition_marker = utils.get_else_marker_in_children(main_action.action_token)
+        else_condition_marker = utils.get_else_marker_in_children(main_action.verb)
         if else_condition_marker:
             # remove action (since it will be in the conditions list) and merge all
             # actions in between
@@ -291,4 +294,4 @@ def transform_text(path, print_numerical, print_agile, print_sketch, print_help)
     }
 
 
-# transform_text("Texts/Model7-1.txt", False, False, True, True)
+# transform_text("Texts/ClaimsCreation.txt", False, False, True, True)

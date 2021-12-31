@@ -1,0 +1,3 @@
+The INQ: transmit the transaction data request to the IP
+the IP: check the request
+the IP: answer the question

@@ -1,0 +1,61 @@
+AS Unknown actor
+I WANT TO collect Mail on a daily basis
+
+----
+
+AS the Mail Clerk
+I WANT TO sort the unopened mail Within this unit into the various business areas
+AFTER Unknown actor collected Mail on a daily basis
+
+AS the Mail Clerk
+I WANT TO distribute The mail
+AFTER I sorted the unopened mail Within this unit into the various business areas
+
+AS the Mail Clerk
+I WANT TO open the mail
+WHEN the mail is received by the Registry
+
+AS the Mail Clerk
+I WANT TO sort into groups
+AFTER I opened the mail
+
+AS the Mail Clerk
+I WANT TO register in a manual incoming Mail Register
+AFTER I sorted into groups
+
+----
+
+AS the Registry
+I WANT TO perform a quality check
+AFTER the Mail Clerk registered in a manual incoming Mail Register
+
+AS the Registry
+I WANT TO compile a list
+	 AND send
+IF the mail is not compliant
+OTHERWISE capture the matter details
+
+AS the Registry
+I WANT TO provide to the Cashier
+AFTER I performed a quality check
+
+AS the Registry
+I WANT TO put the receipt At this point
+AFTER I provided to the Cashier
+
+AS the Registry
+I WANT TO copy documents into an envelope
+AFTER I put the receipt At this point
+
+AS the Registry
+I WANT TO post it to the party
+AFTER I copied documents into an envelope
+
+----
+
+AS the Cashier
+I WANT TO capture the Party Details
+AFTER the Registry posted it to the party
+
+----
+

@@ -1,0 +1,55 @@
+a visitor: want to become a member of Barcelona's ZooClub
+a visitor: take the following steps
+the customer: decide whether Barcelona's ZooClub wants an individual or family membership
+he wants an individual membership?
+True
+Barcelona's ZooClub: prepare his personal information
+the customer: ()
+...
+
+...
+the customer: decide whether Barcelona's ZooClub wants an individual or family membership
+he wants an individual membership?
+False
+the customer: ()
+...
+
+...
+the customer: ()
+he wants a family membership?
+True
+Barcelona's ZooClub: prepare the information
+Barcelona's ZooClub: spawn
+...
+
+...
+the customer: ()
+he wants a family membership?
+False
+Barcelona's ZooClub: spawn
+...
+
+...
+Barcelona's ZooClub: spawn
+the customer: give this information to the ZooClub department
+The ZooClub department: introduce the visitor's personal data
+The ZooClub department: take the payment request to the Billing department
+The ZooClub department: forward the visitor's information
+The billing department: (send the payment request to the bank)
+The bank: process the payment information
+The bank: charge the payment
+The ZooClub department: (the payment is confirmed)
+...
+
+...
+The bank: process the payment information
+The ZooClub department: (the payment is confirmed)
+...
+
+...
+The ZooClub department: (the payment is confirmed)
+The ZooClub department: print the card
+The ZooClub department: deliver the payment to the visitor
+the Marketing department: make a request In the meantime
+a visitor: (the visitor receives the card)
+the Marketing department: go

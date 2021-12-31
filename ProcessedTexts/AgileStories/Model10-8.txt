@@ -1,0 +1,31 @@
+AS Unknown actor
+I WANT TO the MSPO deregister at the GO
+
+----
+
+AS The GO
+I WANT TO verify the deregistration
+AFTER Unknown actor the MSPO deregister at the GO
+
+AS The GO
+I WANT TO EITHER reject the deregistration
+OR confirm the deregistration
+
+AS The GO
+I WANT TO assign The GO as MSP
+AFTER I verified the deregistration
+
+AS The GO
+I WANT TO inform the MSPO about the end
+AFTER I assigned The GO as MSP
+
+AS The GO
+I WANT TO inform the MPO about the assignment
+AFTER I informed the MSPO about the end
+
+AS The GO
+I WANT TO inform the SP about the assignment
+AFTER I informed the MPO about the assignment
+
+----
+

@@ -1,0 +1,34 @@
+AS The fault detector
+I WANT TO report a failure to the user or user has a suspicion of a suspicion
+
+----
+
+AS The user
+I WANT TO examine the failure
+AFTER The fault detector report a failure to the user or user has a suspicion of a suspicion
+
+AS The user
+I WANT TO EITHER reject the failure
+OR confirm the failure
+
+AS The user
+I WANT TO inform the customer
+IF the user confirms the failure of the fault detector
+
+AS The user
+I WANT TO fix the fault at the measuring device
+
+AS The user
+I WANT TO share the results
+AFTER I fixed the fault at the measuring device
+
+AS The user
+I WANT TO inform the customer about the resolution
+AFTER I shared the results
+
+AS The user
+I WANT TO inform the manager about the resolution
+AFTER I informed the customer about the resolution
+
+----
+

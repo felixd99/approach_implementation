@@ -1,0 +1,29 @@
+Unknown actor: collect Mail on a daily basis
+the Mail Clerk: sort the unopened mail Within this unit into the various business areas
+the Mail Clerk: distribute The mail
+the Registry: (the mail is received by the Registry)
+the Mail Clerk: open the mail
+the Mail Clerk: sort into groups
+the Mail Clerk: register in a manual incoming Mail Register
+the Registry: perform a quality check
+the mail is not compliant?
+True
+the Registry: compile a list
+the Registry: )
+the Registry: provide to the Cashier
+...
+
+...
+the Registry: perform a quality check
+the mail is not compliant?
+False
+the Registry: capture the matter details
+the Registry: provide to the Cashier
+...
+
+...
+the Registry: provide to the Cashier
+the Registry: put the receipt At this point
+the Registry: copy documents into an envelope
+the Registry: post the receipt to the party
+the Cashier: capture the Party Details

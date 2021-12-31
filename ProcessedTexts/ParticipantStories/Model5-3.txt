@@ -1,0 +1,36 @@
+--- The process ---
+1. start
+If the request is approved
+	2a) go to the purchase department
+
+
+--- any employee ---
+1. submit an office supply request
+
+
+--- the immediate supervisor ---
+1. Event: the requirement is registered
+2. receive the request
+3a) approve
+3b) ask for a change
+If the request is rejected
+	4a) end
+
+
+--- the system ---
+1. Event: a vendor is selected and confirmed
+2. generate
+3. send a purchase order
+4. send a notification In any case
+
+
+--- the invoice ---
+1. receive
+2. wait
+3. deliver
+
+
+--- approval ---
+1. require the system will send the user a notification In any
+
+

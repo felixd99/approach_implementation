@@ -1,0 +1,16 @@
+--- The fault detector ---
+1. report a failure to the user or user has a suspicion of a suspicion
+
+
+--- The user ---
+1. examine the failure
+2a) reject the failure
+2b) confirm the failure
+If the user confirms the failure of the fault detector
+	3a) inform the customer
+4. fix the fault at the measuring device
+5. share the results
+6. inform the customer about the resolution
+7. inform the manager about the resolution
+
+

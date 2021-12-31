@@ -1,0 +1,6 @@
+Unknown actor: search The Police Report within the Police Report database
+Unknown actor: put a file with the Claim Documentation
+Unknown actor: serve as input to a claims handler
+the claims handler: create an Action Plan
+a claims manager: try to negotiate a settlement on the claim estimate
+a claims manager: inform The claimant of the outcome

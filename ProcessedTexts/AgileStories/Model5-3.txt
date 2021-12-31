@@ -1,0 +1,63 @@
+AS The process
+I WANT TO start
+
+AS The process
+I WANT TO go to the purchase department
+IF the request is approved
+
+----
+
+AS any employee
+I WANT TO submit an office supply request
+AFTER The process started
+
+----
+
+AS the immediate supervisor
+I WANT TO receive the request
+WHEN the requirement is registered
+
+AS the immediate supervisor
+I WANT TO EITHER approve
+OR ask for a change
+
+AS the immediate supervisor
+I WANT TO end
+IF the request is rejected
+
+----
+
+AS the system
+I WANT TO generate
+WHEN a vendor is selected and confirmed
+
+AS the system
+I WANT TO send a purchase order
+AFTER I generated
+
+AS the system
+I WANT TO send a notification In any case
+AFTER the invoice deliver
+
+----
+
+AS the invoice
+I WANT TO receive
+AFTER the system sent a purchase order
+
+AS the invoice
+I WANT TO wait
+AFTER I received
+
+AS the invoice
+I WANT TO deliver
+AFTER I waited
+
+----
+
+AS approval
+I WANT TO require the system will send the user a notification In any
+AFTER the system sent a notification In any case
+
+----
+

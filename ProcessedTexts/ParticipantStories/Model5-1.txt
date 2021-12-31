@@ -1,0 +1,15 @@
+--- The loan approval process ---
+1. start
+2. invoke The risk assessment Web service
+3. assess the request
+If the loan is small and the customer is low risk
+	4a) approve the loan
+If the customer is high risk
+	5a) deny the loan
+6. send to the approver Web service to the approver Web service
+
+
+--- The customer ---
+1. receive feedback from the assessor
+
+

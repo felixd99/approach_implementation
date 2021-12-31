@@ -1,0 +1,39 @@
+--- a visitor ---
+1. want to become a member of Barcelona's ZooClub
+2. take the following steps
+3. spawn
+4. Event: the visitor receives the card
+
+
+--- the customer ---
+1. decide whether . wants an individual or family membership
+If he wants an individual membership
+	2a) prepare .
+If he wants a family membership
+	3a) prepare the information
+4. give this information to the ZooClub department
+
+
+--- The ZooClub department ---
+1. introduce the visitor's personal data
+2. take the payment request to the Billing department
+3. forward the visitor's information
+4. Event: the payment is confirmed
+5. print the card
+6. deliver it to the visitor
+
+
+--- The billing department ---
+1. send the payment request to the bank
+
+
+--- The bank ---
+1. process the payment information
+2a) charge the payment
+
+
+--- the Marketing department ---
+1. make a request In the meantime
+2. go
+
+

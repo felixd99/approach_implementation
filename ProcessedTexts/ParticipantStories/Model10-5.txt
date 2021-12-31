@@ -1,0 +1,11 @@
+--- The MPON ---
+1. request a device takeover bid
+2. place an order
+
+
+--- The MPOO ---
+1. send a tender to the MPON
+2. confirm the order
+3. send the master data
+
+

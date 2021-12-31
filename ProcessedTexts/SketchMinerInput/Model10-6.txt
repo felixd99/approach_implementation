@@ -1,0 +1,7 @@
+The MSPN: sent a dismissal to the MSPO
+the MSPO: review the dismissal
+the MSPO: reject the dismissal
+
+...
+the MSPO: review the dismissal
+the MSPO: confirm the dismissal

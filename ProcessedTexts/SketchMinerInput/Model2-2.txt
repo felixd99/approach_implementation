@@ -1,0 +1,98 @@
+a switch-over request: initiate The process
+the customer: transmit his data to the customer service department
+the customer: is a shared service center between the departments Sales and Distribution
+the customer: (receive The customer data)
+the customer: base on this data
+the customer: enter a customer data object into the CRM system
+the customer: (customer data has been entered)
+the customer: compare customer data with the internal customer data base
+the customer: check for completeness
+the customer: correct these on the basis
+the customer: do The comparison
+the customer: prevent individual customer data being stored multiple times
+the customer does not exist in the customer data base?
+True
+the customer: create a new customer object
+This object: consist of data elements
+...
+
+...
+the customer: prevent individual customer data being stored multiple times
+the customer does not exist in the customer data base?
+False
+This object: consist of data elements
+...
+
+...
+This object: consist of data elements
+This object: use , in combination with other customer data to prepare the contract documents for the power supplier switch ( including data such as bank connection , information on the selected rate , requested date of switch-over ) in combination
+This object: carry an automated check In following within the CIS (customer information system in order
+i.e. the contract documents: are not (
+This object: generate the contract documents
+...
+
+...
+This object: carry an automated check In following within the CIS (customer information system in order
+i.e. the contract documents: analyze the causing issues
+This object: generate the contract documents
+...
+
+...
+This object: generate the contract documents
+This object: (send a confirmation document to the customer)
+This object: state that the switch-over to the new supplier can be executed
+the CIS: (send A request)
+A request: put the question
+the grid operator: check The switch-over request
+the grid operator: transmit a response comment
+the grid operator: inform all involved suppliers
+the grid operator: demand the resolution
+the grid operator: communicate with the old supplier
+the grid operator: carry the termination
+the grid operator: have to interact with the old supplier regarding termination )
+there are not any objections by the grid operator?
+True
+the customer: create a CIS contract
+the customer: have the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm the switch contract
+...
+
+...
+the grid operator: have to interact with the old supplier regarding termination )
+there are not any objections by the grid operator?
+False
+the customer: have the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm the switch contract
+...
+
+...
+the customer: have the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm the switch contract
+the customer: end Depending acceptance/rejection if withdrawal
+An additional constraint: is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues
+...
+
+...
+the customer: have the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm the switch contract
+the customer: continue if a confirmation
+An additional constraint: is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues
+...
+
+...
+An additional constraint: is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues
+The confirmation message: is therefore not absolutely necessary ( as The confirmation message will count as accepted after 7 days in any way )
+the grid operator: transmit the power meter data On the switch-date to the customer service via messages
+...
+
+...
+An additional constraint: is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues
+The confirmation message: speed the switch process
+the grid operator: transmit the power meter data On the switch-date to the customer service via messages
+...
+
+...
+the grid operator: transmit the power meter data On the switch-date to the customer service via messages
+the grid operator: compute the final billing At the same time
+the grid operator: (send the final billing to the old supplier)
+the old supplier: create
+the old supplier: (send the final billing to the customer)
+the old supplier: for the customer
+the old supplier: after
+The process: end

@@ -1,0 +1,29 @@
+--- that information ---
+1. Event: that information is present
+2. is the second step By the way
+3. need to decide whether any parts are missing
+4. procure
+5. is not necessary
+6. Event: production is scheduled to start
+7. receive a notice
+
+
+--- our production planning system ---
+1. have to be entered into our production planning system ( PPS )
+2. optimize our production processes
+3. create possibly uniform work packages
+4. minimize
+5. create a list
+6. couple our production planning system to our Enterprise Resource Planning system
+7. transfer the data
+
+
+--- all the data ---
+1. Event: all the data is present
+
+
+--- an employee ---
+1. take care of the implementation
+2. check the order for its quality
+
+

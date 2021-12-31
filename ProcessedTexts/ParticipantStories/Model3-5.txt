@@ -1,0 +1,30 @@
+--- Unknown actor ---
+1. collect Mail on a daily basis
+
+
+--- the Mail Clerk ---
+1. sort the unopened mail Within this unit into the various business areas
+2. distribute The mail
+3. open the mail
+4. sort into groups
+5. register in a manual incoming Mail Register
+
+
+--- the Registry ---
+1. Event: the mail is received by the Registry
+2. perform a quality check
+If the mail is not compliant
+	3a.1 compile a list
+	3a.2 send
+Else
+	3b) capture the matter details
+4. provide to the Cashier
+5. put the receipt At this point
+6. copy documents into an envelope
+7. post it to the party
+
+
+--- the Cashier ---
+1. capture the Party Details
+
+

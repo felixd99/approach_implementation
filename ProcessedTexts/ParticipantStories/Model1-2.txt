@@ -1,0 +1,23 @@
+--- A customer ---
+1. bring a defective computer
+
+
+--- the CRS ---
+1. check the defect
+2. hand a repair cost calculation
+If the customer decides that the costs are acceptable
+	3a) continue
+Else
+	3b) take brings unrepaired
+
+
+--- The ongoing repair ---
+1. consist of two activities in an arbitrary order
+2. is to check and repair the hardware , whereas the second activity checks and configures the software
+3. test the proper system functionality
+If an error is detected
+	4a) execute another arbitrary repair activity
+Else
+	4b) finish the repair
+
+

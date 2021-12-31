@@ -1,0 +1,14 @@
+the Manager: check the open leads
+the Manager: select the top five ones
+the Manager: tell his Sales Assistant to call the contact person of the leads
+The Sales Assistant: call each customer
+someone is interested?
+True
+The Sales Assistant: (send a note to the Manager)
+the Manager: process the lead
+
+...
+The Sales Assistant: call each customer
+someone is interested?
+False
+the Manager: call the next customer

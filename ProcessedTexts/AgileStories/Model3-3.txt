@@ -1,0 +1,26 @@
+AS a claims officer
+I WANT TO examine a claim
+WHEN a claim is registered
+
+AS a claims officer
+I WANT TO write a settlement recommendation
+AFTER I examined a claim
+
+AS a claims officer
+I WANT TO check This recommendation
+AFTER I wrote a settlement recommendation
+
+AS a claims officer
+I WANT TO send it
+IF the claim is marked as Not OK
+
+AS a claims officer
+I WANT TO repeat the recommendation
+AFTER I checked This recommendation
+
+AS a claims officer
+I WANT TO claim
+IF the claim is OK
+
+----
+

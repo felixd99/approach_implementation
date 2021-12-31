@@ -1,0 +1,33 @@
+AS the Coordination Unit
+I WANT TO draft a schedule In November of each year
+
+AS the Coordination Unit
+I WANT TO add draft dates
+AFTER I drafted a schedule In November of each year
+
+AS the Coordination Unit
+I WANT TO recheck all dates
+AFTER The Support Officer suggested modifications
+
+AS the Coordination Unit
+I WANT TO look for potential conflicts
+AFTER I rechecked all dates
+
+----
+
+AS The Support Officer
+I WANT TO check the dates
+AFTER the Coordination Unit added draft dates
+
+AS The Support Officer
+I WANT TO suggest modifications
+AFTER I checked the dates
+
+----
+
+AS email
+I WANT TO send The final schedule to all the independent Committee Members
+AFTER the Coordination Unit looked for potential conflicts
+
+----
+

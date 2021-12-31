@@ -1,0 +1,56 @@
+AS Unknown actor
+I WANT TO back the database
+
+AS Unknown actor
+I WANT TO check
+AFTER I backed the database
+
+AS Unknown actor
+I WANT TO see whether the Account Defaulters table has new records
+AFTER I checked
+
+AS Unknown actor
+I WANT TO check the CRM system
+IF no new records are found
+
+AS Unknown actor
+I WANT TO register all defaulting accounts
+IF new returns exist
+
+----
+
+AS the process
+I WANT TO see whether new returns have been filed
+AFTER Unknown actor see whether the Account Defaulters table has new records
+
+AS the process
+I WANT TO send
+
+AS the process
+I WANT TO account management
+AFTER I sent
+
+AS the process
+I WANT TO complete All
+
+----
+
+AS 2:30 pm
+I WANT TO send an alert to the supervisor
+AFTER the process account management
+
+AS 2:30 pm
+I WANT TO check the CRM system
+WHEN the new defaulting account report has been completed
+
+AS 2:30 pm
+I WANT TO see whether new returns have been filed
+AFTER I checked the CRM system
+
+AS 2:30 pm
+I WANT TO reconcile with the existing account defaulters table
+IF new returns have been filed
+OTHERWISE send a message
+
+----
+

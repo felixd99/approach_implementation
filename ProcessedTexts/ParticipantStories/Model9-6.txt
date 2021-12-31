@@ -1,0 +1,41 @@
+--- the Process ---
+1. Event: the Process starts
+2. perform a Task
+3. locate
+
+
+--- the design ---
+1. start in parallel
+2. are inputs to both Activities
+3. restart
+4. review any existing designs In each department
+5. result in an Update Plan for the revised design ( i.e. one in Electrical and another in a revised design ) in an Update Plan
+6. use the Update Plan and the existing Draft of the Electrical/Physical Design
+7. create a revised design
+8. Event: completed
+9. test the revised design
+If the design fails the test
+	10a) send
+11. review
+If the design passes the test
+	12a) tell the other department
+
+
+--- a successful update ---
+1. interrupt Development
+If interrupted
+	2a) stop all current work
+
+
+--- , ---
+1. Event: both of the designs have been revised
+2. combine the revised design
+3. test
+If the combined design fails the test
+	4a) send the revised design
+5. initiate another design cycle
+If the designs pass the test
+	6a) deem they
+7. send to the manufacturing Process
+
+

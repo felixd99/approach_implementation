@@ -1,0 +1,9 @@
+The party: (send a warrant possession request)
+The Client Service Back Office: (receive the request)
+The Client Service Back Office: retrieve the SCTT file
+The Client Service Back Office: forward the SCT Warrant Possession to Queensland Police
+The Client Service Back Office: store The SCTT physical file
+The Client Service Back Office: (the report is received)
+The Client Service Back Office: retrieve the respective SCT file
+The Client Service Back Office: attach the new SCT document
+some other MC internal staff: (receive the physical SCT file)

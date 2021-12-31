@@ -1,0 +1,30 @@
+A customer: bring a defective computer
+the CRS: check the defect
+the CRS: hand a repair cost calculation
+the customer decides that the costs are acceptable?
+True
+the process: continue
+The ongoing repair: consist of two activities in an arbitrary order
+...
+
+...
+the CRS: hand a repair cost calculation
+the customer decides that the costs are acceptable?
+False
+the CRS: take her computer home unrepaired
+The ongoing repair: consist of two activities in an arbitrary order
+...
+
+...
+The ongoing repair: consist of two activities in an arbitrary order
+The ongoing repair: is to check and repair the hardware , whereas the second activity checks and configures the software
+The ongoing repair: test the proper system functionality
+an error is detected?
+True
+the CRS: execute another arbitrary repair activity
+
+...
+The ongoing repair: test the proper system functionality
+an error is detected?
+False
+the CRS: finish the repair

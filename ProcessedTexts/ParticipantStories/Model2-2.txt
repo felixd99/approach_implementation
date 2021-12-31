@@ -1,0 +1,71 @@
+--- a switch-over request ---
+1. initiate The process
+2. put the question
+
+
+--- the customer ---
+1. transmit the company to the customer service department
+2. is a shared service center between the departments Sales and Distribution
+3. receive The customer data
+4. base on this data
+5. enter a customer data object into the CRM system
+6. Event: customer data has been entered
+7. compare customer data with the internal customer data base
+8. check for completeness
+9. correct these on the basis
+10. do The comparison
+11. prevent individual customer data being stored multiple times
+If the customer does not exist in the customer data base
+	12a) create a new customer object
+13. have the chance to check the contract details and based on this check may decide to either withdraw from the switch contract or confirm it
+14a) end Depending acceptance/rejection if withdrawal
+14b) continue if a confirmation
+
+
+--- This object ---
+1. consist of data elements
+2. use , in combination with other customer data to prepare the contract documents for the power supplier switch ( including data such as bank connection , information on the selected rate , requested date of switch-over ) in combination
+3. carry an automated check In following within the CIS (customer information system in order
+4a) are not (
+4b) analyze the causing issues
+5. generate the contract documents
+6. send a confirmation document to the customer
+7. state that the switch-over to the new supplier can be executed
+
+
+--- the CIS ---
+1. send A request
+
+
+--- the grid operator ---
+1. check The switch-over request
+2. transmit a response comment
+3. inform all involved suppliers
+4. demand the resolution
+5. communicate with the old supplier
+6. carry the termination
+7. have to interact with the old supplier regarding termination )
+If there are not any objections by the grid operator
+	8a) create a CIS contract
+9. transmit the power meter data On the switch-date to the customer service via messages
+10. compute the final billing At the same time
+11. send it to the old supplier
+
+
+--- An additional constraint ---
+1. is that the customer can only withdraw from the offered contract within 7 days after the 7th day the contract will be regarded as accepted and the process continues
+2a) is therefore not absolutely necessary ( as it will count as accepted after 7 days in any way )
+2b) speed the switch process
+
+
+--- the old supplier ---
+1. create
+2. send the final billing to the customer
+3. for the customer
+4. after
+
+
+--- The process ---
+1. end
+
+

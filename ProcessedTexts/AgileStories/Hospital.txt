@@ -1,0 +1,165 @@
+AS Unknown actor
+I WANT TO summarise The examination process
+
+AS Unknown actor
+I WANT TO send the lab to the lab
+AFTER ward physician took the sample
+
+AS Unknown actor
+I WANT TO indicate
+AFTER I sent the lab to the lab
+
+AS Unknown actor
+I WANT TO in the request form
+AFTER I indicate
+
+AS Unknown actor
+I WANT TO conduct the follow-up treatment
+AFTER I in the request form
+
+----
+
+AS The process
+I WANT TO start
+AFTER Unknown actor summarised The examination process
+
+----
+
+AS an outpatient physician
+I WANT TO examine the female patient
+AFTER The process started
+
+AS an outpatient physician
+I WANT TO EITHER is healthy
+OR need to undertake an additional examination
+
+AS an outpatient physician
+I WANT TO in th .
+AFTER I examined the female patient
+
+AS an outpatient physician
+I WANT TO fill the examination form
+AFTER I in th .
+
+AS an outpatient physician
+I WANT TO leave
+AFTER I filled the examination form
+
+AS an outpatient physician
+I WANT TO fill a request form
+AFTER an examination and follow-up treatment order by the physician
+
+AS an outpatient physician
+I WANT TO sign an informed consen
+AFTER the request form informed the patient
+
+AS an outpatient physician
+I WANT TO agree to continue with the procedure , a delegate of the physicia
+AFTER I signed an informed consen
+
+AS an outpatient physician
+I WANT TO arrange an appointment
+AFTER I agree to continue with the procedure , a delegate of the physicia
+
+AS an outpatient physician
+I WANT TO responsible
+AFTER I arranged an appointment
+
+AS an outpatient physician
+I WANT TO validate the lab
+AFTER Unknown actor conducted the follow-up treatment
+
+AS an outpatient physician
+I WANT TO decide
+AFTER I validated the lab
+
+AS an outpatient physician
+I WANT TO EITHER use the sample for analysis
+OR contaminate an
+
+AS an outpatient physician
+I WANT TO require a new sample
+AFTER I decided
+
+----
+
+AS an examination and follow-up treatment order
+I WANT TO is place In the latter case
+AFTER an outpatient physician left
+
+AS an examination and follow-up treatment order
+I WANT TO by the physician
+AFTER I is place In the latter case
+
+AS an examination and follow-up treatment order
+I WANT TO beyond informatio
+AFTER an outpatient physician filled a request form
+
+----
+
+AS the request form
+I WANT TO include details about the patient
+AFTER an examination and follow-up treatment order beyond informatio
+
+AS the request form
+I WANT TO request
+AFTER I included details about the patient
+
+AS the request form
+I WANT TO refer to a suitable lab
+AFTER I requested
+
+AS the request form
+I WANT TO furthermore, the outpatient physicia
+AFTER I referred to a suitable lab
+
+AS the request form
+I WANT TO inform the patient
+AFTER I furthermore, the outpatient physicia
+
+----
+
+AS a nurse
+I WANT TO prepare the required examination Before th Before . appointment
+AFTER an outpatient physician responsible
+
+AS a nurse
+I WANT TO then
+AFTER I prepared the required examination Before th Before . appointment
+
+----
+
+AS ward physician
+I WANT TO take the sample
+AFTER a nurse then
+
+----
+
+AS a medical technica
+I WANT TO perform the analysis
+AFTER an outpatient physician required a new sample
+
+----
+
+AS a lab physician
+I WANT TO validate the results
+AFTER a medical technica performed the analysis
+
+AS a lab physician
+I WANT TO finally, a physicia
+AFTER I validated the results
+
+AS a lab physician
+I WANT TO make the diagnosis from the outpatient department
+AFTER I finally, a physicia
+
+AS a lab physician
+I WANT TO prescribe the therap
+AFTER I made the diagnosis from the outpatient department
+
+AS a lab physician
+I WANT TO for the patient
+AFTER I prescribed the therap
+
+----
+

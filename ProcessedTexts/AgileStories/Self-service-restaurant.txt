@@ -1,0 +1,95 @@
+AS A guest
+I WANT TO enter the restaurant
+
+AS A guest
+I WANT TO feel hungry
+AFTER I entered the restaurant
+
+AS A guest
+I WANT TO is enters
+AFTER enters chose a dish
+
+AS A guest
+I WANT TO inform the employee that As has placed the finished meal in the service hatch
+AFTER The chef placed sets in the service hatch
+
+AS A guest
+I WANT TO soon
+AFTER I inform the employee that As has placed the finished meal in the service hatch
+
+AS A guest
+I WANT TO is how the guest finds out that As is ready for collection
+AFTER The employee is aware that the meal is ready the money sets off the guest’s buzzer
+
+AS A guest
+I WANT TO pick As
+AFTER I is how the guest finds out that As is ready for collection
+
+AS A guest
+I WANT TO eat react
+AFTER I picked As
+
+AS A guest
+I WANT TO react to the buzzer to the buzzer
+AFTER The employee handed over his meal
+
+----
+
+AS enters
+I WANT TO choose a dish
+AFTER A guest feel hungry
+
+AS enters
+I WANT TO place enters
+AFTER A guest is enters
+
+----
+
+AS The employee
+I WANT TO enter the order into the POS system
+AFTER enters placed enters
+
+AS The employee
+I WANT TO collect the money from the guest
+AFTER I entered the order into the POS system
+
+AS The employee
+I WANT TO inform the chef
+AFTER your dinner is ready "
+
+AS The employee
+I WANT TO is aware that the meal is ready the money sets off the guest’s buzzer
+AFTER A guest soon
+
+AS The employee
+I WANT TO hand over his meal
+AFTER A guest ate react
+
+AS The employee
+I WANT TO call for him after 5 minutes
+AFTER A guest react to the buzzer to the buzzer
+
+----
+
+AS the buzzer
+I WANT TO ring
+WHEN the payment
+
+----
+
+AS your dinner
+I WANT TO is ready "
+AFTER the buzzer ring
+
+----
+
+AS The chef
+I WANT TO prepare the meal
+AFTER The employee informed the chef
+
+AS The chef
+I WANT TO place sets in the service hatch
+AFTER I prepared the meal
+
+----
+

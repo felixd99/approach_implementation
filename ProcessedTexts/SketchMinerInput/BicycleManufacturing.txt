@@ -1,0 +1,65 @@
+A small company: manufacture customized bicycles
+the sales department: (the sales department receives an order)
+A small company: create a new process instance
+A member: reject
+A small company: finish the process instance In the former case
+...
+
+...
+A small company: create a new process instance
+A member: accept the order
+A small company: finish the process instance In the former case
+...
+
+...
+A small company: finish the process instance In the former case
+A small company: inform the storehouse In the latter case
+The storehouse: process the part list
+The storehouse: check the required quantity
+the part is available in?
+True
+The storehouse: reserve it
+The storehouse: ()
+...
+
+...
+The storehouse: check the required quantity
+the part is available in?
+False
+The storehouse: ()
+...
+
+...
+The storehouse: ()
+it is not available?
+True
+The storehouse: backordere it
+The storehouse: repeat This procedure for each item on the part list
+...
+
+...
+The storehouse: ()
+it is not available?
+False
+The storehouse: repeat This procedure for each item on the part list
+...
+
+...
+The storehouse: repeat This procedure for each item on the part list
+the engineering department: prepare everything In the meantime for the assembling
+the storehouse has successfully reserved or backordered every item of the part list and the preparation activity has finished?
+True
+the engineering department: assemble the bicycle
+the sales department: ship the bicycle to the customer
+...
+
+...
+the engineering department: prepare everything In the meantime for the assembling
+the storehouse has successfully reserved or backordered every item of the part list and the preparation activity has finished?
+False
+the sales department: ship the bicycle to the customer
+...
+
+...
+the sales department: ship the bicycle to the customer
+the sales department: finish the process instance

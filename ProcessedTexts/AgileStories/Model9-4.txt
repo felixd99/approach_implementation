@@ -1,0 +1,44 @@
+AS the Coordination Unit
+I WANT TO conduct a QA check Within 5 working days
+AFTER the Support Officer produced minutes
+
+----
+
+AS the Support Officer
+I WANT TO update all group calendars
+WHEN the dates are finalized
+
+AS the Support Officer
+I WANT TO create meeting folders for each meeting
+AFTER I updated all group calendars
+
+AS the Support Officer
+I WANT TO ensure uploaded
+AFTER I create meeting folders for each meeting
+
+AS the Support Officer
+I WANT TO advise Committee Members
+AFTER I ensure uploaded
+
+AS the Support Officer
+I WANT TO produce minutes
+AFTER The Committee Members held the Coordination Unit
+
+AS the Support Officer
+I WANT TO update all departmental records
+AFTER the Coordination Unit conducted a QA check Within 5 working days
+
+----
+
+AS each meeting
+I WANT TO read all related documents
+AFTER the Support Officer advised Committee Members
+
+----
+
+AS The Committee Members
+I WANT TO hold the Coordination Unit
+AFTER each meeting read all related documents
+
+----
+

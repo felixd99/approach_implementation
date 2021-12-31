@@ -1,0 +1,10 @@
+the Coordination Unit: (the dates are finalized)
+the Support Officer: update all group calendars
+the Support Officer: create meeting folders for each meeting
+the Support Officer: ensure uploaded
+the Support Officer: advise Committee Members
+each meeting: read all related documents
+The Committee Members: hold their meeting
+the Support Officer: produce minutes
+the Coordination Unit: conduct a QA check Within 5 working days
+the Support Officer: update all departmental records

@@ -1,0 +1,31 @@
+AS The GO
+I WANT TO request the measurements
+
+AS The GO
+I WANT TO send the changed values to the MSP
+AFTER The MSP processed the measured values
+
+AS The GO
+I WANT TO transmit the readings to the SP
+AFTER I sent the changed values to the MSP
+
+----
+
+AS The MSP
+I WANT TO check the received request
+AFTER The GO requested the measurements
+
+AS The MSP
+I WANT TO deny the request of the GO or the MSP performs the measurement
+AFTER I checked the received request
+
+AS The MSP
+I WANT TO inform the GO transmits
+AFTER I deny the request of the GO or the MSP performs the measurement
+
+AS The MSP
+I WANT TO process the measured values
+AFTER I inform the GO transmits
+
+----
+

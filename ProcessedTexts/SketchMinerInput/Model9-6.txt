@@ -1,0 +1,91 @@
+the Process: (the Process starts)
+the Process: perform a Task
+the Process: locate
+the design: start in parallel
+the design: are inputs to both Activities
+a successful update: interrupt Development
+interrupted?
+True
+a successful update: stop all current work
+the design: restart
+...
+
+...
+a successful update: interrupt Development
+interrupted?
+False
+the design: restart
+...
+
+...
+the design: restart
+the design: review any existing designs In each department
+the design: result in an Update Plan for their respective designs ( i.e. one in Electrical and another in Physical ) in an Update Plan
+the design: use the Update Plan and the existing Draft of the Electrical/Physical Design
+the design: create a revised design
+the design: (completed)
+the design: test the revised design
+the design fails the test?
+True
+the design: )
+the design: review
+...
+
+...
+the design: test the revised design
+the design fails the test?
+False
+the design: review
+...
+
+...
+the design: review
+the design: ()
+the design passes the test?
+True
+the design: tell the other department
+the design: (both of the designs have been revised)
+...
+
+...
+the design: ()
+the design passes the test?
+False
+the design: (both of the designs have been revised)
+...
+
+...
+the design: (both of the designs have been revised)
+the design: combine any existing designs
+the design: test
+the combined design fails the test?
+True
+the design: (send any existing designs)
+the design: initiate another design cycle
+...
+
+...
+the design: test
+the combined design fails the test?
+False
+the design: initiate another design cycle
+...
+
+...
+the design: initiate another design cycle
+the design: ()
+the designs pass the test?
+True
+the design: deem any existing designs
+the design:  to the manufacturing Process)
+...
+
+...
+the design: ()
+the designs pass the test?
+False
+the design:  to the manufacturing Process)
+...
+
+...
+the design:  to the manufacturing Process)

@@ -1,0 +1,27 @@
+a claims officer: (a claim is registered)
+a claims officer: examine a claim
+a claims officer: write a settlement recommendation
+a claims officer: check This recommendation
+the claim is marked as Not OK?
+True
+a claims officer: (send it)
+a claims officer: repeat the recommendation
+...
+
+...
+a claims officer: check This recommendation
+the claim is marked as Not OK?
+False
+a claims officer: repeat the recommendation
+...
+
+...
+a claims officer: repeat the recommendation
+the claim is OK?
+True
+a claims officer: claim
+
+...
+a claims officer: repeat the recommendation
+the claim is OK?
+False

@@ -1,0 +1,62 @@
+AS A small company
+I WANT TO manufacture customized bicycles
+
+AS A small company
+I WANT TO create a new process instance
+WHEN the sales department receives an order
+
+AS A small company
+I WANT TO EITHER reject
+OR accept the order
+
+AS A small company
+I WANT TO finish the process instance In the former case
+AFTER I created a new process instance
+
+AS A small company
+I WANT TO inform the storehouse In the latter case
+AFTER I finished the process instance In the former case
+
+----
+
+AS the sales department
+I WANT TO ship the bicycle to the customer
+AFTER the engineering department prepared everything In the meantime for the assembling
+
+AS the sales department
+I WANT TO finish the process instance
+AFTER I shipped the bicycle to the customer
+
+----
+
+AS The storehouse
+I WANT TO process the part list
+AFTER A small company informed the storehouse In the latter case
+
+AS The storehouse
+I WANT TO check the required quantity
+AFTER I processed the part list
+
+AS The storehouse
+I WANT TO reserve it
+IF the part is available in
+
+AS The storehouse
+I WANT TO backordere it
+IF it is not available
+
+AS The storehouse
+I WANT TO repeat This procedure for each item on the part list
+
+----
+
+AS the engineering department
+I WANT TO prepare everything In the meantime for the assembling
+AFTER The storehouse repeated This procedure for each item on the part list
+
+AS the engineering department
+I WANT TO assemble the bicycle
+IF the storehouse has successfully reserved or backordered every item of the part list and the preparation activity has finished
+
+----
+

@@ -2,9 +2,9 @@ import nlp_utils
 
 
 class Action:
-    def __init__(self, actor, action_token, direct_object, indirect_objects, event_text=False, condition=None, is_a_copy=False):
+    def __init__(self, actor, verb, direct_object, indirect_objects, event_text=None, condition=None, is_a_copy=False):
         self.actor = actor
-        self.action_token = action_token
+        self.verb = verb
         self.direct_object = direct_object
         self.indirect_objects = indirect_objects
         self.event_text = event_text
@@ -217,7 +217,7 @@ def is_a_start_or_end_event(action, nlp, doc):
     actor = nlp(action.actor.text)
     # See if we have a sentence like "The process starts when xxx"
     if not is_valid_actor(actor, nlp) or 'process' in action.actor.text.lower():
-        for child in action.action_token.children:
+        for child in action.verb.children:
             if child.dep_ == 'advmod':
                 event_text = nlp_utils.get_subclause_from_token_on(child, doc)
                 return event_text

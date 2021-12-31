@@ -1,12 +1,11 @@
 def get_xcomp_ccomp_in_children(action):
-    for child_token in action.action_token.children:
+    for child_token in action.verb.children:
        if child_token.dep_ in ['xcomp', 'ccomp']:
             return child_token
     return None
 
 
 def has_mulitple_direct_objects(action):
-    has_direct_object = False
     filtered_actions = list(filter(lambda child: child.dep_ == 'dobj', list(action.children)))
     return len(filtered_actions) > 1
 

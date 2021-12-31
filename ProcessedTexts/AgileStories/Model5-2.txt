@@ -1,0 +1,25 @@
+AS The process
+I WANT TO start
+
+----
+
+AS any employee
+I WANT TO submit a vacation request
+AFTER The process started
+
+----
+
+AS the immediate supervisor
+I WANT TO receive the request
+WHEN the requirement is registered
+
+AS the immediate supervisor
+I WANT TO EITHER approve
+OR reject the request
+
+AS the immediate supervisor
+I WANT TO return the application to the applicant
+IF the request is rejected
+
+----
+

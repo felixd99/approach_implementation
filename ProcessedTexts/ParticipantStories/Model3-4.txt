@@ -1,0 +1,9 @@
+--- it ---
+1. is sometimes necessary to send a questionnaire to the claimant to gather additional information In the context
+2. expect to return the questionnaire within five days
+If no response is received after five days
+	3a) send a reminder to the claimant
+If after another five days there is still no response
+	4a) send another reminder
+
+

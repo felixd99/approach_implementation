@@ -1,0 +1,17 @@
+--- Unknown actor ---
+1. Event: a claim is received
+2. check whether the claimant is insured by the organization
+If not
+	3a) inform that the claim must be rejected
+Else
+	3b) evaluate the severity
+4. send relevant forms to the claimant
+5. Event: the forms are returned
+6. check , for completeness
+If the forms provide all relevant details
+	7a) register the claim in the Claims Management system
+Else
+	7b) inform to update the forms
+8. check they Upon reception
+
+
