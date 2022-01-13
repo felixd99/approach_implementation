@@ -25,19 +25,23 @@ exclude_files = [
 ]
 
 # Setup metrics
+measured_texts = 0
 all_words = []
-all_sentences_length = 0
-all_words_length = 0
+all_sentences_count = 0
+all_words_count = 0
 all_syllables_count = 0
 min_words_per_sent = 9999
 max_words_per_sent = 0
 hard_words_count = 0
+long_words_count = 0
 
 # Analyzing
 for file in files:
     # Skip excluded files
     if file in exclude_files:
         continue
+
+    measured_texts += 1
 
     # Read files
     path = 'Texts/' + file
@@ -56,11 +60,11 @@ for file in files:
     # text.replace('\n', ' ')
 
     sents = text.split('.')
-    all_sentences_length += len(sents)
+    all_sentences_count += len(sents)
 
     for sent in sents:
         words = sent.split()
-        all_words_length += len(words)
+        all_words_count += len(words)
         all_words.extend(sent.split())
         # Only consider sentences that are longer than 2 words (as otherwise
         # they are noise sentence)
@@ -76,19 +80,29 @@ for file in files:
             # Hard words (more than 2 syllables)
             if syllables_count >= 3 and not '-' in word:
                 hard_words_count += 1
+            # Long words (more than 6 characters)
+            if len(word) > 6:
+                long_words_count += 1
 
 # Average words per sentence
-aws = all_words_length / all_sentences_length
+aws = all_words_count / all_sentences_count
 
-# Calculate Gunning fog index
-gfi = 0.4 * (aws + 100 * (hard_words_count / all_words_length))
+# Calculate Flesch-Reading-Ease (https://en.wikipedia.org/wiki/Readability#The_Flesch_formulas)
+fre = 206.835 - 1.015 * aws - 84.6*(all_syllables_count / all_words_count)
 
-print('All sentences:', all_sentences_length)
-print('All words:', all_words_length)
+# Calculate Gunning fog index (https://en.wikipedia.org/wiki/Readability#The_Gunning_fog_formula)
+gfi = 0.4 * (aws + 100 * (hard_words_count / all_words_count))
+
+print('All texts:', measured_texts)
+print('All sentences:', all_sentences_count)
+print('All words:', all_words_count)
 print('Average words per sentence:', round(aws, 2))
 print('Unique words:', len(set(all_words)))
-print('Hard words:', hard_words_count)
-print('Syllables per word:', round(all_syllables_count / all_words_length, 2))
+print('Hard words:', hard_words_count, '(' + str(round((hard_words_count / all_words_count) * 100, 2)) + '%)')
+print('Long words:', long_words_count, '(' + str(round((long_words_count / all_words_count) * 100, 2)) + '%)')
+print('All syllables:', all_syllables_count)
+print('Syllables per word:', round(all_syllables_count / all_words_count, 2))
+print('Flesch reading ease score:', round(fre, 2))
 print('Gunning fog index:', round(gfi, 2))
 print('Min words per sentence:', min_words_per_sent)
 print('Max words per sentence:', max_words_per_sent)
